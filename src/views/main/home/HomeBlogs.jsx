@@ -25,7 +25,11 @@ const sampleComments = [{
 
 const HomeBlogs = () => {
     return (<View style={{ flex: 1 }}>
+<<<<<<< HEAD
         <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding,styles.appbar]}>
+=======
+        <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding, styles.appbar]}>
+>>>>>>> 6c167b058b1e83125f5ff75587a73239037ddc9b
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity>
                     <View style={{ padding: 7, marginRight: 5 }}>
@@ -65,8 +69,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 21
     },
     appbar: {
-        backgroundColor: "#22252A",
-        paddingVertical: 12
+        backgroundColor: "#22252A"
     }
 });
 

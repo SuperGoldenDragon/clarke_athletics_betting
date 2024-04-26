@@ -32,7 +32,7 @@ const HomeTopbar = () => {
                     </View>
                 </View>
             </View>
-            <View style={{ paddingBottom: 50 }}>
+            <View style={{ paddingBottom: 60 }}>
                 <Text style={{ fontSize: 12, color: "white", marginBottom: 10, fontWeight: "600" }}>LATEST NEWS</Text>
                 <FlatList
                     data={sampleNews}
@@ -61,17 +61,6 @@ const HomeTopbar = () => {
 };
 
 const styles = StyleSheet.create({
-    bg_view: {
-        position: 'absolute', // Ensure ImageBackground covers the entire container
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        resizeMode: "contain",
-        width: "100%",
-        height: 300, // Set a fixed height or use a specific unit like pixels
-        zIndex: 0, // Ensure it's rendered below other components,
-    },
     mask: {
         position: 'absolute', // Ensure ImageBackground covers the entire container
         top: 0,

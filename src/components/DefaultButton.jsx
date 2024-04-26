@@ -7,7 +7,7 @@ const DefaultButton = (props) => {
 
     return (
         <TouchableOpacity onPress={onPress}>
-            <Text style={[style || {}, styles.button]} {...rest}>{children}</Text>
+            <Text style={[styles.button, style || {}]} {...rest}>{children}</Text>
         </TouchableOpacity >
     );
 };
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 30,
         paddingVertical: 5,
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 12
     }
 });
 

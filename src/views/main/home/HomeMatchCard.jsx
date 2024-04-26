@@ -9,6 +9,7 @@ import BookmarkIcon from '../../../assets/images/icons/bookmark-icon.png';
 import DefaultButton from "../../../components/DefaultButton";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import TeamLogo from '../../../components/TeamLogo';
+import Avatar from '../../../components/Avatar';
 
 const HomeMatchCard = (props) => {
 
@@ -68,13 +69,13 @@ const HomeMatchCard = (props) => {
         </View>
         <View style={{ flexDirection: "row" }}>
             <View style={{ flexDirection: "row", flexGrow: 1 }}>
-                <Image source={DefaultAvatar} style={styles.avatar} />
-                <Image source={DefaultAvatar} style={styles.avatar} />
-                <Image source={DefaultAvatar} style={styles.avatar} />
-                <Image source={DefaultAvatar} style={styles.avatar} />
-                <Image source={DefaultAvatar} style={styles.avatar} />
-                <Image source={DefaultAvatar} style={styles.avatar} />
-                <Image source={DefaultAvatar} style={styles.avatar} />
+                <Avatar style={{}} />
+                <Avatar style={styles.avatar} />
+                <Avatar style={styles.avatar} />
+                <Avatar style={styles.avatar} />
+                <Avatar style={styles.avatar} />
+                <Avatar style={styles.avatar} />
+                <Avatar style={styles.avatar} />
                 <Text style={[styles.avatar, styles.more_avatar]}>
                     1000 +
                 </Text>
@@ -139,8 +140,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#B9B9B9',
     },
     avatar: {
-        width: 40,
-        height: 40,
         marginLeft: -10
     },
     more_avatar: {

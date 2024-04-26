@@ -12,23 +12,24 @@ import AgreeFilledIcon from '../../../assets/images/icons/agree-filled-icon.png'
 import Avatar from '../../../components/Avatar';
 import CommentCard from './CommentCard';
 import SelectDropdown from 'react-native-select-dropdown';
+import TeamLogo from '../../../components/TeamLogo';
 
 
 
 const BlogCard = (props) => {
-    const { onOpenChat, isChat, isAgree, noChat, comments } = props;
+    const { onLiveChat, isChat, isAgree, noChat, comments, scoreTable } = props;
 
     return (<View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
             <View style={{ flexDirection: "row", marginRight: 10 }}>
-                <Image source={TeamLogo1} style={{ width: 40, height: 40 }} />
-                <Image source={TeamLogo2} style={{ width: 40, height: 40, marginLeft: -15 }} />
+                <TeamLogo logo={TeamLogo1} style={{}} />
+                <TeamLogo logo={TeamLogo2} style={{ marginLeft: -9 }} />
             </View>
             <View>
                 <Text style={styles.teamNames}>Toronto Raptors VS Detroit Pistons</Text>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: "#4B4B4B", fontSize: 13 }}>23 Nov,2023 | </Text>
-                    <Text style={{ color: "#B9B9B9", fontSize: 13 }}>Started 11 mins ago</Text>
+                    <Text style={{ color: "#4B4B4B", fontSize: 12 }}>23 Nov,2023 | </Text>
+                    <Text style={{ color: "#B9B9B9", fontSize: 12 }}>Started 11 mins ago</Text>
                 </View>
             </View>
 
@@ -38,21 +39,39 @@ const BlogCard = (props) => {
                 </TouchableOpacity>
             </View>
         </View>
-        <View style={[styles.underline, { flexDirection: "row", marginBottom: 10, paddingVertical: 5 }]}>
+        {!scoreTable && <View style={[styles.underline, { flexDirection: "row", marginBottom: 10, paddingVertical: 5 }]}>
             <Text style={{ fontWeight: "700" }}>SCORE -</Text>
             <Text> 2 - 2</Text>
-        </View>
+        </View>}
+        {scoreTable && <View style={styles.table}>
+            <View style={styles.row}>
+                <Text style={styles.cell_head}>SCORE</Text>
+                <Text style={styles.cell_head}>COVER</Text>
+                <Text style={styles.cell_head}>OVER/UNDER</Text>
+            </View>
+            <View style={styles.underline} />
+            <View style={styles.row}>
+                <Text style={styles.cell}>2-2</Text>
+                <View style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}>
+                    <Text style={{ color: "green", marginRight: 5, fontWeight: "400" }}>2</Text>
+                    <Text style={{ marginRight: 5, fontWeight: "400" }}>:</Text>
+                    <Text style={{ color: "red", fontWeight: "400" }}>-2</Text>
+                </View>
+                <Text style={styles.cell}>160</Text>
+            </View>
+            <View style={styles.underline} />
+        </View>}
         <View style={{ flexDirection: "row", marginBottom: 10 }}>
             <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={isAgree ? AgreeFilledIcon : AgreeIcon} style={{ width: 14, height: 13, marginRight: 5 }} />
+                <Image source={isAgree ? AgreeFilledIcon : AgreeIcon} style={{ marginRight: 5 }} />
                 <Text style={{ marginTop: -3 }}>1120</Text>
             </View>
             <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={isChat ? ChatFilledIcon : ChatIcon} style={{ width: 13, height: 13, marginRight: 5 }} />
+                <Image source={isChat ? ChatFilledIcon : ChatIcon} style={{ marginRight: 5 }} />
                 <Text style={{ marginTop: -3 }}>50</Text>
             </View>
             <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={BookmarkIcon} style={{ width: 11, height: 14, marginRight: 5 }} />
+                <Image source={BookmarkIcon} style={{ marginRight: 5 }} />
                 <Text style={{ marginTop: -3 }}>100</Text>
             </View>
         </View>
@@ -67,7 +86,7 @@ const BlogCard = (props) => {
                     <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
                     <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
                     <View style={noChat ? styles.no_chat_avatar : styles.default_avatar}>
-                        <Text style={[{ width: 40, height: 40 }, styles.more_avatar]}>
+                        <Text style={[{ width: 30, height: 30 }, styles.more_avatar]}>
                             1000 +
                         </Text>
                     </View>
@@ -75,7 +94,7 @@ const BlogCard = (props) => {
                 </View>
                 {
                     !noChat && <View style={{ paddingTop: 5 }}>
-                        <DefaultButton onPress={onOpenChat}>View Live Chat</DefaultButton>
+                        <DefaultButton onPress={onLiveChat}>View Live Chat</DefaultButton>
                     </View>
                 }
             </View>
@@ -154,13 +173,14 @@ const styles = StyleSheet.create({
     },
     more_avatar: {
         backgroundColor: "#D9D9D9",
-        borderRadius: 200,
+        borderRadius: 40,
         borderWidth: 2,
         borderColor: "white",
-        fontSize: 10,
-        paddingVertical: 12,
+        fontSize: 8,
+        paddingVertical: 9,
         textAlign: "center",
-        fontWeight: "700"
+        fontWeight: "700",
+        alignSelf: "flex-start"
     },
 
     dropdownButtonStyle: {
@@ -198,6 +218,29 @@ const styles = StyleSheet.create({
     dropdownItemIconStyle: {
         fontSize: 28,
         marginRight: 8,
+    },
+
+    table: {
+        marginBottom: 10, // Optional: Add margin bottom for spacing
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        paddingHorizontal: 5,
+    },
+    cell_head: {
+        flex: 1,
+        textAlign: 'center',
+        fontWeight: "700",
+        color: "#3C3C3C",
+        fontSize: 12
+    },
+    cell: {
+        flex: 1,
+        color: "#3C3C3C",
+        textAlign: "center",
+        fontWeight: "400"
     },
 });
 
