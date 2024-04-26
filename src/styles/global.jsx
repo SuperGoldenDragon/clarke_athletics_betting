@@ -5,6 +5,6 @@ export default StyleSheet.create({
         paddingHorizontal: 25
     },
     defaultAppbarPadding: {
-        paddingVertical: 21
+        paddingVertical: 14
     }
 });

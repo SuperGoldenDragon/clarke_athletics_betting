@@ -5,6 +5,7 @@ import SidebarIcon from '../../../assets/images/icons/sidebar-icon.png';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import BlogCard from "./BlogCard";
+import GlobalStyles from "../../../styles/global";
 
 const sampleComments = [{
     name: "Albert Ailey",
@@ -24,24 +25,24 @@ const sampleComments = [{
 
 const HomeBlogs = () => {
     return (<View style={{ flex: 1 }}>
-        <View style={[styles.defaultPadding, styles.appbar]}>
+        <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding, styles.appbar]}>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity>
-                    <View style={{ padding: 7, marginRight: 15 }}>
-                        <Image style={{ width: 30, height: 26 }} source={SidebarIcon} />
+                    <View style={{ padding: 7, marginRight: 5 }}>
+                        <Image source={SidebarIcon} />
                     </View>
                 </TouchableOpacity>
-                <Text style={{ color: "white", fontSize: 23, marginRight: "auto", paddingVertical: 3 }}>Home</Text>
-                <View style={{ padding: 5, flexDirection: "row" }}>
+                <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>Home</Text>
+                <View style={{ paddingVertical: 5, flexDirection: "row" }}>
                     <View style={{ marginRight: 7 }}>
-                        <Text style={{ color: "white", textAlign: "right", fontSize: 12 }}>BALANCE</Text>
-                        <Text style={{ color: "white", textAlign: "right", fontWeight: 900, marginTop: -3 }}>12.56</Text>
+                        <Text style={{ color: "white", textAlign: "right", fontSize: 8 }}>BALANCE</Text>
+                        <Text style={{ color: "white", textAlign: "right", fontWeight: "600", marginTop: -3, fontSize: 12 }}>12.56</Text>
                     </View>
                     <View style={{ padding: 5, backgroundColor: '#333', borderRadius: 4, marginRight: 10, borderWidth: 2, borderColor: '#555', alignSelf: "flex-start" }}>
-                        <Image source={WalletIcon} style={{ width: 17, height: 17 }} />
+                        <Image source={WalletIcon} />
                     </View>
-                    <View style={{ padding: 3 }}>
-                        <Image source={SearchIcon} style={{ width: 27, height: 27 }} />
+                    <View style={{ paddingVertical: 3 }}>
+                        <Image source={SearchIcon} />
                     </View>
                 </View>
             </View>
@@ -64,8 +65,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 21
     },
     appbar: {
-        backgroundColor: "#22252A",
-        paddingVertical: 12
+        backgroundColor: "#22252A"
     }
 });
 

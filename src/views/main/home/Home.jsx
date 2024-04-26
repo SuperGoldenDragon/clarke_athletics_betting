@@ -4,11 +4,11 @@ import HomeTopbar from "./HomeTopbar";
 import PlusIcon from '../../../assets/images/icons/plus-icon.png';
 import SortIcon from '../../../assets/images/icons/sort-icon.png';
 import SearchField from "../../../components/SearchField";
-import HomeMatchCard from "./HomeMatchCard";
 import LiveChatDialog from '../../../components/LiveChatDialog';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyle from '../../../styles/global';
 import NavigationContext from '../../../components/NavigationContext';
+import BlogCard from './BlogCard';
 
 const Home = (props) => {
 
@@ -49,12 +49,11 @@ const Home = (props) => {
         </View>
         <View style={{ paddingHorizontal: 21, flex: 1, }}>
             <ScrollView>
-                <HomeMatchCard onOpenChat={() => setChatMatch({})} />
-                <HomeMatchCard />
-                <HomeMatchCard />
-                <HomeMatchCard />
-                <HomeMatchCard />
-                <HomeMatchCard />
+                <BlogCard />
+                <BlogCard />
+                <BlogCard />
+                <BlogCard />
+                <BlogCard />
             </ScrollView>
         </View >
         <LiveChatDialog open={chatMatch != null} onClose={() => setChatMatch(null)} />
