@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const DefaultButton = (props: any) => {
+const DefaultButton = (props) => {
 
     const { children, onPress, style, ...rest } = props;
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         color: "#3C3C3C",
         fontWeight: "400",
         borderRadius: 5,
-        paddingHorizontal: 12,
+        paddingHorizontal: 30,
         paddingVertical: 5,
         textAlign: "center"
     }
