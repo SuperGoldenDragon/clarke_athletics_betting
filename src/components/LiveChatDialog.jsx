@@ -11,9 +11,9 @@ import CopyIcon from '../assets/images/icons/copy-icon.png';
 import DefaultAvatar from '../assets/images/avatars/avatar-1.png';
 import ChatBubble from './ChatBubble';
 
-const emojisWithIcons: any = [];
+const emojisWithIcons = [];
 
-const LiveChatDialog = (props: any) => {
+const LiveChatDialog = (props) => {
     const { open, onClose } = props;
 
     useEffect(() => {

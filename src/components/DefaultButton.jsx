@@ -7,7 +7,7 @@ const DefaultButton = (props) => {
 
     return (
         <TouchableOpacity onPress={onPress}>
-            <Text style={[style || {}, styles.button]} {...rest}>{children}</Text>
+            <Text style={[styles.button, style || {}]} {...rest}>{children}</Text>
         </TouchableOpacity >
     );
 };

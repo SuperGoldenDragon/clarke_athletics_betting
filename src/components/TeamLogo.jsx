@@ -6,7 +6,7 @@ const TeamLogo = (props) => {
     const { logo, style, ...rest } = props;
 
     return (
-        <Image source={logo || DefaultLogo} style={{ ...style, width: 30, height: 30, borderRadius: 30 }} {...rest} />
+        <Image source={logo || DefaultLogo} style={{ width: 30, height: 30, borderRadius: 30, ...style }} {...rest} />
     );
 };
 

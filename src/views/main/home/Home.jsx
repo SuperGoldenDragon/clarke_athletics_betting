@@ -22,7 +22,7 @@ const Home = (props) => {
         parentNavigation.toParent("Home Blogs");
     };
 
-    return (<View style={{ flex: 1 }}>
+    return (<View style={{ flex: 1, backgroundColor: "white" }}>
         <View>
             <HomeTopbar />
             <View style={[GlobalStyle.defaultPagePadding, { marginTop: -20 }]}>

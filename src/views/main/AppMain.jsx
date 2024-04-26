@@ -34,7 +34,8 @@ const CustomTabBar = (props) => {
         <View
             style={{
                 flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center',
-                borderTopColor: "#ddd", borderTopWidth: 2, paddingVertical: 7
+                borderTopColor: "#ddd", borderTopWidth: 2, paddingVertical: 7,
+                backgroundColor: "white"
             }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
@@ -84,8 +85,8 @@ const AppMain = () => {
 
     const navigation = useNavigation();
 
-    const toParent = (route) => {
-        navigation.navigate(route);
+    const toParent = (route, params = {}) => {
+        navigation.navigate(route, params);
     };
 
     return (
