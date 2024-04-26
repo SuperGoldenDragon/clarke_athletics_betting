@@ -25,7 +25,6 @@ const sampleComments = [{
 
 const HomeBlogs = () => {
     return (<View style={{ flex: 1 }}>
-        <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding,styles.appbar]}>
         <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding, styles.appbar]}>
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity>

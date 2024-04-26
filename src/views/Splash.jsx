@@ -1,4 +1,4 @@
-import { Text, View,Image} from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import loginlogo1 from '../assets/images/logos/login-logo-1.png';
@@ -19,10 +19,9 @@ const Splash = () => {
     };
 
     return (
-        <View style={{ flex:1,flexDirection:'row',justifyContent:'center', alignItems:'center',backgroundColor:'white'}}>
-            <Image source={loginlogo1}/>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+            <Image source={loginlogo1} />
         </View>
     );
 };
-
 export default Splash;
