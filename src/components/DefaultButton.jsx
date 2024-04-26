@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const DefaultButton = (props: any) => {
+const DefaultButton = (props) => {
 
     const { children, onPress, style, ...rest } = props;
 

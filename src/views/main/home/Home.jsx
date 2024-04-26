@@ -49,7 +49,7 @@ const Home = (props) => {
         </View>
         <View style={{ paddingHorizontal: 21, flex: 1, }}>
             <ScrollView>
-                <BlogCard />
+                <BlogCard onLiveChat={_ => setChatMatch({})} />
                 <BlogCard />
                 <BlogCard />
                 <BlogCard />

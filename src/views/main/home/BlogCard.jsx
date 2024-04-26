@@ -17,7 +17,7 @@ import TeamLogo from '../../../components/TeamLogo';
 
 
 const BlogCard = (props) => {
-    const { onOpenChat, isChat, isAgree, noChat, comments, scoreTable } = props;
+    const { onLiveChat, isChat, isAgree, noChat, comments, scoreTable } = props;
 
     return (<View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
@@ -94,7 +94,7 @@ const BlogCard = (props) => {
                 </View>
                 {
                     !noChat && <View style={{ paddingTop: 5 }}>
-                        <DefaultButton onPress={onOpenChat}>View Live Chat</DefaultButton>
+                        <DefaultButton onPress={onLiveChat}>View Live Chat</DefaultButton>
                     </View>
                 }
             </View>

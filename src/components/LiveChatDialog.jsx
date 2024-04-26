@@ -62,7 +62,7 @@ const LiveChatDialog = (props: any) => {
                     </View>
                     <View style={{ flexGrow: 1, flexDirection: "row", justifyContent: "flex-end", paddingVertical: 4 }}>
                         <TouchableOpacity>
-                            <Image source={FullscreenIcon} style={{ width: 15, height: 15 }} />
+                            <Image source={FullscreenIcon} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -111,21 +111,21 @@ const LiveChatDialog = (props: any) => {
                             </ScrollView>
                         </View>
                         <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={{ padding: 5 }}>
-                                <Image source={AttachmentIcon} style={{ width: 16, height: 18.5 }} />
+                            <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }}>
+                                <Image source={AttachmentIcon} />
                             </TouchableOpacity>
                             <View style={{ flexDirection: "row", flexGrow: 1, backgroundColor: "#F3F6F6", borderRadius: 6, paddingHorizontal: 6 }}>
                                 <TextInput
-                                    style={{ paddingVertical: 0, fontSize: 10, flexGrow: 1, width: "65%" }}
+                                    style={{ paddingVertical: 0, fontSize: 10, flexGrow: 1, width: "60%" }}
                                     placeholder='Write your message'
                                     multiline={true}
                                 />
-                                <TouchableOpacity style={{ padding: 5 }}>
-                                    <Image source={CopyIcon} style={{ width: 17, height: 17 }} />
+                                <TouchableOpacity style={{ paddingVertical: 7 }}>
+                                    <Image source={CopyIcon} />
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity style={{ padding: 5 }}>
-                                <Image source={CameraIcon} style={{ width: 20, height: 20 }} />
+                            <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }}>
+                                <Image source={CameraIcon} />
                             </TouchableOpacity>
                         </View>
                     </View>
