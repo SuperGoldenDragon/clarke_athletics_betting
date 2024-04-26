@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import Home from './home/Home';
 import Wager from './wager/Wager';
 import Leagues from './leagues/Leagues';
@@ -12,7 +12,7 @@ import WagerIcon from '../../assets/images/icons/wager-icon.png';
 import LeaguesIcon from '../../assets/images/icons/leagues-icon.png';
 import LiveIcon from '../../assets/images/icons/live-icon.png';
 import PodcastIcon from '../../assets/images/icons/podcast-icon.png';
-import HomeBlogs from './home/HomeBlogs';
+import NavigationContext from '../../components/NavigationContext';
 
 const navIcons = [{ icon: HomeIcon, width: 16.72, height: 17.58 },
 { icon: WagerIcon, width: 35, height: 17 },
@@ -27,6 +27,8 @@ const Tab = createBottomTabNavigator();
 const CustomTabBar = (props) => {
 
     const { state, descriptors, navigation } = props;
+
+
 
     return (
         <View
@@ -79,16 +81,26 @@ const CustomTabBar = (props) => {
 };
 
 const AppMain = () => {
+
+    const navigation = useNavigation();
+
+    const toParent = (route) => {
+        navigation.navigate(route);
+    };
+
     return (
         <NavigationContainer independent={true}>
-            <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
-                <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} />
-                <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
-                <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
-                <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
-                <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
-            </Tab.Navigator>
+            <NavigationContext.Provider value={{ toParent }}>
+                <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
+                    <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
+                    <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
+                    <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
+                    <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
+                    <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
+                </Tab.Navigator>
+            </NavigationContext.Provider>
         </NavigationContainer>
+
     );
 };
 

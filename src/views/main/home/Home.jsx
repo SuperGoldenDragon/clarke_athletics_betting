@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import HomeTopbar from "./HomeTopbar";
 import PlusIcon from '../../../assets/images/icons/plus-icon.png';
@@ -8,14 +8,18 @@ import HomeMatchCard from "./HomeMatchCard";
 import LiveChatDialog from '../../../components/LiveChatDialog';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyle from '../../../styles/global';
+import NavigationContext from '../../../components/NavigationContext';
 
 const Home = (props) => {
 
+    const parentNavigation = useContext(NavigationContext);
+
     const [chatMatch, setChatMatch] = useState(null);
-    const navigation = useNavigation();
 
     const onSort = () => {
         // navigation.navigate("Home Blogs");
+        // route.params.parentNavigate("Home Blogs");
+        parentNavigation.toParent("Home Blogs");
     };
 
     return (<View style={{ flex: 1 }}>

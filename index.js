@@ -16,6 +16,7 @@ import HomeBlogs from './src/views/main/home/HomeBlogs';
 const Stack = createStackNavigator();
 
 function App() {
+
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Splash">
