@@ -1,7 +1,7 @@
 import { View, Image, StyleSheet } from "react-native";
 import DefaultAvatar from '../assets/images/avatars/avatar-1.png';
 
-const Avatar = (props: any) => {
+const Avatar = (props) => {
 
     const { avatar, style } = props;
 
@@ -14,8 +14,8 @@ const Avatar = (props: any) => {
 
 const styles = StyleSheet.create({
     avatar: {
-        width: 40,
-        height: 40
+        width: 30,
+        height: 30
     }
 });
 

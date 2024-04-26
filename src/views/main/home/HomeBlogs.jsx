@@ -1,7 +1,7 @@
 import { View, Image, Text, StyleSheet, ScrollView } from "react-native";
 import SearchIcon from '../../../assets/images/icons/search-icon.png';
 import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
-import SidebarIcon from '../../../assets/images/sidebar-icon.png';
+import SidebarIcon from '../../../assets/images/icons/sidebar-icon.png';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import BlogCard from "./BlogCard";

@@ -8,6 +8,7 @@ import ChatIcon from '../../../assets/images/icons/chat-icon.png';
 import BookmarkIcon from '../../../assets/images/icons/bookmark-icon.png';
 import DefaultButton from "../../../components/DefaultButton";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
+import TeamLogo from '../../../components/TeamLogo';
 
 const HomeMatchCard = (props) => {
 
@@ -16,20 +17,20 @@ const HomeMatchCard = (props) => {
     return (<View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
             <View style={{ flexDirection: "row", marginRight: 10 }}>
-                <Image source={TeamLogo1} style={{ width: 40, height: 40 }} />
-                <Image source={TeamLogo2} style={{ width: 40, height: 40, marginLeft: -15 }} />
+                <TeamLogo logo={TeamLogo1} />
+                <TeamLogo logo={TeamLogo2} style={{ marginLeft: -10 }} />
             </View>
             <View>
                 <Text style={styles.teamNames}>Toronto Raptors VS Detroit Pistons</Text>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: "#4B4B4B", fontSize: 13 }}>23 Nov,2023 | </Text>
-                    <Text style={{ color: "#B9B9B9", fontSize: 13 }}>Started 11 mins ago</Text>
+                    <Text style={{ color: "#4B4B4B", fontSize: 12 }}>23 Nov,2023 | </Text>
+                    <Text style={{ color: "#B9B9B9", fontSize: 12 }}>Started 11 mins ago</Text>
                 </View>
             </View>
 
             <View style={{ flexDirection: "row", flexGrow: 1, justifyContent: "flex-end" }}>
                 <TouchableOpacity>
-                    <Image source={BackIcon} style={{ width: 20, height: 16 }} />
+                    <Image source={BackIcon} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -53,15 +54,15 @@ const HomeMatchCard = (props) => {
         </View>
         <View style={{ flexDirection: "row", marginBottom: 10 }}>
             <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={AgreeIcon} style={{ width: 14, height: 13, marginRight: 5 }} />
+                <Image source={AgreeIcon} style={{ marginRight: 5 }} />
                 <Text style={{ marginTop: -3 }}>1120</Text>
             </View>
             <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={ChatIcon} style={{ width: 13, height: 13, marginRight: 5 }} />
+                <Image source={ChatIcon} style={{ marginRight: 5 }} />
                 <Text style={{ marginTop: -3 }}>50</Text>
             </View>
             <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={BookmarkIcon} style={{ width: 11, height: 14, marginRight: 5 }} />
+                <Image source={BookmarkIcon} style={{ marginRight: 5 }} />
                 <Text style={{ marginTop: -3 }}>100</Text>
             </View>
         </View>
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "700",
         color: "#3C3C3C",
-        fontSize: 13
+        fontSize: 12
     },
     cell: {
         flex: 1,

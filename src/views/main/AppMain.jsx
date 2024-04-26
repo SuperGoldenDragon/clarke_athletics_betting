@@ -12,6 +12,7 @@ import WagerIcon from '../../assets/images/icons/wager-icon.png';
 import LeaguesIcon from '../../assets/images/icons/leagues-icon.png';
 import LiveIcon from '../../assets/images/icons/live-icon.png';
 import PodcastIcon from '../../assets/images/icons/podcast-icon.png';
+import HomeBlogs from './home/HomeBlogs';
 
 const navIcons = [{ icon: HomeIcon, width: 16.72, height: 17.58 },
 { icon: WagerIcon, width: 35, height: 17 },
@@ -63,7 +64,7 @@ const CustomTabBar = (props) => {
                         onPress={onPress}
                         style={{ flex: 1, alignItems: 'center' }}
                     >
-                        <Image source={iconObj.icon} style={{ width: iconObj.width, height: iconObj.height }} />
+                        {iconObj.icon && <Image source={iconObj.icon} style={{ width: iconObj.width, height: iconObj.height }} />}
                         <Text style={{ color: isFocused ? '#F7D068' : '#22252A', paddingVertical: 3, fontSize: 12 }}>
                             {label}
                         </Text>

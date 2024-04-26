@@ -15,7 +15,7 @@ const Home = (props) => {
     const navigation = useNavigation();
 
     const onSort = () => {
-        navigation.navigate("HOME_BLOGS");
+        // navigation.navigate("Home Blogs");
     };
 
     return (<View style={{ flex: 1 }}>
@@ -23,17 +23,17 @@ const Home = (props) => {
             <HomeTopbar />
             <View style={[GlobalStyle.defaultPagePadding, { marginTop: -20 }]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 18 }}>
-                    <Text style={{ color: "#22252A", fontWeight: "bold", paddingTop: 3 }}>SPORTS TALK</Text>
+                    <Text style={{ color: "#22252A", fontWeight: "bold", paddingTop: 5, fontSize: 12 }}>SPORTS TALK</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity style={{ flexDirection: "row", backgroundColor: "white", borderColor: "#B9B9B9", borderWidth: 1, paddingHorizontal: 15, borderRadius: 3, paddingVertical: 5, marginRight: 8 }}>
                             <View style={{ padding: 5, marginRight: 5 }}>
-                                <Image source={PlusIcon} style={{ width: 10, height: 10 }} />
+                                <Image source={PlusIcon} />
                             </View>
-                            <Text style={{ color: "#3B3B3B" }}>New Post</Text>
+                            <Text style={{ color: "#3B3B3B", fontSize: 12, paddingVertical: 2 }}>New Post</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ borderColor: "#B9B9B9", backgroundColor: "white", borderWidth: 1, paddingHorizontal: 7, borderRadius: 3, paddingVertical: 5 }} onPress={() => onSort()}>
                             <View style={{ padding: 5 }}>
-                                <Image source={SortIcon} style={{ width: 10, height: 10 }} />
+                                <Image source={SortIcon} />
                             </View>
                         </TouchableOpacity>
                     </View>
