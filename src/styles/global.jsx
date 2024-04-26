@@ -2,6 +2,9 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     defaultPagePadding: {
-        paddingHorizontal: 10
+        paddingHorizontal: 25
+    },
+    defaultAppbarPadding: {
+        paddingVertical: 21
     }
 });

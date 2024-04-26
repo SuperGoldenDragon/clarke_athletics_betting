@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import BlogCard from "./BlogCard";
 
-const sampleComments: Array<any> = [{
+const sampleComments = [{
     name: "Albert Ailey",
     time: "1 hour ago",
     likes: 15,

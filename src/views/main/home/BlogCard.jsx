@@ -15,7 +15,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 
 
 
-const BlogCard = (props: any) => {
+const BlogCard = (props) => {
     const { onOpenChat, isChat, isAgree, noChat, comments } = props;
 
     return (<View style={styles.container}>
@@ -108,7 +108,7 @@ const BlogCard = (props: any) => {
                     />
                 </View>
                 {
-                    comments.map((comment: any, index: number) => (<CommentCard key={index} comment={comment} />))
+                    comments.map((comment, index) => (<CommentCard key={index} comment={comment} />))
                 }
             </View>
         }

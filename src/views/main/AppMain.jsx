@@ -20,11 +20,10 @@ const navIcons = [{ icon: HomeIcon, width: 16.72, height: 17.58 },
 { icon: PodcastIcon, width: 17, height: 17 }
 ];
 
-
 const Tab = createBottomTabNavigator();
 
 // Custom tab bar component
-const CustomTabBar = (props: any) => {
+const CustomTabBar = (props) => {
 
     const { state, descriptors, navigation } = props;
 
@@ -34,7 +33,7 @@ const CustomTabBar = (props: any) => {
                 flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center',
                 borderTopColor: "#ddd", borderTopWidth: 2, paddingVertical: 7
             }}>
-            {state.routes.map((route: any, index: number) => {
+            {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label =
                     options.tabBarLabel !== undefined
@@ -88,7 +87,6 @@ const AppMain = () => {
                 <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
                 <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
             </Tab.Navigator>
-
         </NavigationContainer>
     );
 };

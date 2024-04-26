@@ -7,8 +7,9 @@ import SearchField from "../../../components/SearchField";
 import HomeMatchCard from "./HomeMatchCard";
 import LiveChatDialog from '../../../components/LiveChatDialog';
 import { useNavigation } from '@react-navigation/native';
+import GlobalStyle from '../../../styles/global';
 
-const Home = (props: any) => {
+const Home = (props) => {
 
     const [chatMatch, setChatMatch] = useState(null);
     const navigation = useNavigation();
@@ -20,7 +21,7 @@ const Home = (props: any) => {
     return (<View style={{ flex: 1 }}>
         <View>
             <HomeTopbar />
-            <View style={{ paddingHorizontal: 21 }}>
+            <View style={[GlobalStyle.defaultPagePadding, { marginTop: -20 }]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 18 }}>
                     <Text style={{ color: "#22252A", fontWeight: "bold", paddingTop: 3 }}>SPORTS TALK</Text>
                     <View style={{ flexDirection: "row" }}>
@@ -42,7 +43,7 @@ const Home = (props: any) => {
                 </View>
             </View>
         </View>
-        <View style={{ paddingHorizontal: 21, flex: 1, marginBottom: 100 }}>
+        <View style={{ paddingHorizontal: 21, flex: 1, }}>
             <ScrollView>
                 <HomeMatchCard onOpenChat={() => setChatMatch({})} />
                 <HomeMatchCard />

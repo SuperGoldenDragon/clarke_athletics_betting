@@ -3,7 +3,7 @@ import Avatar from "../../../components/Avatar";
 import AgreeIcon from '../../../assets/images/icons/agree-icon.png';
 import ChatIcon from '../../../assets/images/icons/chat-icon.png';
 
-const CommentCard = (props: any) => {
+const CommentCard = (props) => {
 
     const { comment } = props;
     const { avatar, name, time, content, likes, replies } = comment;

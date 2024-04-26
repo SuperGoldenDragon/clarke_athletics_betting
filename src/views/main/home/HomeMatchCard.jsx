@@ -9,7 +9,7 @@ import BookmarkIcon from '../../../assets/images/icons/bookmark-icon.png';
 import DefaultButton from "../../../components/DefaultButton";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 
-const HomeMatchCard = (props: any) => {
+const HomeMatchCard = (props) => {
 
     const { onOpenChat } = props;
 
