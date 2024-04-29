@@ -25,7 +25,7 @@ const Home = (props) => {
     return (<View style={{ flex: 1, backgroundColor: "white" }}>
         <View>
             <HomeTopbar />
-            <View style={[GlobalStyle.defaultPagePadding, { marginTop: -20 }]}>
+            <View style={[GlobalStyle.defaultPagePadding/* , { marginTop: -20 } */]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 18 }}>
                     <Text style={{ color: "#22252A", fontWeight: "bold", paddingTop: 5, fontSize: 12 }}>SPORTS TALK</Text>
                     <View style={{ flexDirection: "row" }}>

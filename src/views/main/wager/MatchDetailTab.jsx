@@ -75,10 +75,77 @@ const MatchDetailTab = () => {
                 </View>
                 <Text style={[styles.content_title]}>TEAM STATISTICS</Text>
                 <View style={[styles.statistics, styles.content]}>
-
+                    <View style={[{ flexDirection: "row", justifyContent: 'space-between' }]}>
+                        <View style={{ flexDirection: "row", flex: 1 }}>
+                            <TeamLogo style={{ width: 50, height: 50 }} />
+                            <Text style={styles.teamname}>Wizards</Text>
+                        </View>
+                        <View style={[{ flexDirection: "row", flex: 1, justifyContent: "flex-end" }]}>
+                            <Text style={styles.teamname}>Atlanta Hawks</Text>
+                            <TeamLogo style={{ width: 50, height: 50 }} />
+                        </View>
+                    </View>
+                    <View style={[styles.underline, { marginVertical: 10 }]}>
+                    </View>
+                    <View style={[{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }, styles.underline]}>
+                        <View style={{}}>
+                            <Text style={styles.left_mark}>-7</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, alignSelf: "center" }}>
+                            <Text style={{ textAlign: "center", color: "#3C3C3C", fontSize: 14, fontWeight: "600" }}>OFF RATING</Text>
+                        </View>
+                        <View style={{}}>
+                            <Text style={styles.right_mark}>-7</Text>
+                        </View>
+                    </View>
+                    <View style={[{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }, styles.underline]}>
+                        <View style={{}}>
+                            <Text style={styles.left_mark}>-7</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, alignSelf: "center" }}>
+                            <Text style={{ textAlign: "center", color: "#3C3C3C", fontSize: 14, fontWeight: "600" }}>DET RATING</Text>
+                        </View>
+                        <View style={{}}>
+                            <Text style={styles.right_mark}>-7</Text>
+                        </View>
+                    </View>
+                    <Text style={[{ textAlign: "center", color: "#3C3C3C", fontSize: 14, fontWeight: "600", paddingVertical: 10 }]}>TEAM AVG</Text>
+                    <View style={[{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }, styles.underline]}>
+                        <View style={{}}>
+                            <Text style={styles.left_mark}>-7</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, alignSelf: "center" }}>
+                            <Text style={{ textAlign: "center", color: "#4B4B4B", fontSize: 14 }}>TEAM CONTINUITY</Text>
+                        </View>
+                        <View style={{}}>
+                            <Text style={styles.right_mark}>-7</Text>
+                        </View>
+                    </View>
+                    <View style={[{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }, styles.underline]}>
+                        <View style={{}}>
+                            <Text style={styles.left_mark}>-7</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, alignSelf: "center" }}>
+                            <Text style={{ textAlign: "center", color: "#4B4B4B", fontSize: 14 }}>TEAM CONTINUITY</Text>
+                        </View>
+                        <View style={{}}>
+                            <Text style={styles.right_mark}>-7</Text>
+                        </View>
+                    </View>
+                    <View style={[{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }, styles.underline]}>
+                        <View style={{}}>
+                            <Text style={styles.left_mark}>-7</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, alignSelf: "center" }}>
+                            <Text style={{ textAlign: "center", color: "#4B4B4B", fontSize: 14 }}>TEAM CONTINUITY</Text>
+                        </View>
+                        <View style={{}}>
+                            <Text style={styles.right_mark}>-7</Text>
+                        </View>
+                    </View>
                 </View>
             </View>
-        </ScrollView>
+        </ScrollView >
     </View >);
 };
 
@@ -150,6 +217,27 @@ const styles = StyleSheet.create({
         paddingHorizontal: 7,
         borderRadius: 4,
         fontSize: 12
+    },
+    teamname: {
+        color: "#3C3C3C",
+        maxWidth: 50,
+        textAlign: "center",
+        alignSelf: "center"
+        // flexGrow: 1
+    },
+    left_mark: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        textAlign: "center",
+        backgroundColor: "#F3F6F6",
+        borderRadius: 5,
+    },
+    right_mark: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        textAlign: "center",
+        backgroundColor: "#FDF0D3",
+        borderRadius: 5,
     }
 });
 
