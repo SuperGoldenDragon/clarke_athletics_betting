@@ -7,7 +7,8 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { useState } from 'react';
 import DropdownIcon from '../../assets/images/icons/login-vector.png';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
-import loginlogo5 from '../../assets/images/logos/login-logo-5.png';
+import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
+
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [ischecked, setIschecked] = useState(false);
@@ -15,7 +16,7 @@ const Signup = () => {
         <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
             style={{ flex: 1 }}>
             <ScrollView>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', top: '-10%' }}>
+                <View style={{ flexDirection: 'row', top: '-10%' }}>
                     <Image style={{ opacity: 0.43 }} source={loginlogo3} />
                 </View>
                 <View style={{ alignItems: 'center', color: 'white' }}>
@@ -131,12 +132,6 @@ const Signup = () => {
                             </View>
                             <Text style={[styles.text, { color: '#F3F6F6', fontSize: 14, textDecorationLine: 'underline', fontWeight: '500' }]}>Service</Text>
                         </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', paddingTop: 10 }} >
-                        <Image source={loginlogo5} ></Image>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', top: '-20%' }} >
-                        <Image source={loginlogo5} ></Image>
                     </View>
                 </View>
             </ScrollView>

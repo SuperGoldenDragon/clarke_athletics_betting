@@ -1,20 +1,31 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import DefaultButton from '../../components/DefaultButton';
 import LinearGradient from 'react-native-linear-gradient';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
 import loginlogo2 from '../../assets/images/logos/login-logo-2.png';
-import loginlogo6 from '../../assets/images/logos/login-logo-6.png';
-import loginlogo5 from '../../assets/images/logos/login-logo-5.png';
+import GmailIcon from '../../assets/images/icons/gmail-icon.png';
+import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
+import DefaultButton from '../../components/DefaultButton';
 const Login = () => {
 
     const navigation = useNavigation();
 
+    const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
+    const handleImageLoad = (event) => {
+        const { width, height } = event.nativeEvent.source;
+        const screenWidth = Dimensions.get('window').width;
+        const aspectRatio = width / height;
+        const imageWidth = screenWidth;
+        const imageHeight = screenWidth / aspectRatio;
+        setImageSize({ width: imageWidth, height: imageHeight });
+    };
+
     return (
         <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
             style={{ flex: 1 }}>
-            <View>
+            <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', left: '-10%', }}>
                     <Image style={{ opacity: 0.43 }} source={loginlogo3} />
                 </View>
@@ -26,19 +37,20 @@ const Login = () => {
                 </View>
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <DefaultButton style={{ width: 300, backgroundColor: 'white' }} onPress={() => navigation.navigate("Login")}>
-                            <Image style={{ width: 20, height: 20 }} source={loginlogo6}></Image>
-                            <Text style={[styles.text, { fontSize: 18, fontWeight: '500', paddingVertical: 5, paddingLeft: 5 }]}>Continue with Google</Text>
+                        <DefaultButton style={{ width: 300, backgroundColor: 'white' }} onPress={() => navigation.navigate("History")}>
+                            <Image source={GmailIcon} ></Image>
+                            <Text style={[styles.text, { fontSize: 18, fontWeight: '500', marginLeft: 10 }]}>Continue with Google</Text>
                         </DefaultButton>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
-                        <DefaultButton style={{ width: 300, }} onPress={() => navigation.navigate("History")}>
-                            <Text style={[styles.text, { fontSize: 19, fontWeight: '500' }]}>Continue with Email</Text>
+                        <DefaultButton style={{ width: 300, }} onPress={() => navigation.navigate("Login")}>
+                            <Text style={[styles.text, { fontSize: 19, fontWeight: '500', color: "#22252A" }]}>Continue with Email</Text>
                         </DefaultButton>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center' }} >
-                    <Image source={loginlogo5} ></Image>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Image source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
+                        onLoad={handleImageLoad}></Image>
                 </View>
             </View>
         </LinearGradient >

@@ -6,7 +6,7 @@ import BackIcon from '../../assets/images/icons/back-icon-1.png';
 import AgreeIcon from '../../assets/images/icons/agree-icon.png';
 import ChatIcon from '../../assets/images/icons/chat-icon.png';
 import BookmarkIcon from '../../assets/images/icons/bookmark-icon.png';
-import DefaultButton from "../../components/DefaultButton";
+import DefaultTextButton from "../../components/DefaultTextButton";
 import DefaultAvatar from '../../assets/images/avatars/avatar-1.png';
 import TeamLogo from '../../components/TeamLogo';
 import Avatar from '../../components/Avatar';
@@ -80,7 +80,7 @@ const BuzzerFeedMatchCard = (props) => {
                     </Text>
                 </View>
                 <View style={{ paddingTop: 5 }}>
-                    <DefaultButton onPress={onOpenChat}>View Live Chat</DefaultButton>
+                    <DefaultTextButton onPress={onOpenChat}>View Live Chat</DefaultTextButton>
                 </View>
             </View>
         </View>

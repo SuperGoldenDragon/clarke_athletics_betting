@@ -2,22 +2,26 @@ import { Text, View, ScrollView, Image, TouchableOpacity, StyleSheet } from "rea
 import SelectDropdown from 'react-native-select-dropdown';
 import BuzzerFeedMatchCard from "./BuzzerFeedMatchCard";
 import { useNavigation } from "@react-navigation/native";
-import ArrowHistoryIcon from '../../assets/images/icons/history-icon-3.png';
+import PageBackIcon from '../../assets/images/icons/back-icon-2.png';
 import DropdownIcon from '../../assets/images/icons/login-vector.png';
+import GlobalStyles from "../../styles/global";
 
 const BuzzerFeed = () => {
     const navigation = useNavigation();
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: 'row', backgroundColor: '#22252A', paddingVertical: 10 }}>
-                <View style={{ paddingTop: 5, paddingLeft: 20 }}>
-                    <TouchableOpacity onPress={() => { navigation.navigate('Login') }}><Image source={ArrowHistoryIcon}></Image></TouchableOpacity>
-                </View>
-                <View style={{ paddingLeft: 10 }}>
-                    <Text style={[styles.text, { color: "#FFFFFF" }]}>Buzzer Feed</Text>
+        <View style={{ flex: 1, backgroundColor: "white" }}>
+            <View style={[
+                GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding, GlobalStyles.appbar, styles.appbar, { flexDirection: "row" }]}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <View style={{ paddingVertical: 12.5, marginRight: 15 }}>
+                        <Image source={PageBackIcon} />
+                    </View>
+                </TouchableOpacity>
+                <View style={{ display: "flex", alignSelf: "center" }}>
+                    <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>Buzzer Feed</Text>
                 </View>
             </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 20, paddingVertical: 10 }}>
+            <View style={[{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }, GlobalStyles.defaultPagePadding]}>
                 <View style={{ flexDirection: "row", padding: 5 }}>
                     <SelectDropdown
                         data={[]}
@@ -28,7 +32,7 @@ const BuzzerFeed = () => {
                                     <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, }]}>
                                         {selectedItem || 'Sports'}
                                     </Text>
-                                    <View style={{ marginTop: 5, padding: 4 }}>
+                                    <View style={{ padding: 4 }}>
                                         <Image source={DropdownIcon} style={{ width: 8, height: 6.7, }} />
                                     </View>
                                 </View>
@@ -55,7 +59,7 @@ const BuzzerFeed = () => {
                                     <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, }]}>
                                         {selectedItem || 'Date'}
                                     </Text>
-                                    <View style={{ marginTop: 5, padding: 4 }}>
+                                    <View style={{ padding: 4 }}>
                                         <Image source={DropdownIcon} style={{ width: 8, height: 6.7, }} />
                                     </View>
                                 </View>
@@ -82,7 +86,7 @@ const BuzzerFeed = () => {
                                     <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, }]}>
                                         {selectedItem || 'Commit'}
                                     </Text>
-                                    <View style={{ marginTop: 5, padding: 4 }}>
+                                    <View style={{ marginTop: 5 }}>
                                         <Image source={DropdownIcon} style={{ width: 8, height: 6.7, }} />
                                     </View>
                                 </View>
@@ -100,8 +104,8 @@ const BuzzerFeed = () => {
                     />
                 </View>
             </View>
-            <View style={{ paddingHorizontal: 21, flex: 1 }}>
-                <ScrollView>
+            <View style={{ flex: 1 }}>
+                <ScrollView style={[GlobalStyles.defaultPagePadding]}>
                     <BuzzerFeedMatchCard />
                     <BuzzerFeedMatchCard />
                     <BuzzerFeedMatchCard />
@@ -124,6 +128,8 @@ const styles = StyleSheet.create({
         paddingVertical: 3,
         // borderRadius: 100,
         flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: "#EDEDED"
     },
     matchTypeDropdownButtonTxtStyle: {
         fontSize: 12,

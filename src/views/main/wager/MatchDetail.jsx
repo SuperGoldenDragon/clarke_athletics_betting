@@ -5,7 +5,6 @@ import BackIcon from '../../../assets/images/icons/back-icon-white-3.png';
 import MatchDetailBg from '../../../assets/images/match-detail-bg.png';
 import TeamLogo1 from '../../../assets/images/logos/team-logo-1.png';
 import TeamLogo2 from '../../../assets/images/logos/team-logo-2.png';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LinearGradient } from 'react-native-linear-gradient';
 import MatchDetailTab from "./MatchDetailTab";
 import MatchLineupTab from "./MatchLineupTab";

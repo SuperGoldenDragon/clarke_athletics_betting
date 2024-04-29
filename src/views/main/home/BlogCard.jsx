@@ -6,7 +6,7 @@ import BackIcon from '../../../assets/images/icons/back-icon-1.png';
 import AgreeIcon from '../../../assets/images/icons/agree-icon.png';
 import ChatIcon from '../../../assets/images/icons/chat-icon.png';
 import BookmarkIcon from '../../../assets/images/icons/bookmark-icon.png';
-import DefaultButton from "../../../components/DefaultButton";
+import DefaultTextButton from "../../../components/DefaultTextButton";
 import ChatFilledIcon from '../../../assets/images/icons/chat-filled-icon.png'
 import AgreeFilledIcon from '../../../assets/images/icons/agree-filled-icon.png'
 import Avatar from '../../../components/Avatar';
@@ -94,7 +94,7 @@ const BlogCard = (props) => {
                 </View>
                 {
                     !noChat && <View style={{ paddingTop: 5 }}>
-                        <DefaultButton onPress={onLiveChat}>View Live Chat</DefaultButton>
+                        <DefaultTextButton onPress={onLiveChat}>View Live Chat</DefaultTextButton>
                     </View>
                 }
             </View>
