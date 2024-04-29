@@ -13,7 +13,10 @@ import Signup from './src/views/auth/Signup';
 import AppMain from './src/views/main/AppMain';
 import HomeBlogs from './src/views/main/home/HomeBlogs';
 import MatchDetail from './src/views/main/wager/MatchDetail';
-
+import History from './src/views/history/history';
+import Profile from './src/views/profile/profile';
+import BuzzerFeed from './src/views/profile/BuzzerFeed';
+import TVSchedule from './src/views/profile/TVSchedule';
 const Stack = createStackNavigator();
 
 function App() {
@@ -28,6 +31,10 @@ function App() {
                 <Stack.Screen name="Main" component={AppMain} options={{ headerShown: false }} />
                 <Stack.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                 <Stack.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
+                <Stack.Screen name='History' component={History} options={{ headerShown: false }} />
+                <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }} />
+                <Stack.Screen name='Buzzer' component={BuzzerFeed} options={{ headerShown: false }} />
+                <Stack.Screen name='TVSchedule' component={TVSchedule} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -1,6 +1,7 @@
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import loginlogo1 from '../assets/images/logos/login-logo-1.png';
 import { useEffect } from 'react';
 
 const Splash = () => {
@@ -18,10 +19,9 @@ const Splash = () => {
     };
 
     return (
-        <View>
-            <Text>Splash</Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+            <Image source={loginlogo1} />
         </View>
     );
 };
-
 export default Splash;
