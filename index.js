@@ -21,6 +21,7 @@ import BattleDraft from './src/views/profile/BattleDraft';
 import DroppingOdds from './src/views/profile/DroppingOdds';
 import Settings from './src/views/profile/Settings';
 import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
+import RemoveAd from './src/views/profile/RemoveAd';
 const Stack = createStackNavigator();
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                 <Stack.Screen name='Battle' component={BattleDraft} options={{ headerShown: false }} />
                 <Stack.Screen name='Dropping' component={DroppingOdds} options={{ headerShown: false }} />
                 <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
+                <Stack.Screen name='Remove' component={RemoveAd} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

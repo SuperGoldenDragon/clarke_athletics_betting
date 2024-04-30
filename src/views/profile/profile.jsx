@@ -15,7 +15,6 @@ import FeedbackIcon from '../../assets/images/icons/feedback-icon.png';
 import ShareIcon from '../../assets/images/icons/share-boxed-icon.png';
 import GlobalStyles from '../../styles/global';
 import DefaultTextButton from '../../components/DefaultTextButton';
-
 const Profile = () => {
     const navigation = useNavigation();
     return (
@@ -91,7 +90,7 @@ const Profile = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={RemoveIcon}></Image>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Remove') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>Remove Ad</Text>
                     </TouchableOpacity>
                 </View>
