@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, Dimensions, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -56,8 +56,8 @@ const Login = () => {
                 </View>
             </View>
             <View style={{ flexDirection: "row" }}>
-                <Image source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
-                    onLoad={handleImageLoad}></Image>
+                <ImageBackground source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
+                    onLoad={handleImageLoad}></ImageBackground>
             </View>
         </LinearGradient>
     );
