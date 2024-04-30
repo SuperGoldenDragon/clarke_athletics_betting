@@ -4,8 +4,8 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation } from "@react-navigation/native";
 import ManImage from '../../assets/images/Subscribe-image.png';
 import PageBackIcon from '../../assets/images/icons/back-icon-2.png';
-import EllipseIcon from '../../assets/images/icons/Ellipse.png';
-import VectorIcon from '../../assets/images/icons/Vector.png';
+import EllipseIcon from '../../assets/images/icons/Ellipse-icon.png';
+import VectorIcon from '../../assets/images/icons/check-icon.png';
 import GlobalStyles from "../../styles/global";
 
 const Subscribe = () => {
@@ -41,21 +41,21 @@ const Subscribe = () => {
             <Text style={styles.Content}>By Subscribing To Whatawager,You Can Remove Ads From The App. Try For Free For 7 Days, Then $20/Month</Text>
         </View>
         <View style={styles.CheckDiv}>
-            <View style={{ flexDirection: "row" }}>
-                <View style={{ margin: "2.4%" }}>
-                    <Image source={EllipseIcon} />
+            <View style={{ flexDirection: "row", marginLeft: "12%" }}>
+                <View style={{ backgroundColor: '#22252A', marginTop: 8, marginBottom: 5, paddingHorizontal: 5, paddingVertical: 5, borderRadius: 100 }}>
+                    <Image source={VectorIcon}></Image>
                 </View>
                 <Text style={styles.CheckText}>It give you an ad free experience</Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
-                <View style={{ margin: "2.4%" }}>
-                    <Image source={EllipseIcon} />
+            <View style={{ flexDirection: "row", marginLeft: "12%" }}>
+                <View style={{ backgroundColor: '#22252A', marginTop: 8, marginBottom: 5, paddingHorizontal: 5, paddingVertical: 5, borderRadius: 100 }}>
+                    <Image source={VectorIcon}></Image>
                 </View>
                 <Text style={styles.CheckText}>It supports our work</Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
-                <View style={{ margin: "2.4%" }}>
-                    <Image source={EllipseIcon} />
+            <View style={{ flexDirection: "row", marginLeft: "12%" }}>
+                <View style={{ backgroundColor: '#22252A', marginTop: 8, marginBottom: 5, paddingHorizontal: 5, paddingVertical: 5, borderRadius: 100 }}>
+                    <Image source={VectorIcon}></Image>
                 </View>
                 <Text style={styles.CheckText}>It’s Optional</Text>
             </View>
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
         marginTop: "6%",
         marginHorizontal: "13.23%",
         paddingVertical: "5%",
-        paddingHorizontal: "8%",
         textAlign: "center",
         borderRadius: 3,
         backgroundColor: "#F3F6F6"
