@@ -11,6 +11,7 @@ import TeamLogo from '../../components/TeamLogo';
 import DefaultLogo from '../../assets/images/logos/team-logo-1.png';
 import { BlurView } from '@react-native-community/blur';
 import TeamStandingsTab from './TeamStandingsTab';
+import TeamMatchesTab from './TeamMatchesTab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -142,7 +143,7 @@ const TeamDetail = () => {
                     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
                         <Tab.Screen name="DETAILS" component={TeamDetailsTab} />
                         <Tab.Screen name="STANDINGS" component={TeamStandingsTab} />
-                        <Tab.Screen name="MATCHES" component={TeamStandingsTab} />
+                        <Tab.Screen name="MATCHES" component={TeamMatchesTab} />
                         <Tab.Screen name="SQUAD" component={TeamStandingsTab} />
                         <Tab.Screen name="TOP PLAYERS" component={TeamStandingsTab} />
                         <Tab.Screen name="STATISTICS" component={TeamStandingsTab} />
