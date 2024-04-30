@@ -5,17 +5,30 @@ const Avatar = (props) => {
 
     const { avatar, style } = props;
 
+    let containerStyles = [styles.containar];
+    if (Array.isArray(style)) {
+        containerStyles = containerStyles.concat(style)
+    } else {
+        containerStyles.push(style);
+    }
+
     return (
-        <View style={style}>
-            <Image source={avatar || DefaultAvatar} style={[styles.avatar]} />
+        <View style={containerStyles}>
+            <Image source={avatar || DefaultAvatar} style={[styles.avatar]} resizeMode="contain" />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     avatar: {
-        width: 30,
-        height: 30
+        width: "100%",
+        height: "100%"
+    },
+    containar: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignSelf: "center"
     }
 });
 

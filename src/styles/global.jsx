@@ -11,5 +11,11 @@ export default StyleSheet.create({
         paddingHorizontal: 25,
         paddingVertical: 14,
         backgroundColor: "#22252A"
+    },
+    text_uppercase: {
+        textTransform: "uppercase"
+    },
+    text_center: {
+        textAlign: "center"
     }
 });

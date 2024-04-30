@@ -10,6 +10,7 @@ import DefaultTextButton from "../../../components/DefaultTextButton";
 import ChatFilledIcon from '../../../assets/images/icons/chat-filled-icon.png'
 import AgreeFilledIcon from '../../../assets/images/icons/agree-filled-icon.png'
 import Avatar from '../../../components/Avatar';
+import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import CommentCard from './CommentCard';
 import SelectDropdown from 'react-native-select-dropdown';
 import TeamLogo from '../../../components/TeamLogo';
@@ -78,13 +79,13 @@ const BlogCard = (props) => {
         <View>
             <View style={{ flexDirection: "row" }}>
                 <View style={{ flexDirection: "row", flexGrow: 1 }}>
-                    <Avatar style={noChat ? styles.no_chat_avatar : {}} />
-                    <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
-                    <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
-                    <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
-                    <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
-                    <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
-                    <Avatar style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : { width: 30, height: 30 }} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
                     <View style={noChat ? styles.no_chat_avatar : styles.default_avatar}>
                         <Text style={[{ width: 30, height: 30 }, styles.more_avatar]}>
                             1000 +
@@ -166,10 +167,14 @@ const styles = StyleSheet.create({
         borderBottomColor: '#B9B9B9',
     },
     no_chat_avatar: {
-        flexGrow: 1
+        flexGrow: 1,
+        width: 30,
+        height: 30
     },
     default_avatar: {
-        marginLeft: -10
+        marginLeft: -10,
+        width: 30,
+        height: 30
     },
     more_avatar: {
         backgroundColor: "#D9D9D9",

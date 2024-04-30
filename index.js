@@ -20,6 +20,7 @@ import TVSchedule from './src/views/profile/TVSchedule';
 import BattleDraft from './src/views/profile/BattleDraft';
 import DroppingOdds from './src/views/profile/DroppingOdds';
 import Settings from './src/views/profile/Settings';
+import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
 const Stack = createStackNavigator();
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name="Sign up" component={Signup} options={{ headerShown: false }} />
                 <Stack.Screen name="Main" component={AppMain} options={{ headerShown: false }} />
+                <Stack.Screen name="Leagues Match" component={LeaguesMatch} options={{ headerShown: false }} />
                 <Stack.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                 <Stack.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
                 <Stack.Screen name='History' component={History} options={{ headerShown: false }} />

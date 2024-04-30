@@ -9,7 +9,7 @@ const CommentCard = (props) => {
     const { avatar, name, time, content, likes, replies } = comment;
 
     return (<View style={styles.container}>
-        <Avatar avatar={avatar} />
+        <Avatar avatar={avatar} style={{ width: 30, height: 30, alignSelf: "start" }} />
         <View style={{ flexGrow: 1, maxWidth: "90%", marginLeft: 10 }}>
             <View style={styles.content}>
                 <View style={{ flexDirection: "row" }}>

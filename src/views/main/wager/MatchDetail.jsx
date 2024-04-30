@@ -12,6 +12,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import MatchStandingTab from "./MatchStandingTab";
 import GlobalStyles from "../../../styles/global";
 import TeamLogo from "../../../components/TeamLogo";
+import MatchesTab from "./MatchesTab";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -184,14 +185,12 @@ const MatchDetail = () => {
                         </View>
                     </View>
                 </View>
-                <View style={{
-                    flex: 1
-                }}>
+                <View style={{ flex: 1 }}>
                     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS">
                         <Tab.Screen name="DETAILS" component={MatchDetailTab} />
                         <Tab.Screen name="LINEUPS" component={MatchLineupTab} />
                         <Tab.Screen name="STANDINGS" component={MatchStandingTab} />
-                        <Tab.Screen name="MATCHES" component={MatchLineupTab} />
+                        <Tab.Screen name="MATCHES" component={MatchesTab} />
                     </Tab.Navigator>
                 </View>
             </View>
