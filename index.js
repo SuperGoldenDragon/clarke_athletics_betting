@@ -17,6 +17,7 @@ import History from './src/views/history/History';
 import Profile from './src/views/profile/Profile';
 import BuzzerFeed from './src/views/profile/BuzzerFeed';
 import TVSchedule from './src/views/profile/TVSchedule';
+import Subscribe from './src/views/profile/Subscribe';
 import BattleDraft from './src/views/profile/BattleDraft';
 import DroppingOdds from './src/views/profile/DroppingOdds';
 import Settings from './src/views/profile/Settings';
@@ -25,7 +26,6 @@ import TeamDetail from './src/views/teamdetail/TeamDetail';
 const Stack = createStackNavigator();
 
 function App() {
-
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Splash">
@@ -40,6 +40,7 @@ function App() {
                 <Stack.Screen name='History' component={History} options={{ headerShown: false }} />
                 <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }} />
                 <Stack.Screen name='Buzzer' component={BuzzerFeed} options={{ headerShown: false }} />
+                <Stack.Screen name='RemoveAd' component={Subscribe} options={{ headerShown: false }} />
                 <Stack.Screen name='TVSchedule' component={TVSchedule} options={{ headerShown: false }} />
                 <Stack.Screen name='Team Detail' component={TeamDetail} options={{ headerShown: false }} />
                 <Stack.Screen name='Battle' component={BattleDraft} options={{ headerShown: false }} />
