@@ -17,6 +17,7 @@ import History from './src/views/history/History';
 import Profile from './src/views/profile/Profile';
 import BuzzerFeed from './src/views/profile/BuzzerFeed';
 import TVSchedule from './src/views/profile/TVSchedule';
+import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
 const Stack = createStackNavigator();
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name="Sign up" component={Signup} options={{ headerShown: false }} />
                 <Stack.Screen name="Main" component={AppMain} options={{ headerShown: false }} />
+                <Stack.Screen name="Leagues Match" component={LeaguesMatch} options={{ headerShown: false }} />
                 <Stack.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                 <Stack.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
                 <Stack.Screen name='History' component={History} options={{ headerShown: false }} />

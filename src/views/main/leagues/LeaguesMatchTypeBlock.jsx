@@ -6,9 +6,9 @@ import global from '../../../styles/global';
 
 const LeaguesMatchTypeBlock = props => {
 
-    const { name, odd } = props;
+    const { name, odd, onPress } = props;
 
-    return (<TouchableOpacity style={{ ...styles.card, borderColor: odd ? "#B9B9B9" : "#F7D068" }}>
+    return (<TouchableOpacity style={{ ...styles.card, borderColor: odd ? "#B9B9B9" : "#F7D068" }} onPress={onPress}>
         <Image source={ExpandOpenIcon} style={{ width: 19, height: 36, marginLeft: -7 }} />
         <View style={{ flexGrow: 1, display: "flex", alignSelf: "center" }}>
             <Text style={[styles.text, global.text_uppercase, global.text_center]}>{name}</Text>

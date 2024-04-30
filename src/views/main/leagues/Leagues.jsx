@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Image, StyleSheet, View, Dimensions, TouchableOpacity, Text, ScrollView } from 'react-native'; // Import StatusBar
 import LeaguesHeader from '../../../assets/images/leagues-header.png';
 import SearchIcon from '../../../assets/images/icons/search-icon.png';
@@ -6,10 +6,15 @@ import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
 import SidebarIcon from '../../../assets/images/icons/sidebar-icon.png';
 import global from '../../../styles/global';
 import LeaguesMatchTypeBlock from './LeaguesMatchTypeBlock';
+import { useNavigation } from '@react-navigation/native';
+import NavigationContext from '../../../components/NavigationContext';
 
 const Leagues = () => {
 
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+    const navigation = useNavigation();
+    const parentNavigation = useContext(NavigationContext);
+
 
     const handleImageLoad = (event) => {
         const { width, height } = event.nativeEvent.source;
@@ -48,7 +53,7 @@ const Leagues = () => {
                 onLoad={handleImageLoad}></Image>
             <View style={{ flex: 1 }}>
                 <ScrollView style={{ ...global.defaultPagePadding, }}>
-                    <LeaguesMatchTypeBlock name={"No parlay"} odd={true} />
+                    <LeaguesMatchTypeBlock name={"No parlay"} odd={true} onPress={() => parentNavigation.toParent("Leagues Match")} />
                     <LeaguesMatchTypeBlock name={"Wager match"} />
                     <LeaguesMatchTypeBlock name={"king of prop"} odd={true} />
                     <LeaguesMatchTypeBlock name={"fantasy baseball"} />

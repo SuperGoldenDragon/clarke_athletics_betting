@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         borderColor: "#F7D068",
         borderWidth: 1,
         borderRadius: 5,
-        padding: 7,
+        padding: 19,
         marginVertical: 7
     },
     expand_icon_container: {
