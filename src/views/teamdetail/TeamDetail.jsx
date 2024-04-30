@@ -10,6 +10,7 @@ import TeamDetailsTab from './TeamDetailsTab';
 import TeamLogo from '../../components/TeamLogo';
 import DefaultLogo from '../../assets/images/logos/team-logo-1.png';
 import { BlurView } from '@react-native-community/blur';
+import TeamStandingsTab from './TeamStandingsTab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -140,11 +141,11 @@ const TeamDetail = () => {
                 <View style={{ flex: 1 }}>
                     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
                         <Tab.Screen name="DETAILS" component={TeamDetailsTab} />
-                        <Tab.Screen name="STANDINGS" component={TeamDetailsTab} />
-                        <Tab.Screen name="MATCHES" component={TeamDetailsTab} />
-                        <Tab.Screen name="SQUAD" component={TeamDetailsTab} />
-                        <Tab.Screen name="TOP PLAYERS" component={TeamDetailsTab} />
-                        <Tab.Screen name="STATISTICS" component={TeamDetailsTab} />
+                        <Tab.Screen name="STANDINGS" component={TeamStandingsTab} />
+                        <Tab.Screen name="MATCHES" component={TeamStandingsTab} />
+                        <Tab.Screen name="SQUAD" component={TeamStandingsTab} />
+                        <Tab.Screen name="TOP PLAYERS" component={TeamStandingsTab} />
+                        <Tab.Screen name="STATISTICS" component={TeamStandingsTab} />
                     </Tab.Navigator>
                 </View>
             </View>
@@ -157,7 +158,8 @@ const styles = StyleSheet.create({
     appbar: {
         flexDirection: "row",
         justifyContent: "space-between"
-    }
+    },
+
 });
 
 export default TeamDetail;
