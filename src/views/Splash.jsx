@@ -19,7 +19,7 @@ const Splash = () => {
     };
 
     return (
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8f8f8' }}>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8f8f8', }}>
             <Image source={loginlogo1} />
         </View>
     );

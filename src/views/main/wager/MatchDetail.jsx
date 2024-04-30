@@ -185,9 +185,7 @@ const MatchDetail = () => {
                         </View>
                     </View>
                 </View>
-                <View style={{
-                    flex: 1
-                }}>
+                <View style={{ flex: 1 }}>
                     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS">
                         <Tab.Screen name="DETAILS" component={MatchDetailTab} />
                         <Tab.Screen name="LINEUPS" component={MatchLineupTab} />

@@ -18,6 +18,11 @@ import Profile from './src/views/profile/Profile';
 import BuzzerFeed from './src/views/profile/BuzzerFeed';
 import TVSchedule from './src/views/profile/TVSchedule';
 import Subscribe from './src/views/profile/Subscribe';
+import BattleDraft from './src/views/profile/BattleDraft';
+import DroppingOdds from './src/views/profile/DroppingOdds';
+import Settings from './src/views/profile/Settings';
+import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
+import TeamDetail from './src/views/teamdetail/TeamDetail';
 const Stack = createStackNavigator();
 
 function App() {
@@ -29,6 +34,7 @@ function App() {
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name="Sign up" component={Signup} options={{ headerShown: false }} />
                 <Stack.Screen name="Main" component={AppMain} options={{ headerShown: false }} />
+                <Stack.Screen name="Leagues Match" component={LeaguesMatch} options={{ headerShown: false }} />
                 <Stack.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                 <Stack.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
                 <Stack.Screen name='History' component={History} options={{ headerShown: false }} />
@@ -36,6 +42,10 @@ function App() {
                 <Stack.Screen name='Buzzer' component={BuzzerFeed} options={{ headerShown: false }} />
                 <Stack.Screen name='RemoveAd' component={Subscribe} options={{ headerShown: false }} />
                 <Stack.Screen name='TVSchedule' component={TVSchedule} options={{ headerShown: false }} />
+                <Stack.Screen name='Team Detail' component={TeamDetail} options={{ headerShown: false }} />
+                <Stack.Screen name='Battle' component={BattleDraft} options={{ headerShown: false }} />
+                <Stack.Screen name='Dropping' component={DroppingOdds} options={{ headerShown: false }} />
+                <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

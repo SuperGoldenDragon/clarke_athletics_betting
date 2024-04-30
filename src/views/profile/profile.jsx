@@ -46,7 +46,7 @@ const Profile = () => {
                     </View>
                 </View>
             </View>
-            <View style={[{ backgroundColor: "white", flex: 1 }, GlobalStyles.defaultPagePadding]}>
+            <View style={[{ backgroundColor: "white", flex: 1, borderWidth: 1 }, GlobalStyles.defaultPagePadding]}>
                 <View style={{ flexDirection: 'row', paddingVertical: 12 }}>
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={BuzzerIcon} ></Image>
@@ -67,7 +67,7 @@ const Profile = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={BattleIcon}></Image>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Battle') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>Battle Draft</Text>
                     </TouchableOpacity>
                 </View>
@@ -75,7 +75,7 @@ const Profile = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={DroppingOddsIcon}></Image>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Dropping') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>Dropping Odds</Text>
                     </TouchableOpacity>
                 </View>
@@ -83,7 +83,7 @@ const Profile = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={SettingsIcon}></Image>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>Settings</Text>
                     </TouchableOpacity>
                 </View>

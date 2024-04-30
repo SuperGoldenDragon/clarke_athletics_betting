@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     scrollcontainer: {
         ...global.defaultPagePadding,
-        paddingVertical: 20
+        // paddingVertical: 20
     },
     text_topplayer: {
         textTransform: "uppercase",
@@ -29,7 +29,12 @@ const styles = StyleSheet.create({
         color: "#22252A",
         fontSize: 12,
         fontWeight: "600",
-        paddingVertical: 10
+        paddingVertical: 30
+    },
+    topline: {
+        borderBottomWidth: 1,
+        borderBottomColor: "#B9B9B9",
+        // borderTop: 0.5
     },
 });
 

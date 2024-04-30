@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
@@ -49,8 +49,8 @@ const Login = () => {
                     </View>
                 </View>
                 <View style={{ flex: 1, flexDirection: "row" }}>
-                    <Image source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
-                        onLoad={handleImageLoad}></Image>
+                    <ImageBackground source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
+                        onLoad={handleImageLoad}></ImageBackground>
                 </View>
             </View>
         </LinearGradient >
