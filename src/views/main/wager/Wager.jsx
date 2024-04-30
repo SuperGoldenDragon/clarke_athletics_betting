@@ -1,6 +1,4 @@
 import { View, StyleSheet, TouchableOpacity, Image, Text, ScrollView } from "react-native";
-import SearchIcon from '../../../assets/images/icons/search-icon.png';
-import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
 import SidebarIcon from '../../../assets/images/icons/sidebar-icon.png';
 import DropdownIcon from '../../../assets/images/icons/drop-down-icon.png';
 import SelectDropdown from "react-native-select-dropdown";
