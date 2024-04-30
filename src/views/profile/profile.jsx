@@ -90,7 +90,7 @@ const Profile = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={RemoveIcon}></Image>
                     </View>
-                    <TouchableOpacity onPress={() => { navigation.navigate('Remove') }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('RemoveAd') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>Remove Ad</Text>
                     </TouchableOpacity>
                 </View>
