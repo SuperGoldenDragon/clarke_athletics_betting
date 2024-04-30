@@ -18,6 +18,7 @@ import Profile from './src/views/profile/Profile';
 import BuzzerFeed from './src/views/profile/BuzzerFeed';
 import TVSchedule from './src/views/profile/TVSchedule';
 import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
+import TeamDetail from './src/views/teamdetail/TeamDetail';
 const Stack = createStackNavigator();
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                 <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }} />
                 <Stack.Screen name='Buzzer' component={BuzzerFeed} options={{ headerShown: false }} />
                 <Stack.Screen name='TVSchedule' component={TVSchedule} options={{ headerShown: false }} />
+                <Stack.Screen name='Team Detail' component={TeamDetail} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

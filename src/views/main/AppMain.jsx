@@ -91,7 +91,7 @@ const AppMain = () => {
 
     return (
         <NavigationContainer independent={true}>
-            <NavigationContext.Provider value={{ toParent }}>
+            <NavigationContext.Provider value={{ toParent, navigation }}>
                 <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
                     <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
                     <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />

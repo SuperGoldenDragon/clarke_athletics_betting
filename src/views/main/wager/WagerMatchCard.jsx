@@ -5,12 +5,15 @@ import TeamLogo1 from '../../../assets/images/logos/team-logo-1.png';
 import TeamLogo2 from '../../../assets/images/logos/team-logo-2.png';
 import { useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import NavigationContext from "../../../components/NavigationContext";
 
 const WagerMatchCard = (props) => {
 
 
     const { odd, toMatchDetail } = props;
     const [showDetail, setShowDetail] = useState(false);
+    const parentNavigation = useContext(NavigationContext);
 
     const onGoToDetail = () => {
         toMatchDetail && toMatchDetail({});
@@ -50,7 +53,9 @@ const WagerMatchCard = (props) => {
         <View style={{ flexDirection: "row" }}>
             <View style={{ flexGrow: 1, width: "32%" }}>
                 <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <Image source={TeamLogo1} style={styles.teamLogo} />
+                    <TouchableOpacity onPress={() => { parentNavigation.toParent("Team Detail") }}>
+                        <Image source={TeamLogo1} style={styles.teamLogo} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'center' }}>
                     <Text style={styles.teamName}>Wizards</Text>
@@ -63,7 +68,9 @@ const WagerMatchCard = (props) => {
             </View>
             <View style={{ flexGrow: 1, width: "32%" }}>
                 <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <Image source={TeamLogo2} style={styles.teamLogo} />
+                    <TouchableOpacity onPress={() => { parentNavigation.toParent("Team Detail") }}>
+                        <Image source={TeamLogo2} style={styles.teamLogo} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'center' }}>
                     <Text style={styles.teamName}>Atlanta Hawks</Text>
