@@ -14,7 +14,7 @@ const Avatar = (props) => {
 
     return (
         <View style={containerStyles}>
-            <Image source={avatar || DefaultAvatar} style={[styles.avatar]} />
+            <Image source={avatar || DefaultAvatar} style={[styles.avatar]} resizeMode="contain" />
         </View>
     );
 };
