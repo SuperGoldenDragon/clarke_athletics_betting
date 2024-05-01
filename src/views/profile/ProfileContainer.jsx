@@ -15,7 +15,7 @@ import FeedbackIcon from '../../assets/images/icons/feedback-icon.png';
 import ShareIcon from '../../assets/images/icons/share-boxed-icon.png';
 import GlobalStyles from '../../styles/global';
 import DefaultTextButton from '../../components/DefaultTextButton';
-const Profile = () => {
+const ProfileContainer = () => {
     const navigation = useNavigation();
     return (
         <View style={{ flex: 1, borderStartColor: 'white' }}>
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 })
-export default Profile;
+export default ProfileContainer;

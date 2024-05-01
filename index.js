@@ -16,7 +16,6 @@ import AppMain from './src/views/main/AppMain';
 import HomeBlogs from './src/views/main/home/HomeBlogs';
 import MatchDetail from './src/views/main/wager/MatchDetail';
 import History from './src/views/history/History';
-import Profile from './src/views/profile/Profile';
 import BuzzerFeed from './src/views/profile/BuzzerFeed';
 import TVSchedule from './src/views/profile/TVSchedule';
 import Subscribe from './src/views/profile/Subscribe';
@@ -26,6 +25,7 @@ import Settings from './src/views/profile/Settings';
 import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
 import RemoveAd from './src/views/profile/RemoveAd';
 import TeamDetail from './src/views/teamdetail/TeamDetail';
+import ProfileContainer from './src/views/profile/ProfileContainer';
 
 const Stack = createStackNavigator();
 
@@ -42,7 +42,7 @@ function App() {
                 <Stack.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                 <Stack.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
                 <Stack.Screen name='History' component={History} options={{ headerShown: false }} />
-                <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }} />
+                <Stack.Screen name='Profile' component={ProfileContainer} options={{ headerShown: false }} />
                 <Stack.Screen name='Buzzer' component={BuzzerFeed} options={{ headerShown: false }} />
                 <Stack.Screen name='RemoveAd' component={Subscribe} options={{ headerShown: false }} />
                 <Stack.Screen name='TVSchedule' component={TVSchedule} options={{ headerShown: false }} />
