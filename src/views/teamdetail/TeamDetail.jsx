@@ -14,6 +14,7 @@ import TeamStandingsTab from './TeamStandingsTab';
 import TeamMatchesTab from './TeamMatchesTab';
 import TeamSquadTab from './TeamSquadTab';
 import TeamTopPlayersTab from './TeamTopPlayersTab';
+import TeamStatisticsTab from './TeamStatisticsTab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -148,7 +149,7 @@ const TeamDetail = () => {
                         <Tab.Screen name="MATCHES" component={TeamMatchesTab} />
                         <Tab.Screen name="SQUAD" component={TeamSquadTab} />
                         <Tab.Screen name="TOP PLAYERS" component={TeamTopPlayersTab} />
-                        <Tab.Screen name="STATISTICS" component={TeamStandingsTab} />
+                        <Tab.Screen name="STATISTICS" component={TeamStatisticsTab} />
                     </Tab.Navigator>
                 </View>
             </View>
