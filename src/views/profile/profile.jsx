@@ -15,7 +15,6 @@ import FeedbackIcon from '../../assets/images/icons/feedback-icon.png';
 import ShareIcon from '../../assets/images/icons/share-boxed-icon.png';
 import GlobalStyles from '../../styles/global';
 import DefaultTextButton from '../../components/DefaultTextButton';
-
 const Profile = () => {
     const navigation = useNavigation();
     return (
