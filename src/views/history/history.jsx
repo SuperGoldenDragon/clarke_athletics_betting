@@ -128,7 +128,9 @@ const WeeklyHistoryTab = () => {
         <View style={[styles.container, { backgroundColor: 'white' }]}>
             <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between', paddingHorizontal: 15 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 15 }}>
-                    <TouchableOpacity onPress={() => { console.log("LeftArray") }} style={{ flexDirection: "row" }}>
+                    <TouchableOpacity onPress={() => {
+
+                    }} style={{ flexDirection: "row" }}>
                         <View style={{ backgroundColor: '#3C3C3C', display: "flex", alignSelf: "center", paddingVertical: 4, paddingHorizontal: 5.6, borderRadius: 10 }}>
                             <Image source={ArrowLeftHistorySmallIcon} ></Image>
                         </View>
@@ -138,7 +140,9 @@ const WeeklyHistoryTab = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { console.log("LeftArray") }} style={{ flexDirection: "row" }}>
+                    <TouchableOpacity onPress={() => {
+
+                    }} style={{ flexDirection: "row" }}>
                         <View style={{ marginRight: 5 }}>
                             <Text style={styles.text}>WEEK 25</Text>
                         </View>
