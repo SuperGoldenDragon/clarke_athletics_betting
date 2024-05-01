@@ -131,8 +131,6 @@ const Profile = () => {
         </View >
     );
 };
-
-export default Profile;
 const styles = StyleSheet.create({
     text: {
         fontFamily: 'Roboto',
@@ -140,3 +138,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 })
+export default Profile;

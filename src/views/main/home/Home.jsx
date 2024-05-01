@@ -10,16 +10,17 @@ import GlobalStyle from '../../../styles/global';
 import NavigationContext from '../../../components/NavigationContext';
 import BlogCard from './BlogCard';
 
+
 const Home = (props) => {
 
-    const parentNavigation = useContext(NavigationContext);
+    const parentContext = useContext(NavigationContext);
 
     const [chatMatch, setChatMatch] = useState(null);
 
     const onSort = () => {
         // navigation.navigate("Home Blogs");
         // route.params.parentNavigate("Home Blogs");
-        parentNavigation.toParent("Home Blogs");
+        parentContext.toParent("Home Blogs");
     };
 
     return (<View style={{ flex: 1, backgroundColor: "white" }}>
@@ -57,6 +58,7 @@ const Home = (props) => {
             </ScrollView>
         </View >
         <LiveChatDialog open={chatMatch != null} onClose={() => setChatMatch(null)} />
+
     </View >);
 };
 

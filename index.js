@@ -2,6 +2,8 @@
  * @format
  */
 
+import 'react-native-gesture-handler';
+
 import { AppRegistry } from 'react-native';
 import { name as appName } from './app.json';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,6 +25,7 @@ import DroppingOdds from './src/views/profile/DroppingOdds';
 import Settings from './src/views/profile/Settings';
 import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
 import TeamDetail from './src/views/teamdetail/TeamDetail';
+import AppMain1 from './src/views/main/AppMain1';
 const Stack = createStackNavigator();
 
 function App() {
