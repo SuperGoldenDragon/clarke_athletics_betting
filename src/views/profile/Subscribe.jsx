@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation } from "@react-navigation/native";
-import ManImage from '../../assets/images/Subscribe-image.png';
+import ManImage from '../../assets/images/subscribe-image.png';
 import PageBackIcon from '../../assets/images/icons/back-icon-2.png';
 import EllipseIcon from '../../assets/images/icons/Ellipse-icon.png';
 import VectorIcon from '../../assets/images/icons/check-icon.png';

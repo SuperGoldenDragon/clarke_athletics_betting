@@ -81,28 +81,45 @@ const CustomTabBar = (props) => {
     );
 };
 
-const AppMain = () => {
+const BottomNavigation = ({ navigation }) => {
 
-    const navigation = useNavigation();
+    const parentNavigation = useNavigation();
 
     const toParent = (route, params = {}) => {
-        navigation.navigate(route, params);
+        parentNavigation.navigate(route, params);
     };
 
     return (
-        <NavigationContainer independent={true}>
-            <NavigationContext.Provider value={{ toParent, navigation }}>
-                <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
-                    <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
-                    <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
-                    <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
-                    <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
-                    <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
-                </Tab.Navigator>
-            </NavigationContext.Provider>
-        </NavigationContainer>
+
+        <NavigationContext.Provider value={{ parentNavigation, toParent, sidebarNavigation: navigation }}>
+            <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
+                <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
+                <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
+                <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
+                <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
+                <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
+            </Tab.Navigator>
+        </NavigationContext.Provider>
 
     );
+};
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+const Drawer = createDrawerNavigator();
+
+const AppMain = () => {
+    return (
+        <NavigationContainer independent={true}>
+            <Drawer.Navigator initialRouteName="Home">
+                <Drawer.Screen
+                    name="Main"
+                    component={BottomNavigation}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+            </Drawer.Navigator>
+        </NavigationContainer>);
 };
 
 export default AppMain;
