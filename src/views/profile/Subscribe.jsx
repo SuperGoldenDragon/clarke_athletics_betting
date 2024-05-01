@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
-import SelectDropdown from 'react-native-select-dropdown';
+import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ManImage from '../../assets/images/Subscribe-image.png';
 import PageBackIcon from '../../assets/images/icons/back-icon-2.png';
-import EllipseIcon from '../../assets/images/icons/Ellipse-icon.png';
-import VectorIcon from '../../assets/images/icons/check-icon.png';
+import CheckIcon from '../../assets/images/icons/check-icon.png';
 import GlobalStyles from "../../styles/global";
 
 const Subscribe = () => {
@@ -34,37 +32,47 @@ const Subscribe = () => {
         <View>
             <Image source={ManImage} resizeMethod='contain' style={{ ...imageSize }} onLoad={handleImageLoad} />
         </View>
-        <View>
-            <Text style={styles.HeaderText}>REMOVE ADS</Text>
-        </View>
-        <View>
-            <Text style={styles.Content}>By Subscribing To Whatawager,You Can Remove Ads From The App. Try For Free For 7 Days, Then $20/Month</Text>
-        </View>
-        <View style={styles.CheckDiv}>
-            <View style={{ flexDirection: "row", marginLeft: "12%" }}>
-                <View style={{ backgroundColor: '#22252A', marginTop: 8, marginBottom: 5, paddingHorizontal: 5, paddingVertical: 5, borderRadius: 100 }}>
-                    <Image source={VectorIcon}></Image>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <View style={{ maxWidth: 300 }}>
+                <View>
+                    <Text style={styles.HeaderText}>REMOVE ADS</Text>
                 </View>
-                <Text style={styles.CheckText}>It give you an ad free experience</Text>
-            </View>
-            <View style={{ flexDirection: "row", marginLeft: "12%" }}>
-                <View style={{ backgroundColor: '#22252A', marginTop: 8, marginBottom: 5, paddingHorizontal: 5, paddingVertical: 5, borderRadius: 100 }}>
-                    <Image source={VectorIcon}></Image>
+                <View>
+                    <Text style={styles.Content}>By Subscribing To Whatawager,You Can Remove Ads From The App. Try For Free For 7 Days, Then $20/Month</Text>
                 </View>
-                <Text style={styles.CheckText}>It supports our work</Text>
-            </View>
-            <View style={{ flexDirection: "row", marginLeft: "12%" }}>
-                <View style={{ backgroundColor: '#22252A', marginTop: 8, marginBottom: 5, paddingHorizontal: 5, paddingVertical: 5, borderRadius: 100 }}>
-                    <Image source={VectorIcon}></Image>
+                <View style={styles.CheckImage}>
+                    <View style={{ flexDirection: "row", marginBottom: 6 }}>
+                        <View style={{ display: "flex", alignSelf: "center" }}>
+                            <View style={{ backgroundColor: '#22252A', borderRadius: 100, width: 16, height: 16, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                                <Image source={CheckIcon}></Image>
+                            </View>
+                        </View>
+                        <Text style={[styles.CheckText]}>It give you an ad free experience</Text>
+                    </View>
+                    <View style={{ flexDirection: "row", marginBottom: 6 }}>
+                        <View style={{ display: "flex", alignSelf: "center" }}>
+                            <View style={{ backgroundColor: '#22252A', borderRadius: 100, width: 16, height: 16, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                                <Image source={CheckIcon}></Image>
+                            </View>
+                        </View>
+                        <Text style={[styles.CheckText]}>It give you an ad free experience</Text>
+                    </View>
+                    <View style={{ flexDirection: "row", marginBottom: 6 }}>
+                        <View style={{ display: "flex", alignSelf: "center" }}>
+                            <View style={{ backgroundColor: '#22252A', borderRadius: 100, width: 16, height: 16, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                                <Image source={CheckIcon}></Image>
+                            </View>
+                        </View>
+                        <Text style={[styles.CheckText]}>It give you an ad free experience</Text>
+                    </View>
                 </View>
-                <Text style={styles.CheckText}>It’s Optional</Text>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={styles.SubText}>Subscribe</Text>
+                </TouchableOpacity>
             </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={styles.SubButton}>
-                <Text style={styles.SubText}>Subscribe</Text>
-            </View>
-        </TouchableOpacity>
+
+
     </View>)
 }
 
@@ -73,8 +81,8 @@ export default Subscribe;
 const styles = StyleSheet.create({
     HeaderText: {
         textAlign: "center",
-        color: "black",
-        marginTop: "6%",
+        color: "#22252A",
+        marginTop: 25,
         fontFamily: "Roboto",
         fontWeight: "600",
         fontSize: 16,
@@ -82,42 +90,37 @@ const styles = StyleSheet.create({
     },
     Content: {
         textAlign: "center",
-        color: "black",
-        marginTop: "3%",
-        marginHorizontal: "14.25%",
+        color: "#22252A",
+        marginTop: 10,
         fontFamily: "Roboto",
         fontWeight: "400",
         fontSize: 12,
         lineHeight: 14.84
     },
-    CheckDiv: {
-        marginTop: "6%",
-        marginHorizontal: "13.23%",
-        paddingVertical: "5%",
+    CheckImage: {
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        marginVertical: 30,
         textAlign: "center",
-        borderRadius: 3,
+        borderRadius: 8,
         backgroundColor: "#F3F6F6"
     },
     CheckText: {
-        marginLeft: "3%",
-        color: "black",
+        marginLeft: 10,
+        color: "#3C3C3C",
         fontFamily: "Roboto",
         fontWeight: "400",
         fontSize: 14,
         lineHeight: 28.1
     },
-    SubButton: {
-        marginVertical: "6%",
-        marginHorizontal: "12.47%",
-        padding: "2.1%",
-        borderRadius: 5,
-        height: 50,
-        backgroundColor: "#F7D068",
-    },
     SubText: {
         textAlign: "center",
         fontSize: 18.57,
+        lineHeight: 21.76,
         fontWeight: "500",
-        color: "black",
+        borderRadius: 8,
+        color: "#22252A",
+        backgroundColor: "#F7D068",
+        paddingVertical: 10
     }
 })
