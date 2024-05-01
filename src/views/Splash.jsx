@@ -4,18 +4,22 @@ import { useNavigation } from '@react-navigation/native';
 import loginlogo1 from '../assets/images/logos/login-logo-1.png';
 import { useEffect } from 'react';
 
+let timeId = null;
+
 const Splash = () => {
 
     const navigation = useNavigation();
 
     useEffect(() => {
-        setTimeout(() => {
+        timeId = setTimeout(() => {
             toLoginSelect();
         }, 3000);
     }, []);
 
     const toLoginSelect = () => {
         navigation.navigate("Select Login");
+        if (timeId) clearTimeout(timeId);
+        timeId = null;
     };
 
     return (

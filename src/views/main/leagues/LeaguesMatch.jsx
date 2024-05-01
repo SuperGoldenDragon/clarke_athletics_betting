@@ -8,15 +8,16 @@ import React, { useContext } from "react";
 import global from "../../../styles/global";
 import LeftArrowIcon from '../../../assets/images/icons/history-icon-4.png';
 import RightArrowIcon from '../../../assets/images/icons/history-icon-5.png';
+import { useNavigation } from "@react-navigation/native";
 
 const LeaguesMatch = () => {
 
-    const parentNavigation = useContext(NavigationContext);
+    const navigation = useNavigation();
 
     return (<View style={{ flex: 1, backgroundColor: "white" }}>
         <View style={[GlobalStyle.appbar]}>
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ padding: 7, marginRight: 5 }}>
                         <Image source={SidebarIcon} />
                     </View>

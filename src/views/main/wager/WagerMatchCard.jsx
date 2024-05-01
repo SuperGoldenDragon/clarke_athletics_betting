@@ -7,16 +7,17 @@ import { useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import NavigationContext from "../../../components/NavigationContext";
+import { useNavigation } from "@react-navigation/native";
 
 const WagerMatchCard = (props) => {
 
 
-    const { odd, toMatchDetail } = props;
+    const { odd } = props;
     const [showDetail, setShowDetail] = useState(false);
-    const parentNavigation = useContext(NavigationContext);
+    const navigation = useNavigation();
 
     const onGoToDetail = () => {
-        toMatchDetail && toMatchDetail({});
+        navigation.navigate("Match Detail");
     };
 
     return (<View style={[styles.container, odd && styles.odd_border]}>
@@ -53,7 +54,7 @@ const WagerMatchCard = (props) => {
         <View style={{ flexDirection: "row" }}>
             <View style={{ flexGrow: 1, width: "32%" }}>
                 <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { parentNavigation.toParent("Team Detail") }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
                         <Image source={TeamLogo1} style={styles.teamLogo} />
                     </TouchableOpacity>
                 </View>
@@ -68,7 +69,7 @@ const WagerMatchCard = (props) => {
             </View>
             <View style={{ flexGrow: 1, width: "32%" }}>
                 <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { parentNavigation.toParent("Team Detail") }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
                         <Image source={TeamLogo2} style={styles.teamLogo} />
                     </TouchableOpacity>
                 </View>

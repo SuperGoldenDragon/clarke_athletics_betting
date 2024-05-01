@@ -11,16 +11,13 @@ import NavigationContext from '../../../components/NavigationContext';
 import BlogCard from './BlogCard';
 
 
-const Home = (props) => {
+const Home = () => {
 
-    const parentContext = useContext(NavigationContext);
-
+    const navigation = useNavigation();
     const [chatMatch, setChatMatch] = useState(null);
 
     const onSort = () => {
-        // navigation.navigate("Home Blogs");
-        // route.params.parentNavigate("Home Blogs");
-        parentContext.toParent("Home Blogs");
+        navigation.navigate("Home Blogs");
     };
 
     return (<View style={{ flex: 1, backgroundColor: "white" }}>

@@ -4,21 +4,16 @@ import DropdownIcon from '../../../assets/images/icons/drop-down-icon.png';
 import SelectDropdown from "react-native-select-dropdown";
 import WagerMatchCard from "./WagerMatchCard";
 import GlobalStyle from "../../../styles/global";
-import NavigationContext from "../../../components/NavigationContext";
-import React, { useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const Wager = () => {
 
-    const parentContext = useContext(NavigationContext);
-
-    const toMatchDetail = (match) => {
-        parentContext.parentNavigation?.navigate("Match Detail", { match })
-    };
+    const navigation = useNavigation();
 
     return (<View style={{ flex: 1, backgroundColor: "white" }}>
         <View style={[GlobalStyle.appbar]}>
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ padding: 7, marginRight: 5 }}>
                         <Image source={SidebarIcon} />
                     </View>
@@ -83,11 +78,11 @@ const Wager = () => {
         </View>
         <View style={[{ flex: 1, paddingTop: 15 }]}>
             <ScrollView style={styles.defaultPadding}>
-                <WagerMatchCard toMatchDetail={toMatchDetail} odd={true} />
-                <WagerMatchCard toMatchDetail={toMatchDetail} />
-                <WagerMatchCard toMatchDetail={toMatchDetail} odd={true} />
-                <WagerMatchCard toMatchDetail={toMatchDetail} />
-                <WagerMatchCard toMatchDetail={toMatchDetail} odd={true} />
+                <WagerMatchCard odd={true} />
+                <WagerMatchCard />
+                <WagerMatchCard odd={true} />
+                <WagerMatchCard />
+                <WagerMatchCard odd={true} />
             </ScrollView>
         </View>
     </View>);

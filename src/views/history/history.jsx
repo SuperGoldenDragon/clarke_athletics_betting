@@ -68,7 +68,7 @@ const History = () => {
         <View style={{ backgroundColor: "white" }}>
             <View>
                 <View style={[{ flexDirection: 'row', backgroundColor: '#22252A' }, GlobalStyles.appbar, GlobalStyles.defaultAppbarPadding, GlobalStyles.defaultPagePadding]}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}><Image source={ArrowHistoryIcon} style={{ width: 19, height: 15, margin: 15 }} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}><Image source={ArrowHistoryIcon} style={{ width: 19, height: 15, margin: 15 }} /></TouchableOpacity>
                     <Text style={{ fontSize: 18, fontWeight: 600, fontFamily: 'Roboto', color: '#FFFFFF', paddingTop: 10, paddingBottom: 10 }}>History</Text>
                 </View>
                 <View style={{ flexDirection: 'row', padding: 20, backgroundColor: '#FDF0D3' }}>

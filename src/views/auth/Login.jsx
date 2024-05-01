@@ -37,7 +37,7 @@ const Login = () => {
                             <TextInput style={[sytles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 20 }]} value={email} placeholder='Email' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
                             <TextInput style={[sytles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 10 }]} value={password} placeholder='Password' placeholderTextColor={'white'} onChange={(e => setPassword(e.target.value))} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+                                <TouchableOpacity>
                                     <Text style={[sytles.text, { fontSize: 14, fontWeight: '400', color: '#F3F6F6' }]}>Forget password?</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity>
@@ -50,8 +50,11 @@ const Login = () => {
                         <DefaultTextButton style={{ width: 295, fontSize: 19 }} onPress={() => navigation.navigate('Main')} ><Text style={[sytles.text, { fontWeight: '500' }]} >Login</Text></DefaultTextButton>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
-                        <Text style={[sytles.text, { color: '#F3F6F6', fontSize: 14 }]}>Don't have an account?</Text>
-                        <Text style={[sytles.text, { color: '#F7D068', fontSize: 15 }]} onPress={() => navigation.navigate("Sign up")} >SIGN UP</Text>
+                        <Text style={[sytles.text, { color: '#F3F6F6', fontSize: 14, marginRight: 10 }]}>Don't have an account?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("Sign up")}>
+                            <Text style={[sytles.text, { color: '#F7D068', fontSize: 15 }]} >SIGN UP</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </View>
             </View>

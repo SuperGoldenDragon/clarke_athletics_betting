@@ -15,7 +15,8 @@ import FeedbackIcon from '../../assets/images/icons/feedback-icon.png';
 import ShareIcon from '../../assets/images/icons/share-boxed-icon.png';
 import GlobalStyles from '../../styles/global';
 import DefaultTextButton from '../../components/DefaultTextButton';
-const ProfileContainer = () => {
+
+const Profile = () => {
     const navigation = useNavigation();
     return (
         <View style={{ flex: 1, borderStartColor: 'white' }}>
@@ -45,7 +46,7 @@ const ProfileContainer = () => {
                     </View>
                 </View>
             </View>
-            <View style={[{ backgroundColor: "white", flex: 1, borderWidth: 1 }, GlobalStyles.defaultPagePadding]}>
+            <View style={[{ backgroundColor: "white", flex: 1 }, GlobalStyles.defaultPagePadding]}>
                 <View style={{ flexDirection: 'row', paddingVertical: 12 }}>
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={BuzzerIcon} ></Image>
@@ -137,4 +138,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 })
-export default ProfileContainer;
+export default Profile;
