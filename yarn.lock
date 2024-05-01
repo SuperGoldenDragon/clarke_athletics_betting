@@ -6701,13 +6701,6 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-drawer-layout@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/react-native-drawer-layout/-/react-native-drawer-layout-3.3.0.tgz"
-  integrity sha512-Wz+UVUEQyXy32gpQ4WrDMvTqfNBGYvGXnf79Xi5w3r58G9X+WSQL6Rr96AQz8O3xE9mPF0oWx1oSqCriosaS6Q==
-  dependencies:
-    use-latest-callback "^0.1.9"
-
 react-native-gesture-handler@^2.16.0, "react-native-gesture-handler@>= 1.0.0":
   version "2.16.0"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.16.0.tgz"
