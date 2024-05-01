@@ -3,7 +3,7 @@ import { useState } from "react";
 import GlobalStyles from '../../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import PageBackIcon from '../../assets/images/icons/history-icon-3.png';
-import subscribeImage from '../../assets/images/subscribe-image.png';
+import subscribeImage from "../../assets/images/Subscribe-image.png";
 import subscribeIcon from '../../assets/images/icons/subscribe-icon.png';
 import DefaultButton from "../../components/DefaultButton";
 const RemoveAd = () => {
