@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import BlogCard from "./BlogCard";
 import GlobalStyles from "../../../styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 const sampleComments = [{
     name: "Albert Ailey",
@@ -24,10 +25,13 @@ const sampleComments = [{
 }];
 
 const HomeBlogs = () => {
+
+    const navigation = useNavigation();
+
     return (<View style={{ flex: 1 }}>
         <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding, styles.appbar]}>
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <View style={{ padding: 7, marginRight: 5 }}>
                         <Image source={SidebarIcon} />
                     </View>

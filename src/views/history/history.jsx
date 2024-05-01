@@ -68,7 +68,7 @@ const History = () => {
         <View style={{ backgroundColor: "white" }}>
             <View>
                 <View style={[{ flexDirection: 'row', backgroundColor: '#22252A' }, GlobalStyles.appbar, GlobalStyles.defaultAppbarPadding, GlobalStyles.defaultPagePadding]}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}><Image source={ArrowHistoryIcon} style={{ width: 19, height: 15, margin: 15 }} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}><Image source={ArrowHistoryIcon} style={{ width: 19, height: 15, margin: 15 }} /></TouchableOpacity>
                     <Text style={{ fontSize: 18, fontWeight: 600, fontFamily: 'Roboto', color: '#FFFFFF', paddingTop: 10, paddingBottom: 10 }}>History</Text>
                 </View>
                 <View style={{ flexDirection: 'row', padding: 20, backgroundColor: '#FDF0D3' }}>
@@ -128,7 +128,9 @@ const WeeklyHistoryTab = () => {
         <View style={[styles.container, { backgroundColor: 'white' }]}>
             <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between', paddingHorizontal: 15 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 15 }}>
-                    <TouchableOpacity onPress={() => { console.log("LeftArray") }} style={{ flexDirection: "row" }}>
+                    <TouchableOpacity onPress={() => {
+
+                    }} style={{ flexDirection: "row" }}>
                         <View style={{ backgroundColor: '#3C3C3C', display: "flex", alignSelf: "center", paddingVertical: 4, paddingHorizontal: 5.6, borderRadius: 10 }}>
                             <Image source={ArrowLeftHistorySmallIcon} ></Image>
                         </View>
@@ -138,7 +140,9 @@ const WeeklyHistoryTab = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { console.log("LeftArray") }} style={{ flexDirection: "row" }}>
+                    <TouchableOpacity onPress={() => {
+
+                    }} style={{ flexDirection: "row" }}>
                         <View style={{ marginRight: 5 }}>
                             <Text style={styles.text}>WEEK 25</Text>
                         </View>

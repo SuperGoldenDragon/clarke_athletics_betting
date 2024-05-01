@@ -37,7 +37,7 @@ const Login = () => {
                 </View>
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <DefaultButton style={{ width: 300, backgroundColor: 'white' }} onPress={() => navigation.navigate("History")}>
+                        <DefaultButton style={{ width: 300, backgroundColor: 'white' }} /* onPress={() => navigation.navigate("History")} */>
                             <Image source={GmailIcon} ></Image>
                             <Text style={[styles.text, { fontSize: 18, fontWeight: '500', marginLeft: 10 }]}>Continue with Google</Text>
                         </DefaultButton>
