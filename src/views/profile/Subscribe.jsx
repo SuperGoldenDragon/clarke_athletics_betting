@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import ManImage from '../../assets/images/Subscribe-image.png';
+import ManImage from '../../assets/images/subscribe-image.png';
 import PageBackIcon from '../../assets/images/icons/back-icon-2.png';
 import CheckIcon from '../../assets/images/icons/check-icon.png';
 import GlobalStyles from "../../styles/global";

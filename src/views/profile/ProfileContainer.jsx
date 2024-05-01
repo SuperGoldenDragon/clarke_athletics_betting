@@ -15,8 +15,7 @@ import FeedbackIcon from '../../assets/images/icons/feedback-icon.png';
 import ShareIcon from '../../assets/images/icons/share-boxed-icon.png';
 import GlobalStyles from '../../styles/global';
 import DefaultTextButton from '../../components/DefaultTextButton';
-
-const Profile = () => {
+const ProfileContainer = () => {
     const navigation = useNavigation();
     return (
         <View style={{ flex: 1, borderStartColor: 'white' }}>
@@ -99,7 +98,7 @@ const Profile = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={NewIcon}></Image>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('New') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>What's New?</Text>
                     </TouchableOpacity>
                 </View>
@@ -131,8 +130,6 @@ const Profile = () => {
         </View >
     );
 };
-
-export default Profile;
 const styles = StyleSheet.create({
     text: {
         fontFamily: 'Roboto',
@@ -140,3 +137,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 })
+export default ProfileContainer;

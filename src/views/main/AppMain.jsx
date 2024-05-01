@@ -81,28 +81,43 @@ const CustomTabBar = (props) => {
     );
 };
 
-const AppMain = () => {
-
-    const navigation = useNavigation();
-
-    const toParent = (route, params = {}) => {
-        navigation.navigate(route, params);
-    };
+const BottomNavigation = ({ navigation }) => {
 
     return (
-        <NavigationContainer independent={true}>
-            <NavigationContext.Provider value={{ toParent, navigation }}>
-                <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
-                    <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
-                    <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
-                    <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
-                    <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
-                    <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
-                </Tab.Navigator>
-            </NavigationContext.Provider>
-        </NavigationContainer>
 
+        <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
+            <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
+            <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
+            <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
+            <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
+            <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
+        </Tab.Navigator>
     );
+};
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+const Drawer = createDrawerNavigator();
+
+const AppMain = () => {
+    const parentNavigation = useNavigation();
+
+    const toParent = (route, params = {}) => {
+        parentNavigation.navigate(route, params);
+    };
+    return (
+        <NavigationContainer independent={true}>
+            <NavigationContext.Provider value={{ parentNavigation, toParent }}>
+                <Drawer.Navigator initialRouteName="Home">
+                    <Drawer.Screen
+                        name="Main"
+                        component={BottomNavigation}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                </Drawer.Navigator>
+            </NavigationContext.Provider>
+        </NavigationContainer >);
 };
 
 export default AppMain;

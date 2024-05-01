@@ -9,10 +9,10 @@ import React, { useContext } from "react";
 
 const Wager = () => {
 
-    const parentNavigation = useContext(NavigationContext);
+    const parentContext = useContext(NavigationContext);
 
     const toMatchDetail = (match) => {
-        parentNavigation.toParent("Match Detail", { match })
+        parentContext.parentNavigation?.navigate("Match Detail", { match })
     };
 
     return (<View style={{ flex: 1, backgroundColor: "white" }}>

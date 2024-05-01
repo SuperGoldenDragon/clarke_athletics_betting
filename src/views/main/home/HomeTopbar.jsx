@@ -5,15 +5,26 @@ import SearchIcon from '../../../assets/images/icons/search-icon.png';
 import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
 import NewsDefaultLogo from '../../../assets/images/latest-news-temp-image.png';
 import GlobalStyle from '../../../styles/global';
+import { useContext } from "react";
+import NavigationContext from "../../../components/NavigationContext";
+import { useNavigation } from "@react-navigation/native";
 
 const sampleNews = [{}, {}, {}];
 
 const HomeTopbar = () => {
+
+    const parentContext = useContext(NavigationContext);
+    const navigation = useNavigation();
+
+    const onToggleSidebar = () => {
+        navigation.openDrawer();
+    };
+
     return (<View >
         <ImageBackground source={MaskImage} style={styles.mask} />
         <View style={[styles.container, GlobalStyle.defaultPagePadding, GlobalStyle.defaultAppbarPadding]}>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onToggleSidebar}>
                     <View style={{ padding: 7, marginRight: 5 }}>
                         <Image source={SidebarIcon} />
                     </View>
