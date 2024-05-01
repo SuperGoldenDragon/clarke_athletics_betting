@@ -26,7 +26,7 @@ import Settings from './src/views/profile/Settings';
 import LeaguesMatch from './src/views/main/leagues/LeaguesMatch';
 import RemoveAd from './src/views/profile/RemoveAd';
 import TeamDetail from './src/views/teamdetail/TeamDetail';
-import AppMain1 from './src/views/main/AppMain1';
+
 const Stack = createStackNavigator();
 
 function App() {
