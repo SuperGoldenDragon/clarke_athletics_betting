@@ -98,7 +98,7 @@ const ProfileContainer = () => {
                     <View style={{ width: 25, flexDirection: "row", justifyContent: "center" }}>
                         <Image source={NewIcon}></Image>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('New') }}>
                         <Text style={[styles.text, { paddingLeft: 23, fontWeight: '400', fontSize: 14, color: '#3C3C3C' }]}>What's New?</Text>
                     </TouchableOpacity>
                 </View>

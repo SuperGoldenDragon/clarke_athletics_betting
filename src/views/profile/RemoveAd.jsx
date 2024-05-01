@@ -3,8 +3,8 @@ import { useState } from "react";
 import GlobalStyles from '../../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import PageBackIcon from '../../assets/images/icons/history-icon-3.png';
-import subscribeImage from '../../assets/images/subscribe-image.png';
-import subscribeIcon from '../../assets/images/icons/subscribe-icon.png';
+import SubscribeImage from "../../assets/images/subscribe-man-image.png";
+import SubscribeIcon from '../../assets/images/icons/subscribe-icon.png';
 import DefaultButton from "../../components/DefaultButton";
 const RemoveAd = () => {
     const navigation = useNavigation();
@@ -22,7 +22,7 @@ const RemoveAd = () => {
                 </View>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                <Image source={subscribeImage} style={{ flex: 1, resizeMode: 'cover' }}></Image>
+                <Image source={SubscribeImage} style={{ flex: 1, resizeMode: 'cover' }}></Image>
             </View>
             <View style={{ marginVertical: 40 }}>
                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -36,7 +36,7 @@ const RemoveAd = () => {
                     <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
                         <View style={{ flexDirection: "row", paddingBottom: 5 }} >
                             <View style={{ backgroundColor: 'black', alignSelf: "center", paddingHorizontal: 2, paddingVertical: 2, borderRadius: 50, }}>
-                                <Image source={subscribeIcon} ></Image>
+                                <Image source={SubscribeIcon} ></Image>
                             </View>
                             <Text style={[styles.text, { fontWeight: "400", fontSize: 14, color: '#3C3C3C', paddingHorizontal: 10 }]}>
                                 It give you an ad free experience
@@ -44,7 +44,7 @@ const RemoveAd = () => {
                         </View>
                         <View style={{ flexDirection: "row", paddingBottom: 5 }} >
                             <View style={{ backgroundColor: 'black', alignSelf: "center", paddingHorizontal: 2, paddingVertical: 2, borderRadius: 50 }}>
-                                <Image source={subscribeIcon} ></Image>
+                                <Image source={SubscribeIcon} ></Image>
                             </View>
                             <Text style={[styles.text, { fontWeight: "400", fontSize: 14, color: '#3C3C3C', paddingHorizontal: 10 }]}>
                                 It supports our work
@@ -52,7 +52,7 @@ const RemoveAd = () => {
                         </View>
                         <View style={{ flexDirection: "row", paddingBottom: 5 }} >
                             <View style={{ backgroundColor: 'black', alignSelf: "center", paddingHorizontal: 2, paddingVertical: 2, borderRadius: 50 }}>
-                                <Image source={subscribeIcon} ></Image>
+                                <Image source={SubscribeIcon} ></Image>
                             </View>
                             <Text style={[styles.text, { fontWeight: "400", fontSize: 14, color: '#3C3C3C', paddingHorizontal: 10 }]}>
                                 It’s Optional
