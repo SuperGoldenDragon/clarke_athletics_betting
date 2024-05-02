@@ -25,8 +25,10 @@ const Login = () => {
     };
 
     return (
-        <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
-            style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+            <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']} style={{ position: "absolute", zIndex: -100, width: "100%", height: "100%" }}>
+
+            </LinearGradient>
             <View style={{ flexDirection: 'row', justifyContent: 'center', left: '-10%', }}>
                 <Image style={{ opacity: 0.43 }} source={loginlogo3} />
             </View>
@@ -54,15 +56,15 @@ const Login = () => {
                         <TouchableOpacity onPress={() => navigation.navigate("Sign up")}>
                             <Text style={[sytles.text, { color: '#F7D068', fontSize: 15 }]} >SIGN UP</Text>
                         </TouchableOpacity>
-
                     </View>
                 </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
-                <ImageBackground source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
+            <View style={{ flex: 1, zIndex: -1 }}>
+                <ImageBackground source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5 }}
                     onLoad={handleImageLoad}></ImageBackground>
             </View>
-        </LinearGradient>
+        </View>
+
     );
 };
 

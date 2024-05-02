@@ -23,8 +23,10 @@ const Login = () => {
     };
 
     return (
-        <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
-            style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+            <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
+                style={{ position: "absolute", width: "100%", height: "100%", zIndex: -100 }}>
+            </LinearGradient >
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', left: '-10%', }}>
                     <Image style={{ opacity: 0.43 }} source={loginlogo3} />
@@ -48,12 +50,13 @@ const Login = () => {
                         </DefaultButton>
                     </View>
                 </View>
-                <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row", zIndex: -1 }}>
                     <ImageBackground source={LoginBottomMask} resizeMethod='contain' style={{ ...imageSize, opacity: 0.5, alignSelf: "flex-end" }}
                         onLoad={handleImageLoad}></ImageBackground>
                 </View>
             </View>
-        </LinearGradient >
+        </View>
+
     );
 };
 
