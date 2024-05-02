@@ -13,7 +13,6 @@ import TVSchedule from '../profile/TVSchedule';
 import BattleDraft from '../profile/BattleDraft';
 import DroppingOdds from '../profile/DroppingOdds';
 import Settings from '../profile/Settings';
-import RemoveAd from '../profile/RemoveAd';
 import WhatsNew from '../profile/WhatsNew';
 import LeaguesMatch from './leagues/LeaguesMatch';
 import HomeBlogs from './home/HomeBlogs';
@@ -42,7 +41,6 @@ const AppMain = () => {
                     <Drawer.Screen name='Battle' component={BattleDraft} options={{ headerShown: false }} />
                     <Drawer.Screen name='Dropping' component={DroppingOdds} options={{ headerShown: false }} />
                     <Drawer.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
-                    <Drawer.Screen name='Remove' component={RemoveAd} options={{ headerShown: false }} />
                     <Drawer.Screen name='New' component={WhatsNew} options={{ headerShown: false }} />
                     <Drawer.Screen name="Leagues Match" component={LeaguesMatch} options={{ headerShown: false }} />
                     <Drawer.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
