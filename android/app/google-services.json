@@ -12,7 +12,20 @@
           "package_name": "com.clarke_athletics_betting"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "123506907972-ieivs8fgkrqj0u29o1th6mkja1f4j85b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clarke_athletics_betting",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "123506907972-m3a7jctregm9gvggma4o1k3gjsa4kddn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC1yWuGJ4AV0RwGMn19QmjKiK97xaXRTts"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123506907972-m3a7jctregm9gvggma4o1k3gjsa4kddn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
