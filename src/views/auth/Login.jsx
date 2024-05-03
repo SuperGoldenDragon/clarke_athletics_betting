@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import DefaultTextButton from '../../components/DefaultTextButton';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
 import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
+import auth from '@react-native-firebase/auth';
 
 const Login = () => {
 
@@ -23,7 +24,25 @@ const Login = () => {
         const imageHeight = screenWidth / aspectRatio;
         setImageSize({ width: imageWidth, height: imageHeight });
     };
+    const handleLoginSubmit = () => {
+        auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+                console.log('User igned in!');
+                navigation.navigate('Main')
+            })
+            .catch(error => {
+                if (error.code === 'auth/email-already-in-use') {
+                    console.log('That email address is already in use!');
+                }
 
+                if (error.code === 'auth/invalid-email') {
+                    console.log('That email address is invalid!');
+                }
+
+                console.error(error);
+            });
+    }
     return (
         <View style={{ flex: 1 }}>
             <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']} style={{ position: "absolute", zIndex: -100, width: "100%", height: "100%" }}>
@@ -36,8 +55,8 @@ const Login = () => {
                 <View>
                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
                         <View style={{ width: 295 }}>
-                            <TextInput style={[sytles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 20 }]} value={email} placeholder='Email' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
-                            <TextInput style={[sytles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 10 }]} value={password} placeholder='Password' placeholderTextColor={'white'} onChange={(e => setPassword(e.target.value))} />
+                            <TextInput style={[sytles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 20 }]} value={email} placeholder='Email' placeholderTextColor={'white'} onChangeText={setEmail} />
+                            <TextInput style={[sytles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 10 }]} value={password} placeholder='Password' placeholderTextColor={'white'} onChangeText={setPassword} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <TouchableOpacity>
                                     <Text style={[sytles.text, { fontSize: 14, fontWeight: '400', color: '#F3F6F6' }]}>Forget password?</Text>
@@ -49,7 +68,7 @@ const Login = () => {
                         </View>
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', paddingTop: 25, paddingBottom: 10 }}>
-                        <DefaultTextButton style={{ width: 295, fontSize: 19 }} onPress={() => navigation.navigate('Main')} ><Text style={[sytles.text, { fontWeight: '500' }]} >Login</Text></DefaultTextButton>
+                        <DefaultTextButton style={{ width: 295, fontSize: 19 }} onPress={() => handleLoginSubmit()} ><Text style={[sytles.text, { fontWeight: '500' }]} >Login</Text></DefaultTextButton>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
                         <Text style={[sytles.text, { color: '#F3F6F6', fontSize: 14, marginRight: 10 }]}>Don't have an account?</Text>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123506907972",
+    "project_id": "clarke-a9898",
+    "storage_bucket": "clarke-a9898.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123506907972:android:f1da360b73386b976ad511",
+        "android_client_info": {
+          "package_name": "com.clarke_athletics_betting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1yWuGJ4AV0RwGMn19QmjKiK97xaXRTts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
