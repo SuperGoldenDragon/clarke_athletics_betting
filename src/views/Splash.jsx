@@ -13,7 +13,7 @@ const Splash = () => {
     useEffect(() => {
         timeId = setTimeout(() => {
             toLoginSelect();
-        }, 3000);
+        }, 500);
     }, []);
 
     const toLoginSelect = () => {
