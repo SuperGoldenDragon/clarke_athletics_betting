@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
@@ -7,11 +7,17 @@ import loginlogo2 from '../../assets/images/logos/login-logo-2.png';
 import GmailIcon from '../../assets/images/icons/gmail-icon.png';
 import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
 import DefaultButton from '../../components/DefaultButton';
-const Login = () => {
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
 
+const Login = () => {
+    GoogleSignin.configure({
+        webClientId: '123506907972-m3a7jctregm9gvggma4o1k3gjsa4kddn.apps.googleusercontent.com',
+    });
     const navigation = useNavigation();
 
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+    const [loading, setLoading] = useState(false);
 
     const handleImageLoad = (event) => {
         const { width, height } = event.nativeEvent.source;
@@ -21,6 +27,24 @@ const Login = () => {
         const imageHeight = screenWidth / aspectRatio;
         setImageSize({ width: imageWidth, height: imageHeight });
     };
+
+    const handleGoogleContinueSubmit = async () => {
+        setLoading(true);
+        GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+        // Create a Google credential with the token
+        const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
+
+        await auth().signInWithCredential(googleCredential).then(() => {
+            setLoading(false);
+            navigation.navigate('Main')
+        })
+            .catch(error => {
+                setLoading(false);
+                console.error(error);
+            });
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -39,9 +63,10 @@ const Login = () => {
                 </View>
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <DefaultButton style={{ width: 300, backgroundColor: 'white' }} /* onPress={() => navigation.navigate("History")} */>
+                        <DefaultButton style={{ width: 300, backgroundColor: 'white' }} onPress={() => handleGoogleContinueSubmit()} >
                             <Image source={GmailIcon} ></Image>
                             <Text style={[styles.text, { fontSize: 18, fontWeight: '500', marginLeft: 10 }]}>Continue with Google</Text>
+                            {loading && <ActivityIndicator style={{ paddingHorizontal: 20 }} size="small" color="#22252A" />}
                         </DefaultButton>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>

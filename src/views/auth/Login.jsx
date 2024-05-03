@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, Dimensions, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, Dimensions, ImageBackground, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +15,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+    const [loading, setLoading] = useState(false)
 
     const handleImageLoad = (event) => {
         const { width, height } = event.nativeEvent.source;
@@ -25,11 +26,13 @@ const Login = () => {
         setImageSize({ width: imageWidth, height: imageHeight });
     };
     const handleLoginSubmit = () => {
+        setLoading(true)
         auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
                 console.log('User igned in!');
-                navigation.navigate('Main')
+                setLoading(false)
+                navigation.navigate('Main');
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
@@ -39,7 +42,7 @@ const Login = () => {
                 if (error.code === 'auth/invalid-email') {
                     console.log('That email address is invalid!');
                 }
-
+                setLoading(false)
                 console.error(error);
             });
     }
@@ -68,7 +71,10 @@ const Login = () => {
                         </View>
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', paddingTop: 25, paddingBottom: 10 }}>
-                        <DefaultTextButton style={{ width: 295, fontSize: 19 }} onPress={() => handleLoginSubmit()} ><Text style={[sytles.text, { fontWeight: '500' }]} >Login</Text></DefaultTextButton>
+                        <DefaultTextButton style={{ width: 295, fontSize: 19 }} onPress={() => handleLoginSubmit()} >
+                            <Text style={[sytles.text, { fontWeight: '500' }]} >Login</Text>
+                            {loading && <ActivityIndicator style={{ paddingHorizontal: 20 }} size="small" color="#22252A" />}
+                        </DefaultTextButton>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
                         <Text style={[sytles.text, { color: '#F3F6F6', fontSize: 14, marginRight: 10 }]}>Don't have an account?</Text>
