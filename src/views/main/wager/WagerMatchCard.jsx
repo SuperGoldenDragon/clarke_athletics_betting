@@ -17,7 +17,11 @@ const WagerMatchCard = (props) => {
     const navigation = useNavigation();
 
     const onGoToDetail = () => {
-        navigation.navigate("Match Detail");
+        try {
+            navigation.navigate("Match Detail");
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (<View style={[styles.container, odd && styles.odd_border]}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, ScrollView, ActivityIndicator } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,11 +7,55 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { useState } from 'react';
 import DropdownIcon from '../../assets/images/icons/login-vector.png';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
-import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    const [userName, setUserName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [ischecked, setIschecked] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const navigation = useNavigation();
+
+    const handleSignUp = () => {
+        setLoading(true)
+        auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                console.log('User account created & signed in!');
+
+                firestore()
+                    .collection('Users')
+                    .add({
+                        userName: userName,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                    })
+                    .then(() => {
+                        console.log('User added!');
+                        navigation.navigate('Main')
+                    })
+                    .catch((e) => console.log(e));
+                setLoading(false)
+            })
+            .catch(error => {
+                if (error.code === 'auth/email-already-in-use') {
+                    console.log('That email address is already in use!');
+                }
+
+                if (error.code === 'auth/invalid-email') {
+                    console.log('That email address is invalid!');
+                }
+
+                console.error(error);
+                setLoading(false)
+            });
+    }
     return (
         <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
             style={{ flex: 1 }}>
@@ -21,16 +65,17 @@ const Signup = () => {
                 </View>
                 <View style={{ alignItems: 'center', color: 'white' }}>
                     <View style={{ flexDirection: 'row', padding: 5 }}>
-                        <TextInput style={[styles.text, { backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white' }]} value={email} placeholder='Username' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Username' placeholderTextColor={'white'} onChangeText={setUserName} />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, { backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white' }]} value={email} placeholder='First Name' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='First Name' placeholderTextColor={'white'} onChangeText={setFirstName} />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, { backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white' }]} value={email} placeholder='Last Name' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Last Name' placeholderTextColor={'white'} onChangeText={setLastName} />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, { backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white' }]} value={email} placeholder='Email' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
+                        <TextInput style={[styles.text, styles.inputText]}
+                            placeholder='Email' placeholderTextColor={'white'} onChangeText={setEmail} />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <SelectDropdown
@@ -114,13 +159,15 @@ const Signup = () => {
                         />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, { backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white' }]} value={email} placeholder='Password' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Password' placeholderTextColor={'white'} onChangeText={setPassword} />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, { backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white' }]} value={email} placeholder='Confirm Password' placeholderTextColor={'white'} onChange={(e) => setEmail(e.target.value)} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Confirm Password' placeholderTextColor={'white'} />
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
-                        <TouchableOpacity style={{ width: 295, fontSize: 19, backgroundColor: '#F7D068', borderRadius: 5, paddingVertical: 10 }}><Text style={[styles.text, { fontWeight: '500', textAlign: 'center', fontSize: 18, color: '#22252A' }]}>Sing Up</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => { handleSignUp() }} style={{ width: 295, fontSize: 19, backgroundColor: '#F7D068', borderRadius: 5, paddingVertical: 10 }}>
+                            <Text style={[styles.text, { fontWeight: '500', textAlign: 'center', fontSize: 18, color: '#22252A' }]}>Sing Up</Text>
+                            {loading && <ActivityIndicator style={{ paddingHorizontal: 20 }} size="small" color="#22252A" />}</TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ justifyContent: 'center', paddingTop: 1 }}>
@@ -233,5 +280,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         marginRight: 8,
     },
-
+    inputText: {
+        backgroundColor: 'grey', width: 295, fontSize: 16, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white'
+    }
 })

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "123506907972",
+    "firebase_url": "https://clarke-a9898-default-rtdb.firebaseio.com",
+    "project_id": "clarke-a9898",
+    "storage_bucket": "clarke-a9898.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123506907972:android:f1da360b73386b976ad511",
+        "android_client_info": {
+          "package_name": "com.clarke_athletics_betting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123506907972-ieivs8fgkrqj0u29o1th6mkja1f4j85b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clarke_athletics_betting",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "123506907972-m3a7jctregm9gvggma4o1k3gjsa4kddn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1yWuGJ4AV0RwGMn19QmjKiK97xaXRTts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123506907972-m3a7jctregm9gvggma4o1k3gjsa4kddn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
