@@ -1,3 +1,4 @@
+/*WAGER/STATICS*/
 import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import SortIcon from '../../assets/images/icons/sort-icon.png';
 import SelectDropdown from "react-native-select-dropdown";

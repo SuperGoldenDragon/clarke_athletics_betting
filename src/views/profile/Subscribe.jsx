@@ -1,3 +1,4 @@
+/*Profile/Remove Ad*/
 import React, { useState } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";

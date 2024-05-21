@@ -1,3 +1,4 @@
+/*WAGER/SQUAD*/
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import PlayerAvatar from '../../assets/images/avatars/avatar-2.png';
 import DefaultFlag from '../../assets/images/flags/default-flag.png';

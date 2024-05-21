@@ -1,3 +1,4 @@
+/*WAGER/TOP PLAYERS*/
 import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import global from "../../styles/global";
 import SortIcon from '../../assets/images/icons/sort-icon.png';
