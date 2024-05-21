@@ -1,7 +1,7 @@
 import { View, Image, StyleSheet, Text } from "react-native";
 import DefaultAvatar from '../assets/images/avatars/avatar-1.png';
 
-const ChatBubble = (props: any) => {
+const ChatBubble = (props) => {
 
     const { avatar, name, you, time, content } = props;
 

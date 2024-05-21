@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, TextInput, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, ScrollView, ActivityIndicator, TurboModuleRegistry } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -13,12 +13,18 @@ import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
+    const [EmailVerify, setEmailVerify] = useState(false);
+    const [password, setPassword] = useState('');
+    const [passwordVerify, setPasswordVerify] = useState(false);
     const [userName, setUserName] = useState('');
+    const [usernameVerify, setUsernameVerify] = useState(false);
     const [firstName, setFirstName] = useState('');
+    const [userfirstnameVerify, setUserfirstnameVerify] = useState(false)
     const [lastName, setLastName] = useState('');
+    const [userlastnameVerify, setUserlastnameVerify] = useState(false)
     const [ischecked, setIschecked] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [confirmpassword, setConfirmpassword] = useState('');
     const navigation = useNavigation();
 
     const handleSignUp = () => {
@@ -56,6 +62,56 @@ const Signup = () => {
                 setLoading(false)
             });
     }
+    function handleUserFirstName(e) {
+        const firstNamevar = e;
+        setFirstName(firstNamevar);
+        setUserfirstnameVerify(false);
+        if (firstNamevar.length > 1) {
+            setUserfirstnameVerify(true);
+        }
+    }
+    function handleUserLastName(e) {
+        const LastNamevar = e;
+        setLastName(LastNamevar);
+        setUserlastnameVerify(false);
+        if (LastNamevar.length > 1) {
+            setUserlastnameVerify(true);
+        }
+    }
+    function handleEmail(e) {
+        const Emailvar = e;
+        setEmail(Emailvar);
+        setEmailVerify(false);
+        if (/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(Emailvar)) {
+            setEmail(Emailvar);
+            setEmailVerify(true);
+        }
+
+    }
+    function handlePassword(e) {
+        const passwordVar = e;
+        setPassword(passwordVar);
+        setPasswordVerify(false);
+        if (/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(passwordVar)) {
+            setPassword(passwordVar);
+            setPasswordVerify(true);
+        }
+    }
+    function handleconfirmPassword(e) {
+        const confirmpasswordVar = e;
+        if (confirmpasswordVar == password) {
+            setConfirmpassword(confirmpasswordVar);
+            // console.log("success!");
+        }
+    }
+    function handleUsername(e) {
+        const uservar = e;
+        setUserName(uservar);
+        setUsernameVerify(false);
+        if (uservar.length > 1) {
+            setUsernameVerify(true);
+        }
+    }
     return (
         <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
             style={{ flex: 1 }}>
@@ -65,18 +121,46 @@ const Signup = () => {
                 </View>
                 <View style={{ alignItems: 'center', color: 'white' }}>
                     <View style={{ flexDirection: 'row', padding: 5 }}>
-                        <TextInput style={[styles.text, styles.inputText]} placeholder='Username' placeholderTextColor={'white'} onChangeText={setUserName} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Username' placeholderTextColor={'white'} onChangeText={e => handleUsername(e)} />
                     </View>
+                    {userName.length < 1 ? null : usernameVerify ? null : (
+                        <Text
+                            style={{
+                                marginLeft: 73.5,
+                                color: 'white',
+                            }}>
+                            UserName should be to equal with FirstName and LastName
+                        </Text>
+                    )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, styles.inputText]} placeholder='First Name' placeholderTextColor={'white'} onChangeText={setFirstName} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='First Name' placeholderTextColor={'white'} onChangeText={e => handleUserFirstName(e)} />
                     </View>
+                    {firstName.length < 1 ? null : userfirstnameVerify ? null : (
+                        <Text style={{ marginLeft: 10, color: 'white' }}>
+                            FirstName should be more than 1 character
+                        </Text>
+                    )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, styles.inputText]} placeholder='Last Name' placeholderTextColor={'white'} onChangeText={setLastName} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Last Name' placeholderTextColor={'white'} onChangeText={e => handleUserLastName(e)} />
                     </View>
+                    {lastName.length < 1 ? null : userlastnameVerify ? null : (
+                        <Text style={{ marginLeft: 10, color: 'white' }}>
+                            LastName should be more than 1 character
+                        </Text>
+                    )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <TextInput style={[styles.text, styles.inputText]}
-                            placeholder='Email' placeholderTextColor={'white'} onChangeText={setEmail} />
+                            placeholder='Email' placeholderTextColor={'white'} onChangeText={e => handleEmail(e)} />
                     </View>
+                    {email.length < 1 ? null : EmailVerify ? null : (
+                        <Text
+                            style={{
+                                marginLeft: 20,
+                                color: 'white',
+                            }}>
+                            Please Enter proper Email address
+                        </Text>
+                    )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <SelectDropdown
                             data={[]}
@@ -159,10 +243,19 @@ const Signup = () => {
                         />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, styles.inputText]} placeholder='Password' placeholderTextColor={'white'} onChangeText={setPassword} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Password' placeholderTextColor={'white'} secureTextEntry={true} onChangeText={e => handlePassword(e)} />
                     </View>
+                    {password.length < 1 ? null : passwordVerify ? null : (
+                        <Text
+                            style={{
+                                marginLeft: 10,
+                                color: 'white',
+                            }}>
+                            Uppercase,Lowercase,Number and 6 or more characters
+                        </Text>
+                    )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, styles.inputText]} placeholder='Confirm Password' placeholderTextColor={'white'} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Confirm Password' placeholderTextColor={'white'} onChangeText={e => handleconfirmPassword(e)} />
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
                         <TouchableOpacity onPress={() => { handleSignUp() }} style={{ width: 295, fontSize: 19, backgroundColor: '#F7D068', borderRadius: 5, paddingVertical: 10 }}>
