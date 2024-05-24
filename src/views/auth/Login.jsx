@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import DefaultTextButton from '../../components/DefaultTextButton';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
 import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
-import auth from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
 
 const Login = () => {
@@ -46,6 +46,7 @@ const Login = () => {
                     console.log('App opened by notification from closed state:', remoteMessage);
                     // Handle notification interaction when the app is opened from a closed state
                 });
+
                 navigation.navigate('Main');
             })
             .catch(error => {
