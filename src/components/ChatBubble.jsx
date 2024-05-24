@@ -1,40 +1,21 @@
 import { View, Image, StyleSheet, Text } from "react-native";
-import auth, { firebase } from '@react-native-firebase/auth';
-import moment from "moment";
-const ChatBubble = (props) => {
-    const { chat } = props;
-    const { id, imageUrl, text, owner, createdAt, Username } = chat;
-    currenttime = moment(createdAt).format("YYYY-MM-DD | h:mm  A");
-    const currentUser = auth().currentUser.uid;
-    const playname = auth().currentUser.displayName;
-    const Email = auth().currentUser.email;
-    return owner === currentUser ? (<View style={styles.you_container}>
-        <View style={[styles.avatar_container]}>
-            <Image source={{ uri: imageUrl }} style={styles.avatar} />
-        </View>
-        <View style={{ flexGrow: 1, maxWidth: "80%" }}>
-            <Text style={[styles.name, { textAlign: "right" }]}>{Username}</Text>
-            <View style={[styles.bubble, { alignItems: "flex-end" }]}>
-                <View style={{}}>
-                    <Text style={[styles.content, styles.you_bubble_border]}>{text}</Text>
-                    <Text style={styles.time}>
-                        {currenttime}
-                    </Text>
-                </View>
+import DefaultAvatar from '../assets/images/avatars/avatar-1.png';
 
-            </View>
-        </View>
-    </View>) : (<View style={[styles.container]}>
-        <View style={[styles.avatar_container]}>
-            <Image source={{ uri: imageUrl }} style={styles.avatar} />
+const ChatBubble = (props) => {
+
+    const { avatar, name, you, time, content } = props;
+
+    return (<View style={you ? styles.you_container : styles.container}>
+        <View style={styles.avatar_container}>
+            <Image source={DefaultAvatar} style={styles.avatar} />
         </View>
         <View style={{ flexGrow: 1, maxWidth: "80%" }}>
-            <Text style={[styles.name, { textAlign: "left", paddingLeft: 5 }]}>{Username}</Text>
-            <View style={[styles.bubble, { alignItems: "flex-start" }]}>
-                <View style={{}} >
-                    <Text style={[styles.content, styles.bubble_border, {}]}>{text}</Text>
-                    <Text style={[styles.time, { textAlign: "left" }]}>
-                        {currenttime}
+            <Text style={[styles.name, { textAlign: you ? "right" : "left" }]}>{you ? "You" : name}</Text>
+            <View style={[styles.bubble, { alignItems: you ? "flex-end" : "flex-start" }]}>
+                <View >
+                    <Text style={[styles.content, you ? styles.you_bubble_border : styles.bubble_border]}>{content}</Text>
+                    <Text style={styles.time}>
+                        {time}
                     </Text>
                 </View>
 
@@ -52,24 +33,17 @@ const styles = StyleSheet.create({
     },
     avatar_container: {
         borderRadius: 64,
-        marginRight: 10,
-
+        marginRight: 10
     },
     avatar: {
         width: 32,
-        height: 32,
-        marginLeft: 0,
-        marginRight: 5,
-        borderRadius: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: 32
     },
     name: {
         color: "#000E08",
-        marginBottom: 9,
+        marginBottom: 7,
         fontWeight: "500",
-        marginRight: 6,
-        fontSize: 8
+        marginRight: 6
     },
     bubble: {
         marginBottom: 6,
@@ -95,10 +69,9 @@ const styles = StyleSheet.create({
     },
     time: {
         textAlign: "right",
-        fontSize: 7,
+        fontSize: 9,
         fontWeight: "900",
-        paddingHorizontal: 5,
-
+        paddingHorizontal: 10
     }
 });
 

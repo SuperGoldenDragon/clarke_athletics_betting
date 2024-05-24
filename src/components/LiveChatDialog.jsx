@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View, Text, ScrollView, TextInput, FlatList, ActivityIndicator, PermissionsAndroid } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View, Text, ScrollView, TextInput } from 'react-native';
 import CloseIcon from '../assets/images/icons/close-icon.png';
 import FullscreenIcon from '../assets/images/icons/fullscreen-icon.png';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -7,176 +7,20 @@ import DropDownIcon from '../assets/images/icons/drop-down-icon.png';
 import TeamLogo1 from '../assets/images/logos/team-logo-1.png';
 import CameraIcon from '../assets/images/icons/camera-icon.png';
 import AttachmentIcon from '../assets/images/icons/attachment-icon.png';
-import { launchImageLibrary, launchCamera, ImagePickerResponse, ImagePicker } from 'react-native-image-picker';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import CopyIcon from '../assets/images/icons/copy-icon.png';
+import DefaultAvatar from '../assets/images/avatars/avatar-1.png';
 import ChatBubble from './ChatBubble';
-import { useState } from 'react';
-import { Alert } from 'react-native';
-import SendButton from './SendButton';
-import Input from './Input';
+
 const emojisWithIcons = [];
 
 const LiveChatDialog = (props) => {
     const { open, onClose } = props;
-    const [chats, setChats] = useState([]);
-    const [text, setText] = useState('');
-    const [User_name, setName] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState(null);
+
     useEffect(() => {
         if (open) {
-            const unsubscribe = firestore()
-                .collection('chats')
-                .orderBy('createdAt', 'asc')    // Sort by timestamp
-                .limitToLast(15)
-                // Only retrieve the last 15 messages
-                .onSnapshot(querySnapshot => {
-                    const chatsArr = [];
-                    querySnapshot.forEach(doc => {
-                        const id = doc.id;
-                        const data = doc.data();
-                        // Add docId and chat data to chats array 
-                        chatsArr.push({ id, ...data });
-
-                    });
-                    setChats(chatsArr);
-                    setLoading(false);
-                });
-
-            return () => {
-                unsubscribe();
-                setLoading(false);
-            };
+            console.log("opened");
         }
     }, [open]);
-    if (loading) {
-        return <ActivityIndicator />;  // Show loader while loading chats
-    } else {
-        const username = auth().currentUser.displayName;
-    }
-    //select the image on the gallery
-    const galleryPickerImage = () => {
-        const options = {
-            mediaType: 'photo',
-            includeBase64: false,
-            maxHeight: 2000,
-            maxWidth: 2000,
-        };
-        launchImageLibrary(options, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('Image picker error: ', response.error);
-            } else {
-                console.log(response);
-                let imageUri = response.uri || response.assets?.[0]?.uri;
-                setSelectedImage(imageUri);
-            }
-        });
-    }
-
-    //select the camera
-    const requestCameraPermission = async () => {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.CAMERA,
-                {
-                    title: "App Camera Permission",
-                    message: "App needs access to your camera",
-                    buttonNeutral: "Ask Me Later",
-                    buttonNegative: "Cancel",
-                    buttonPositive: "OK"
-                }
-            );
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("Camera permission granted");
-                opencamera(); // Call openCamera if permission is granted
-            } else {
-                console.log("Camera permission denied");
-            }
-        } catch (err) {
-            console.warn(err);
-        }
-    };
-    const opencamera = () => {
-        let options = {
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-        launchCamera(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                Alert.alert(response.customButton);
-            } else {
-                const source = { uri: response.uri };
-                console.log('response', JSON.stringify(response));
-                console.log("source:::" + source);
-            }
-        });
-
-    }
-    const sendMessage = async e => {
-        const { uid, photoURL } = auth().currentUser;
-        const playname = auth().currentUser.displayName;
-        const Email = auth().currentUser.email;
-        console.log("Email::::" + Email);
-        if (auth().currentUser.displayName == null) {
-
-            firestore().collection('Users').where('email', '==', Email).get()
-                .then(snapshot => {
-                    snapshot.forEach(doc => {
-                        const doc_data = doc.data().userName;
-                        console.log("data+" + doc_data);
-                        setName(doc_data);
-                    });
-                })
-
-        } else {
-            console.log("Playname+++:" + playname);
-        }
-
-        // Dont allow empty/large messages
-        if (text.length > 1 && text.length < 40) {
-            try {
-                e.preventDefault();
-                setLoading(true);
-
-                firestore()
-                    .collection('chats')
-                    .doc()
-                    .set({
-                        owner: uid,
-                        imageUrl: photoURL ? photoURL : selectedImage,
-                        text: text,
-                        Username: playname ? playname : User_name,
-                        createdAt: Date.now(),
-                    })
-                    .then(() => {
-                        setText('');
-                        setLoading(false);
-                    })
-                    .catch(err => {
-                        setLoading(false);
-                        Alert.alert('Error', err);
-                    });
-            } catch (err) {
-                setLoading(false);
-                Alert.alert('Error', err);
-            }
-        } else {
-            setLoading(false);
-            Alert.alert('Chat not sent', 'Must be between 1 and 40 characters');
-        }
-    };
 
     return (<View style={[styles.container, { display: open ? "flex" : "none" }]}>
         <View style={styles.mask_bg}></View>
@@ -213,62 +57,79 @@ const LiveChatDialog = (props) => {
                         </View>
 
                     </View>
-                    {/* <View style={{ flexGrow: 1 }}>
+                    <View style={{ flexGrow: 1 }}>
                         <Text style={{ color: "#22252A", fontWeight: "500", textAlign: "center" }}>Washington Wizards</Text>
                     </View>
                     <View style={{ flexGrow: 1, flexDirection: "row", justifyContent: "flex-end", paddingVertical: 4 }}>
                         <TouchableOpacity>
                             <Image source={FullscreenIcon} />
                         </TouchableOpacity>
-                    </View> */}
+                    </View>
                 </View>
                 <View style={{ flexDirection: "row", flex: 1 }}>
                     <View >
-                        <ScrollView style={{}}>
+                        <ScrollView>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingHorizontal: 10, paddingVertical: 7 }}>
-                                <TouchableOpacity onPress={() => { console.log("channel1") }}>
-                                    <Image source={TeamLogo1} style={styles.teamLogo} />
-                                </TouchableOpacity>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
                             </View>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <TouchableOpacity onPress={() => { console.log("channel2") }}>
-                                    <Image source={TeamLogo1} style={styles.teamLogo} />
-                                </TouchableOpacity>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Image source={TeamLogo1} style={styles.teamLogo} />
                             </View>
                         </ScrollView>
                     </View>
                     <View style={{ flexGrow: 1, flex: 1 }}>
                         <View style={{ flex: 1, borderBottomColor: "#EEFAF8", borderBottomWidth: 1, marginBottom: 10 }}>
-                            <View style={[styles.chatStyle, {}]}>
-                                {chats && (
-                                    <FlatList
-                                        data={chats}
-                                        renderItem={({ item }) => <ChatBubble key={item.id} chat={item} />}
-                                    />
-                                )}
-                            </View>
+                            <ScrollView>
+                                <ChatBubble avatar={DefaultAvatar} name={"Hafizur Rahman"} content="Have a great working week!!" time="09:25 AM" />
+                                <ChatBubble avatar={DefaultAvatar} name={"Majharul Haque"} content="This is my new 3d design" time="09:25 AM" />
+                                <ChatBubble avatar={DefaultAvatar} name={"Annei Ellison"} content="This is my new 3d design" time="09:25 AM" />
+                                <ChatBubble avatar={DefaultAvatar} content="You did your job well!" time="09:25 AM" you={true} />
+                            </ScrollView>
                         </View>
                         <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }} onPress={() => { galleryPickerImage(); }}>
+                            <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }}>
                                 <Image source={AttachmentIcon} />
                             </TouchableOpacity>
                             <View style={{ flexDirection: "row", flexGrow: 1, backgroundColor: "#F3F6F6", borderRadius: 6, paddingHorizontal: 6 }}>
                                 <TextInput
-                                    value={text} onChangeText={setText}
                                     style={{ paddingVertical: 0, fontSize: 10, flexGrow: 1, width: "60%" }}
                                     placeholder='Write your message'
                                     multiline={true}
                                 />
-                                <SendButton handleChat={sendMessage} />
+                                <TouchableOpacity style={{ paddingVertical: 7 }}>
+                                    <Image source={CopyIcon} />
+                                </TouchableOpacity>
                             </View>
-                            <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }} onPress={() => { requestCameraPermission(); }}>
+                            <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }}>
                                 <Image source={CameraIcon} />
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-            </View>
-            <View>
             </View>
             <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                 <TouchableOpacity onPress={onClose} style={styles.close}>
@@ -280,7 +141,6 @@ const LiveChatDialog = (props) => {
     </View>);
 
 };
-
 
 const styles = StyleSheet.create({
     container: {
