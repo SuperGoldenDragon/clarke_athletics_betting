@@ -48,10 +48,10 @@ const Home = () => {
         <View style={{ paddingHorizontal: 21, flex: 1, }}>
             <ScrollView>
                 <BlogCard onLiveChat={_ => setChatMatch({})} />
+                {/* <BlogCard />
                 <BlogCard />
                 <BlogCard />
-                <BlogCard />
-                <BlogCard />
+                <BlogCard /> */}
             </ScrollView>
         </View >
         <LiveChatDialog open={chatMatch != null} onClose={() => setChatMatch(null)} />
