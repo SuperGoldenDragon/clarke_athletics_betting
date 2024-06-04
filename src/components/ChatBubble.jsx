@@ -3,11 +3,12 @@ import auth, { firebase } from '@react-native-firebase/auth';
 import moment from "moment";
 const ChatBubble = (props) => {
     const { chat } = props;
-    const { id, imageUrl, text, owner, createdAt, Username } = chat;
+    const { id, imageUrl, text, owner, createdAt, Username, channelName } = chat;
     currenttime = moment(createdAt).format("YYYY-MM-DD | h:mm  A");
     const currentUser = auth().currentUser.uid;
     const playname = auth().currentUser.displayName;
     const Email = auth().currentUser.email;
+    // console.log("sssss", channelName);
     return owner === currentUser ? (<View style={styles.you_container}>
         <View style={[styles.avatar_container]}>
             <Image source={{ uri: imageUrl }} style={styles.avatar} />

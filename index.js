@@ -13,7 +13,7 @@ import SelectLoginMode from './src/views/auth/SelectLoginMode';
 import Login from './src/views/auth/Login';
 import Signup from './src/views/auth/Signup';
 import AppMain from './src/views/main/AppMain';
-
+import ForgetPassword from './src/views/auth/ForgetPassword';
 const Stack = createStackNavigator();
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name="Sign up" component={Signup} options={{ headerShown: false }} />
                 <Stack.Screen name="Main" component={AppMain} options={{ headerShown: false }} />
+                <Stack.Screen name='Forget' component={ForgetPassword} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

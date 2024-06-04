@@ -11,45 +11,72 @@ import { launchImageLibrary, launchCamera, ImagePickerResponse, ImagePicker } fr
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ChatBubble from './ChatBubble';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Alert } from 'react-native';
 import SendButton from './SendButton';
-import Input from './Input';
+
 const emojisWithIcons = [];
 
 const LiveChatDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, active } = props;
     const [chats, setChats] = useState([]);
     const [text, setText] = useState('');
     const [User_name, setName] = useState('');
+    const [uri, setURI] = useState('');
+    const [chat_username, Setchatusername] = useState('');
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
+    const isMounted = useRef(true);
     useEffect(() => {
         if (open) {
+            //get the username on the Users.
+            if (auth().currentUser.displayName == null) {
+                firestore().collection('Users').where('email', '==', auth().currentUser.email).get()
+                    .then(snapshot => {
+                        snapshot?.forEach(doc => {
+                            const doc_data = doc.data().userName;
+                            setName(doc_data);
+                        });
+                    })
+            }
+            firestore()
+                .collection('chats')
+                .where('email', '==', auth().currentUser.email)
+                .get()
+                .then(snapshot => {
+                    snapshot.forEach(doc => {
+                        const doc_name = doc.data().Username;
+                        const doc_uri = doc.data().imageUrl;
+                        setURI(doc_uri);
+                        Setchatusername(doc_name);
+                    });
+                })
             const unsubscribe = firestore()
                 .collection('chats')
-                .orderBy('createdAt', 'asc')    // Sort by timestamp
+                .where('channelName', '==', active)
+                .orderBy('createdAt', 'asc')
                 .limitToLast(15)
-                // Only retrieve the last 15 messages
                 .onSnapshot(querySnapshot => {
-                    const chatsArr = [];
-                    querySnapshot.forEach(doc => {
+                    let chatsArr = [];
+                    if (querySnapshot === null) return;
+                    querySnapshot?.forEach(doc => {
                         const id = doc.id;
                         const data = doc.data();
-                        // Add docId and chat data to chats array 
                         chatsArr.push({ id, ...data });
-
                     });
+                    // console.log("-----------the chatsArrr----------");
+                    // console.log(active);
+                    // console.log(chatsArr);
+                    // console.log("-----------end--------------------");
                     setChats(chatsArr);
                     setLoading(false);
                 });
-
             return () => {
                 unsubscribe();
                 setLoading(false);
             };
         }
-    }, [open]);
+    }, [open, text]);
     if (loading) {
         return <ActivityIndicator />;  // Show loader while loading chats
     } else {
@@ -75,7 +102,6 @@ const LiveChatDialog = (props) => {
             }
         });
     }
-
     //select the camera
     const requestCameraPermission = async () => {
         try {
@@ -124,47 +150,40 @@ const LiveChatDialog = (props) => {
         });
 
     }
+    //save the data of the livechat when button clicked.
     const sendMessage = async e => {
         const { uid, photoURL } = auth().currentUser;
         const playname = auth().currentUser.displayName;
         const Email = auth().currentUser.email;
-        console.log("Email::::" + Email);
-        if (auth().currentUser.displayName == null) {
-
-            firestore().collection('Users').where('email', '==', Email).get()
-                .then(snapshot => {
-                    snapshot.forEach(doc => {
-                        const doc_data = doc.data().userName;
-                        console.log("data+" + doc_data);
-                        setName(doc_data);
-                    });
-                })
-
-        } else {
-            console.log("Playname+++:" + playname);
-        }
 
         // Dont allow empty/large messages
+
         if (text.length > 1 && text.length < 40) {
+
             try {
                 e.preventDefault();
                 setLoading(true);
-
-                firestore()
+                await firestore()
                     .collection('chats')
                     .doc()
                     .set({
                         owner: uid,
-                        imageUrl: photoURL ? photoURL : selectedImage,
+                        imageUrl: photoURL ? photoURL : selectedImage ? selectedImage : uri,
                         text: text,
-                        Username: playname ? playname : User_name,
+                        Username: playname ? playname : User_name ? User_name : chat_username,
                         createdAt: Date.now(),
+                        email: Email,
+                        channelName: active
                     })
                     .then(() => {
                         setText('');
+                        console.log("------------------chats------------");
+                        console.log(chats);
+                        console.log("-----------------end-------------");
                         setLoading(false);
                     })
                     .catch(err => {
+                        console.log("text:::", text);
                         setLoading(false);
                         Alert.alert('Error', err);
                     });
@@ -213,14 +232,6 @@ const LiveChatDialog = (props) => {
                         </View>
 
                     </View>
-                    {/* <View style={{ flexGrow: 1 }}>
-                        <Text style={{ color: "#22252A", fontWeight: "500", textAlign: "center" }}>Washington Wizards</Text>
-                    </View>
-                    <View style={{ flexGrow: 1, flexDirection: "row", justifyContent: "flex-end", paddingVertical: 4 }}>
-                        <TouchableOpacity>
-                            <Image source={FullscreenIcon} />
-                        </TouchableOpacity>
-                    </View> */}
                 </View>
                 <View style={{ flexDirection: "row", flex: 1 }}>
                     <View >
@@ -302,6 +313,9 @@ const styles = StyleSheet.create({
         height: "100%",
         backgroundColor: "#555",
         opacity: 0.5
+
+
+
     },
     dialog: {
         top: "45%",

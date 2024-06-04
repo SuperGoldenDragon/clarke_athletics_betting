@@ -5,14 +5,34 @@ import SearchIcon from '../../../assets/images/icons/search-icon.png';
 import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
 import NewsDefaultLogo from '../../../assets/images/latest-news-temp-image.png';
 import GlobalStyle from '../../../styles/global';
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import NavigationContext from "../../../components/NavigationContext";
 import { useNavigation } from "@react-navigation/native";
-
+import { API_KEY } from "../../../components/api";
+import { BASE_URL } from "../../../components/api";
 const sampleNews = [{}, {}, {}];
 
 const HomeTopbar = () => {
-
+    const [Data, SetData] = useState([])
+    const NewData = [];
+    useEffect(() => {
+        axios.get(BASE_URL + '/News', {
+            headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY
+            },
+        }).then((response) => {
+            response.data.forEach((row) => {
+                const play = [];
+                play.push(row.Content);
+                NewData.push(row);
+                SetData(NewData)
+            })
+        }
+        ).catch(err => {
+            console.log(err);
+        });
+    }, [])
     const parentContext = useContext(NavigationContext);
     const navigation = useNavigation();
 
@@ -45,18 +65,18 @@ const HomeTopbar = () => {
             </View>
             <View style={{ paddingBottom: 60 }}>
                 <Text style={{ fontSize: 12, color: "white", marginBottom: 10, fontWeight: "600" }}>LATEST NEWS</Text>
-                <FlatList
-                    data={sampleNews}
+                {Data && (<FlatList
+                    data={Data}
                     renderItem={({ item }) => (<View style={{ backgroundColor: "#F7CF68", borderRadius: 10, padding: 3, flexDirection: "row", marginRight: 8 }}>
                         <Image source={NewsDefaultLogo} style={{ width: 86, height: 68, marginRight: 6, borderRadius: 8 }} />
                         <View style={{ padding: 5, width: 200, height: 68 }}>
                             <View style={{ flexDirection: "row" }}>
-                                <Text style={{ fontSize: 7, backgroundColor: "#B18E34", color: "white", fontWeight: 600, paddingHorizontal: 3, borderRadius: 2 }}>NBA</Text>
-                                <Text style={{ fontSize: 6, color: "#4B4B4B", paddingRight: 3, paddingLeft: 3, fontWeight: 400 }}>6 hours ago</Text>
+                                <Text style={{ fontSize: 7, backgroundColor: "#B18E34", color: "white", fontWeight: 600, paddingHorizontal: 3, borderRadius: 2 }}>{item.Team}</Text>
+                                <Text style={{ fontSize: 6, color: "#4B4B4B", paddingRight: 3, paddingLeft: 3, fontWeight: 400 }}>{item.TimeAgo}</Text>
                             </View>
                             <View style={{ flexDirection: "column" }}>
-                                <Text numberOfLines={2} ellipsizeMode="tail" style={{ flexWrap: "wrap", fontFamily: "Roboto", fontSize: 10, fontWeight: 900, color: "#1B1B1B" }}>NBA All-Star Game, back to the classic East VS West</Text>
-                                <Text numberOfLines={2} ellipsizeMode="tail" style={{ flexWrap: "wrap", fontFamily: "Roboto", fontSize: 8, color: "#3C3C3C" }}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in </Text>
+                                <Text numberOfLines={2} ellipsizeMode="tail" style={{ flexWrap: "wrap", fontFamily: "Roboto", fontSize: 10, fontWeight: 900, color: "#1B1B1B" }}>{item.Title}</Text>
+                                <Text numberOfLines={2} ellipsizeMode="tail" style={{ flexWrap: "wrap", fontFamily: "Roboto", fontSize: 9, color: "#3C3C3C", }}>{item.Content.substring(0, 90)} </Text>
                             </View>
                         </View>
                     </View>)}
@@ -65,7 +85,7 @@ const HomeTopbar = () => {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingRight: 10 }}
                 >
-                </FlatList>
+                </FlatList>)}
             </View>
         </View>
     </View >)

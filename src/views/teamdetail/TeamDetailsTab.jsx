@@ -10,7 +10,6 @@ import Tournament1 from '../../assets/images/tournament-1.png';
 import Tournament2 from '../../assets/images/tournament-2.png';
 import Tournament3 from '../../assets/images/tournament-3.png';
 import Flag from '../../components/Flag';
-
 const TeamDetailsTab = () => {
     return (
         <View style={{ flex: 1, backgroundColor: "white" }}>

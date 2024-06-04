@@ -12,6 +12,7 @@ import WagerIcon from '../../assets/images/icons/wager-icon.png';
 import LeaguesIcon from '../../assets/images/icons/leagues-icon.png';
 import LiveIcon from '../../assets/images/icons/live-icon.png';
 import PodcastIcon from '../../assets/images/icons/podcast-icon.png';
+import TeamDetail from '../teamdetail/TeamDetail';
 
 
 const navIcons = [{ icon: HomeIcon, width: 16.72, height: 17.58 },

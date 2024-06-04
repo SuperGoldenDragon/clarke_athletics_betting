@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, Image, StyleSheet, TextInput, ScrollView, ActivityIndicator, TurboModuleRegistry } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { TouchableOpacity } from 'react-native';
@@ -10,7 +10,8 @@ import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-
+import { BASE_URL, API_KEY, COUNTRY_API_KEY, COUNTRY_BASE_URL } from '../../components/api';
+import axios from 'axios';
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [EmailVerify, setEmailVerify] = useState(false);
@@ -25,8 +26,11 @@ const Signup = () => {
     const [ischecked, setIschecked] = useState(false);
     const [loading, setLoading] = useState(false);
     const [confirmpassword, setConfirmpassword] = useState('');
+    const [Teamname, setTeamname] = useState([]);
+    const [Countryname, setCountryname] = useState([]);
+    const Teamlist = [];
+    const countrylist = [];
     const navigation = useNavigation();
-
     const handleSignUp = () => {
         setLoading(true)
         auth()
@@ -112,6 +116,34 @@ const Signup = () => {
             setUsernameVerify(true);
         }
     }
+    useEffect(() => {
+        axios.get(BASE_URL + '/PlayersByAvailable', {
+            headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY
+            },
+        }).then((response) => {
+            response.data.forEach((row) => {
+                // console.log(row);
+                if (row.Team === null) {
+                    return;
+                }
+                Teamlist.push(row.Team);
+            })
+            const TeamNameArray = [...new Set(Teamlist)];
+            setTeamname(TeamNameArray);
+        }
+        ).catch(err => {
+            console.log(err);
+        });
+        axios.get(COUNTRY_BASE_URL, {
+            headers: { 'Authorization': 'Bearer y8W0jyplcKUWb94eW74Hb38i8T9ZfkBaaUgnhkS4' }
+        }).then((response) => {
+            Object.keys(response.data).forEach(key => {
+                countrylist.push(response.data[key].name);
+            })
+            setCountryname(countrylist);
+        })
+    }, [])
     return (
         <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
             style={{ flex: 1 }}>
@@ -163,7 +195,7 @@ const Signup = () => {
                     )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <SelectDropdown
-                            data={[]}
+                            data={Teamname}
                             onSelect={(item) => { }}
                             renderButton={(selectedItem, isOpened) => {
                                 return (
@@ -217,7 +249,7 @@ const Signup = () => {
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <SelectDropdown
-                            data={[]}
+                            data={Countryname}
                             onSelect={(item) => { }}
                             renderButton={(selectedItem, isOpened) => {
                                 return (
@@ -322,7 +354,7 @@ const styles = StyleSheet.create({
     },
     matchTypeDropdownItemTxtStyle: {
         flex: 1,
-        fontSize: 10,
+        fontSize: 15,
         fontWeight: '500',
         color: 'white',
     },

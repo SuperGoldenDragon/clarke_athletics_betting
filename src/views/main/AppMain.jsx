@@ -18,7 +18,7 @@ import LeaguesMatch from './leagues/LeaguesMatch';
 import HomeBlogs from './home/HomeBlogs';
 import MatchDetail from './wager/MatchDetail';
 import TeamDetail from '../teamdetail/TeamDetail';
-
+import Newchannel from '../../components/Newchannel';
 const Drawer = createDrawerNavigator();
 
 const AppMain = () => {
@@ -46,6 +46,7 @@ const AppMain = () => {
                     <Drawer.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                     <Drawer.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
                     <Drawer.Screen name='Team Detail' component={TeamDetail} options={{ headerShown: false }} />
+                    <Drawer.Screen name='Newchannel' component={Newchannel} options={{ headerShown: false }} />
                 </Drawer.Navigator>
             </NavigationContext.Provider>
         </NavigationContainer>);

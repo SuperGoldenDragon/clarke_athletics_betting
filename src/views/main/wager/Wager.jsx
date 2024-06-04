@@ -1,15 +1,51 @@
-import { View, StyleSheet, TouchableOpacity, Image, Text, ScrollView } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image, Text, ScrollView, FlatList } from "react-native";
 import SidebarIcon from '../../../assets/images/icons/sidebar-icon.png';
 import DropdownIcon from '../../../assets/images/icons/drop-down-icon.png';
 import SelectDropdown from "react-native-select-dropdown";
 import WagerMatchCard from "./WagerMatchCard";
 import GlobalStyle from "../../../styles/global";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-
+import { useEffect, useState } from "react";
+import { API_KEY } from "../../../components/api";
+import { BASE_URL } from "../../../components/api";
 const Wager = () => {
+    const currenDate = new Date();
+    const currentYear = currenDate.getFullYear();
+    const [Week, setWeek] = useState([]);
+    const [WagerData, SetWagerData] = useState([]);
+    const [selectedWeek, setSelectedWeek] = useState(null);
+    const Weekdump = [];
+    const datadump = [];
+    //get the shedule
+    useEffect(() => {
+        axios.get(BASE_URL + '/SchedulesBasic/' + currentYear, {
+            headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY
+            },
+        }).then((response) => {
+            // console.log(response);
+            response.data.forEach((row) => {
+                if (row.Date === null) {
+                    return;
+                } else {
+                    console.log("-------------")
+                    // console.log(row);
+                    console.log("-----end-------0");
+                    datadump.push(row);
+                    Weekdump.push(row.Week);
+                }
 
+            })
+            const WeekArray = [...new Set(Weekdump)];
+            SetWagerData(datadump);
+            setWeek(WeekArray);
+        }
+        ).catch(err => {
+            console.log(err);
+        });
+    }, [])
     const navigation = useNavigation();
-
     return (<View style={{ flex: 1, backgroundColor: "white" }}>
         <View style={[GlobalStyle.appbar]}>
             <View style={{ flexDirection: "row" }}>
@@ -51,13 +87,13 @@ const Wager = () => {
         <View style={[GlobalStyle.defaultPagePadding, { flexDirection: "row", justifyContent: "space-between", marginVertical: 10 }]}>
             <Text style={{ fontWeight: "800" }}>SCHEDULE</Text>
             <SelectDropdown
-                data={["Week 45", "Week 23"]}
-                onSelect={(item) => { }}
+                data={Week}
+                onSelect={(item) => { setSelectedWeek(item); }}
                 renderButton={(selectedItem, isOpened) => {
                     return (
                         <View style={[styles.scheduleDropdownButtonStyle]}>
                             <Text style={[styles.scheduleDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5 }]}>
-                                {selectedItem || 'Week 45'}
+                                {selectedItem !== null ? `Week ${selectedItem}` : 'Week 45'}
                             </Text>
                             <View style={{ padding: 4 }}>
                                 <Image source={DropdownIcon} style={{ width: 8, height: 6.7 }} />
@@ -74,15 +110,22 @@ const Wager = () => {
                 }}
                 showsVerticalScrollIndicator={false}
                 dropdownStyle={styles.scheduleDropdownMenuStyle}
+
             />
         </View>
         <View style={[{ flex: 1, paddingTop: 15 }]}>
             <ScrollView style={styles.defaultPadding}>
-                <WagerMatchCard odd={true} />
-                <WagerMatchCard />
-                <WagerMatchCard odd={true} />
-                <WagerMatchCard />
-                <WagerMatchCard odd={true} />
+                {WagerData && (
+                    <FlatList
+                        data={selectedWeek !== null
+                            ? WagerData.filter(item => item.Week === selectedWeek)
+                            : WagerData}
+                        renderItem={({ item }) => <WagerMatchCard key={item.id} odd={true} AwayTeam={item.AwayTeam} HomeTeam={item.HomeTeam} DateTime={item.DateTime} />}
+                        showsHorizontalScrollIndicator={true}
+                        scrollEnabled={false}
+                    />
+                )}
+
             </ScrollView>
         </View>
     </View>);

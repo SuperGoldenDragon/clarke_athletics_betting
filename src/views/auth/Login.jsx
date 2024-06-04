@@ -9,6 +9,7 @@ import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
 import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
 import auth, { firebase } from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
+import ForgetPassword from './ForgetPassword';
 
 const Login = () => {
 
@@ -62,7 +63,13 @@ const Login = () => {
             });
     }
 
-
+    const Reset = () => {
+        setEmail('');
+        setPassword('');
+    }
+    const ForgetPassword = () => {
+        navigation.navigate('Forget');
+    }
     return (
         <View style={{ flex: 1 }}>
             <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']} style={{ position: "absolute", zIndex: -100, width: "100%", height: "100%" }}>
@@ -78,10 +85,10 @@ const Login = () => {
                             <TextInput style={[styles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 20 }]} value={email} placeholder='Email' placeholderTextColor={'white'} onChangeText={setEmail} />
                             <TextInput style={[styles.text, { backgroundColor: 'grey', fontSize: 17, fontWeight: '400', borderRadius: 3, paddingLeft: 15, color: 'white', marginBottom: 10 }]} value={password} placeholder='Password' placeholderTextColor={'white'} secureTextEntry={true} onChangeText={setPassword} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => ForgetPassword()}>
                                     <Text style={[styles.text, { fontSize: 14, fontWeight: '400', color: '#F3F6F6' }]}>Forget password?</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity >
+                                <TouchableOpacity onPress={() => Reset()}>
                                     <Text style={[styles.text, { fontSize: 14, fontWeight: '400', color: '#F3F6F6', textDecorationLine: 'underline' }]}>Reset</Text>
                                 </TouchableOpacity>
 

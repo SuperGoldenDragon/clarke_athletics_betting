@@ -78,7 +78,6 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 const TeamDetail = () => {
 
     const navigation = useNavigation();
-
     const goBack = () => {
         try {
             navigation.goBack();

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 import DetailIocn from '../../../assets/images/icons/detail-icon.png';
 import TeamLogo1 from '../../../assets/images/logos/team-logo-1.png';
@@ -8,14 +8,60 @@ import SelectDropdown from "react-native-select-dropdown";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import NavigationContext from "../../../components/NavigationContext";
 import { useNavigation } from "@react-navigation/native";
-
+import moment from "moment";
+import axios from "axios";
+import { API_KEY } from "../../../components/api";
+import { BASE_URL } from "../../../components/api";
 const WagerMatchCard = (props) => {
-
-
-    const { odd } = props;
+    const { odd, AwayTeam, HomeTeam, DateTime, logo } = props;
     const [showDetail, setShowDetail] = useState(false);
+    const [scheduleDate, setDate] = useState("");
+    const [scheduleTime, setTime] = useState("");
+    const [Logo1, setLogo1] = useState('');
+    const [scheduleTeam, setScheduleTeam] = useState([]);
     const navigation = useNavigation();
-
+    const teamdump = [];
+    const Logodump = [];
+    // console.log("HomeTeam" + HomeTeam);
+    // console.log(AwayTeam);
+    useEffect(() => {
+        if (!DateTime) {
+            return;
+        } else {
+            const convertedDate = moment(DateTime).format('MM/DD/YYYY');
+            const convertedTime = moment(DateTime).format('hh:mm');
+            setDate(convertedDate);
+            setTime(convertedTime);
+        }
+        //get the TeamData from the api
+        axios.get(BASE_URL + '/Teams', {
+            headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY
+            },
+        }).then((response) => {
+            response.data.forEach((row) => {
+                // console.log("-----row--------")
+                // console.log(row.Key);
+                // console.log(row.WikipediaWordMarkUrl);
+                if (!row) {
+                    return;
+                }
+                else {
+                    teamdump.push(row);
+                }
+            })
+            const list = teamdump.filter(item => item.Key === AwayTeam)
+            list.map((data) => {
+                console.log("--------" + AwayTeam)
+                console.log(data.WikipediaLogoUrl);
+                Logodump.push(data.WikipediaLogoUrl);
+            })
+            setLogo1(Logodump);
+        }
+        ).catch(err => {
+            console.log(err);
+        });
+    }, []);
     const onGoToDetail = () => {
         try {
             navigation.navigate("Match Detail");
@@ -23,127 +69,127 @@ const WagerMatchCard = (props) => {
             console.log(e);
         }
     };
-
-    return (<View style={[styles.container, odd && styles.odd_border]}>
-        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-            <SelectDropdown
-                data={["Toggle Expand", "Detail"]}
-                onSelect={(item, index) => {
-                    if (index == 0) setShowDetail(!showDetail);
-                    if (index == 1) onGoToDetail();
-                }}
-                renderButton={() => {
-                    return (
-                        <View style={[styles.detailDropdownButtonStyle]}>
-                            <View style={{ padding: 4 }}>
-                                <Image source={DetailIocn} style={{ width: 16, height: 4 }} />
+    return (
+        <View style={[styles.container, odd && styles.odd_border]}>
+            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                <SelectDropdown
+                    data={["Toggle Expand", "Detail"]}
+                    onSelect={(item, index) => {
+                        if (index == 0) setShowDetail(!showDetail);
+                        if (index == 1) onGoToDetail();
+                    }}
+                    renderButton={() => {
+                        return (
+                            <View style={[styles.detailDropdownButtonStyle]}>
+                                <View style={{ padding: 4 }}>
+                                    <Image source={DetailIocn} style={{ width: 16, height: 4 }} />
+                                </View>
                             </View>
-                        </View>
-                    );
-                }}
-                renderItem={(item, index, isSelected) => {
-                    return (
-                        <View style={{ ...styles.detailDropdownItemStyle }}>
-                            <Text style={styles.detailDropdownItemTxtStyle}>{item}</Text>
-                        </View>
-                    );
-                }}
-                showsVerticalScrollIndicator={false}
-                dropdownStyle={styles.detailDropdownMenuStyle}
-            />
-            {/* <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
+                        );
+                    }}
+                    renderItem={(item, index, isSelected) => {
+                        return (
+                            <View style={{ ...styles.detailDropdownItemStyle }}>
+                                <Text style={styles.detailDropdownItemTxtStyle}>{item}</Text>
+                            </View>
+                        );
+                    }}
+                    showsVerticalScrollIndicator={false}
+                    dropdownStyle={styles.detailDropdownMenuStyle}
+                />
+                {/* <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
                 <Image source={DetailIocn} style={{ width: 16, height: 4 }} />
             </TouchableOpacity> */}
-        </View>
-        <View style={{ flexDirection: "row" }}>
-            <View style={{ flexGrow: 1, width: "32%" }}>
-                <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
-                        <Image source={TeamLogo1} style={styles.teamLogo} />
-                    </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <Text style={styles.teamName}>Wizards</Text>
-                </View>
             </View>
-            <View style={{ flexGrow: 1, width: "32%" }}>
-                <Text style={{ textAlign: "center", color: "#3C3C3C", fontWeight: "800", marginBottom: 12, fontSize: 10 }}>NBA LEAUGE</Text>
-                <Text style={{ textAlign: "center", color: "#3C3C3C", fontWeight: "800" }}>Tomorrow</Text>
-                <Text style={{ textAlign: "center", color: "#3C3C3C", fontWeight: "800" }}>16:30</Text>
-            </View>
-            <View style={{ flexGrow: 1, width: "32%" }}>
-                <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
-                        <Image source={TeamLogo2} style={styles.teamLogo} />
-                    </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <Text style={styles.teamName}>Atlanta Hawks</Text>
-                </View>
-            </View>
-        </View>
-        {
-            showDetail && <View>
-                <View style={[styles.topline, { flexDirection: "row" }]}>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <View style={styles.first_cell}>
-                            <Text style={{ color: "#3C3C3C" }}>Wizards</Text>
-                            <Text style={{ color: "#F01313" }}></Text>
-                            <Text style={{ color: "#3C3C3C" }}>1.25</Text>
-                        </View>
+            <View style={{ flexDirection: "row" }}>
+                <View style={{ flexGrow: 1, width: "32%" }}>
+                    <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
+                            <Image source={TeamLogo2} style={[styles.teamLogo, { borderColor: 'red', borderWidth: 1 }]} />
+                        </TouchableOpacity>
                     </View>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <Text style={styles.second_cell_text}>Money Line</Text>
-                    </View>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <View style={styles.third_cell}>
-                            <Text style={{ color: "#3C3C3C" }}>Hwaks</Text>
-                            <Text style={{ color: "#F01313" }}></Text>
-                            <Text style={{ color: "#3C3C3C" }}>1.25</Text>
-                        </View>
+                    <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+                        <Text style={styles.teamName}>{AwayTeam}</Text>
                     </View>
                 </View>
-                <View style={[styles.topline, { flexDirection: "row" }]}>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <View style={styles.first_cell}>
-                            <Text style={{ color: "#3C3C3C" }}>Wizards</Text>
-                            <Text style={{ color: "#F01313" }}>-2</Text>
-                            <Text style={{ color: "#3C3C3C" }}>1.25</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <Text style={styles.second_cell_text}>Spead</Text>
-                    </View>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <View style={styles.third_cell}>
-                            <Text style={{ color: "#3C3C3C" }}>Hwaks</Text>
-                            <Text style={{ color: "#30E712" }}>+2</Text>
-                            <Text style={{ color: "#3C3C3C" }}>1.25</Text>
-                        </View>
-                    </View>
+                <View style={{ flexGrow: 1, width: "32%" }}>
+                    <Text style={{ textAlign: "center", color: "#3C3C3C", fontWeight: "800", marginBottom: 12, fontSize: 10 }}>NFL LEAUGE</Text>
+                    <Text style={{ textAlign: "center", color: "#3C3C3C", fontWeight: "800" }}>{scheduleDate}</Text>
+                    <Text style={{ textAlign: "center", color: "#3C3C3C", fontWeight: "800" }}>{scheduleTime}</Text>
                 </View>
-                <View style={[styles.topline, { flexDirection: "row" }]}>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <View style={styles.first_cell}>
-                            <Text style={{ color: "#3C3C3C" }}>Under</Text>
-                            <Text style={{ color: "#F01313" }}>+2</Text>
-                            <Text style={{ color: "#3C3C3C" }}>1.25</Text>
-                        </View>
+                <View style={{ flexGrow: 1, width: "32%" }}>
+                    <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
+                            <Image source={TeamLogo2} style={styles.teamLogo} />
+                        </TouchableOpacity>
                     </View>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <Text style={styles.second_cell_text}>Total</Text>
-                    </View>
-                    <View style={{ flexGrow: 1, width: "32%" }}>
-                        <View style={styles.third_cell}>
-                            <Text style={{ color: "#3C3C3C" }}>Hwaks</Text>
-                            <Text style={{ color: "#30E712" }}>2</Text>
-                            <Text style={{ color: "#3C3C3C" }}>1.25</Text>
-                        </View>
+                    <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+                        <Text style={styles.teamName}>{HomeTeam}</Text>
                     </View>
                 </View>
             </View>
-        }
-    </View >);
+            {
+                showDetail && <View>
+                    <View style={[styles.topline, { flexDirection: "row" }]}>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <View style={styles.first_cell}>
+                                <Text style={{ color: "#3C3C3C" }}>Wizards</Text>
+                                <Text style={{ color: "#F01313" }}></Text>
+                                <Text style={{ color: "#3C3C3C" }}>1.25</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <Text style={styles.second_cell_text}>Money Line</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <View style={styles.third_cell}>
+                                <Text style={{ color: "#3C3C3C" }}>Hwaks</Text>
+                                <Text style={{ color: "#F01313" }}></Text>
+                                <Text style={{ color: "#3C3C3C" }}>1.25</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[styles.topline, { flexDirection: "row" }]}>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <View style={styles.first_cell}>
+                                <Text style={{ color: "#3C3C3C" }}>Wizards</Text>
+                                <Text style={{ color: "#F01313" }}>-2</Text>
+                                <Text style={{ color: "#3C3C3C" }}>1.25</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <Text style={styles.second_cell_text}>Spead</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <View style={styles.third_cell}>
+                                <Text style={{ color: "#3C3C3C" }}>Hwaks</Text>
+                                <Text style={{ color: "#30E712" }}>+2</Text>
+                                <Text style={{ color: "#3C3C3C" }}>1.25</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[styles.topline, { flexDirection: "row" }]}>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <View style={styles.first_cell}>
+                                <Text style={{ color: "#3C3C3C" }}>Under</Text>
+                                <Text style={{ color: "#F01313" }}>+2</Text>
+                                <Text style={{ color: "#3C3C3C" }}>1.25</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <Text style={styles.second_cell_text}>Total</Text>
+                        </View>
+                        <View style={{ flexGrow: 1, width: "32%" }}>
+                            <View style={styles.third_cell}>
+                                <Text style={{ color: "#3C3C3C" }}>Hwaks</Text>
+                                <Text style={{ color: "#30E712" }}>2</Text>
+                                <Text style={{ color: "#3C3C3C" }}>1.25</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            }
+        </View >);
 };
 
 const styles = StyleSheet.create({

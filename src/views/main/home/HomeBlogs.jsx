@@ -1,4 +1,4 @@
-import { View, Image, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Image, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import SearchIcon from '../../../assets/images/icons/search-icon.png';
 import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
 import SidebarIcon from '../../../assets/images/icons/sidebar-icon.png';
@@ -7,7 +7,9 @@ import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import BlogCard from "./BlogCard";
 import GlobalStyles from "../../../styles/global";
 import { useNavigation } from "@react-navigation/native";
-
+import firestore from '@react-native-firebase/firestore';
+import React, { useEffect, useState, useContext } from 'react';
+import LiveChatDialog from '../../../components/LiveChatDialog';
 const sampleComments = [{
     name: "Albert Ailey",
     time: "1 hour ago",
@@ -25,8 +27,27 @@ const sampleComments = [{
 }];
 
 const HomeBlogs = () => {
-
+    const [dataArr, setdataArr] = useState([]);
     const navigation = useNavigation();
+    const [chatMatch, setChatMatch] = useState(false);
+    useEffect(() => {
+        firestore()
+            .collection('Newpost')
+            .orderBy('createdAt', 'asc')    // Sort by timestamp
+            .limitToLast(15)
+            .onSnapshot(querySnapshot => {
+                const postArr = [];
+                querySnapshot?.forEach(doc => {
+                    const id = doc.id;
+                    const data = doc.data();
+                    // Add docId and chat data to chats array 
+                    postArr.push({ id, ...data });
+
+                });
+                setdataArr(postArr);
+            });
+
+    }, []);
 
     return (<View style={{ flex: 1 }}>
         <View style={[GlobalStyles.defaultPagePadding, GlobalStyles.defaultAppbarPadding, styles.appbar]}>
@@ -53,13 +74,16 @@ const HomeBlogs = () => {
         </View>
         <View style={[{ flex: 1, paddingBottom: 10 }]}>
             <ScrollView style={[styles.defaultPadding, { paddingVertical: 10 }]}>
-                <BlogCard isChat={true} />
-                <BlogCard isAgree={true} />
-                <BlogCard noChat={true} />
-                <BlogCard comments={sampleComments} />
-                <BlogCard />
-                <BlogCard />
+                {dataArr && (
+                    <FlatList
+                        data={dataArr}
+                        renderItem={({ item }) => <BlogCard key={item.id} Blogdata={item} onLiveChat={() => setChatMatch(true)} />}
+                        showsHorizontalScrollIndicator={false}
+                        scrollEnabled={false}
+                    />
+                )}
             </ScrollView>
+            <LiveChatDialog open={chatMatch != false} onClose={() => setChatMatch(false)} />
         </View>
     </View>);
 };

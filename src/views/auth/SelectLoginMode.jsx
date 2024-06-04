@@ -56,7 +56,7 @@ const Login = () => {
                     <Image style={{ opacity: 0.43 }} source={loginlogo3} />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                    <Image style={{ width: 186, height: 180 }} source={loginlogo2} />
+                    <Image style={{ width: 186, height: 186 }} source={loginlogo2} />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', paddingVertical: 10 }}>
                     <Text style={[styles.text, { color: '#FFFFFF' }]}>SIGN TO PLAY</Text>

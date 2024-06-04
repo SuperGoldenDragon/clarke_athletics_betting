@@ -1,10 +1,33 @@
 /*Profile/What's New?*/
-import { View, ScrollView, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, Image, StyleSheet, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ArrowHistoryIcon from '../../assets/images/icons/history-icon-3.png';
 import NewsImage from '../../assets/images/new-image.png';
-
+import NewDialog from "../../components/NewDialog";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_KEY } from "../../components/api";
+import { BASE_URL } from "../../components/api";
 function WhatsNew() {
+    const [Data, setData] = useState([]);
+    const NewData = [];
+    useEffect(() => {
+        axios.get(BASE_URL + '/News', {
+            headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY
+            },
+        }).then((response) => {
+            response.data.forEach((row) => {
+                const play = [];
+                play.push(row.Content);
+                NewData.push(row);
+                setData(NewData)
+            })
+        }
+        ).catch(err => {
+            console.log(err);
+        });
+    }, [])
     const navigation = useNavigation();
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -18,83 +41,14 @@ function WhatsNew() {
             </View>
             {/* <ScrollView style={{ padding: 25, paddingRight: 18 }}> */}
             <ScrollView style={{ paddingTop: 8 }}>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
-                <View style={styles.ImageItem}>
-                    <Image source={NewsImage} />
-                    <View style={{ paddingLeft: 10, paddingTop: 8, paddingRight: 130 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Text style={styles.NBAButton}>NBA</Text>
-                            <Text style={styles.smallText}>6 hours ago</Text>
-                        </View>
-                        <Text style={styles.headerText}>NBA All-Star Game, back to the classic East VS West</Text>
-                        <Text style={styles.contentText}>Now it's official: the 2024 NBA All-Star Game will be Sunday 18 February in</Text>
-                    </View>
-                </View>
+                {Data && (
+                    <FlatList
+                        data={Data}
+                        renderItem={({ item }) => <NewDialog key={item.id} title={item.Title} team={item.Team} timeago={item.TimeAgo} content={item.Content} url={item.Url} />}
+                        showsHorizontalScrollIndicator={true}
+                        scrollEnabled={false}
+                    />
+                )}
             </ScrollView>
         </View>
     );

@@ -14,20 +14,24 @@ import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import CommentCard from './CommentCard';
 import SelectDropdown from 'react-native-select-dropdown';
 import TeamLogo from '../../../components/TeamLogo';
+import { useEffect } from 'react';
+import auth from '@react-native-firebase/auth';
 
 
 
 const BlogCard = (props) => {
-    const { onLiveChat, isChat, isAgree, noChat, comments, scoreTable } = props;
-
+    const { Blogdata } = props;
+    const { onLiveChat, isChat, isAgree, noChat, comments, scoreTable, onValue } = props;
+    const { channelName, image_A_Uri, image_B_Uri, owner } = Blogdata;
     return (<View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
             <View style={{ flexDirection: "row", marginRight: 10 }}>
-                <TeamLogo logo={TeamLogo1} style={{}} />
-                <TeamLogo logo={TeamLogo2} style={{ marginLeft: -9 }} />
+                <Image src={image_A_Uri} style={{ width: 30, height: 30, }} />
+                <Image src={image_B_Uri} style={{ width: 30, height: 30, marginLeft: -9 }} />
             </View>
             <View>
-                <Text style={styles.teamNames}>Toronto Raptors VS Detroit Pistons</Text>
+                <Text style={styles.teamNames}>{channelName}</Text>
+                {/* <Text style={styles.teamNames}>Toronto Raptors VS Detroit Pistons</Text> */}
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ color: "#4B4B4B", fontSize: 12 }}>23 Nov,2023 | </Text>
                     <Text style={{ color: "#B9B9B9", fontSize: 12 }}>Started 11 mins ago</Text>
