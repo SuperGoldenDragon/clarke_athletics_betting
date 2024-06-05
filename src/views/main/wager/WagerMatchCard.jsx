@@ -12,12 +12,14 @@ import moment from "moment";
 import axios from "axios";
 import { API_KEY } from "../../../components/api";
 import { BASE_URL } from "../../../components/api";
+import { SvgUri } from 'react-native-svg';
 const WagerMatchCard = (props) => {
     const { odd, AwayTeam, HomeTeam, DateTime, logo } = props;
     const [showDetail, setShowDetail] = useState(false);
     const [scheduleDate, setDate] = useState("");
     const [scheduleTime, setTime] = useState("");
     const [Logo1, setLogo1] = useState('');
+    const [Logo2, setLogo2] = useState('');
     const [scheduleTeam, setScheduleTeam] = useState([]);
     const navigation = useNavigation();
     const teamdump = [];
@@ -50,13 +52,11 @@ const WagerMatchCard = (props) => {
                     teamdump.push(row);
                 }
             })
-            const list = teamdump.filter(item => item.Key === AwayTeam)
-            list.map((data) => {
-                console.log("--------" + AwayTeam)
-                console.log(data.WikipediaLogoUrl);
-                Logodump.push(data.WikipediaLogoUrl);
-            })
-            setLogo1(Logodump);
+            const list1 = teamdump.filter(item => item.Key === AwayTeam)[0]
+            setLogo1(list1.WikipediaLogoUrl);
+            const list2 = teamdump.filter(item => item.Key === HomeTeam)[0]
+            setLogo2(list2.WikipediaLogoUrl);
+
         }
         ).catch(err => {
             console.log(err);
@@ -104,8 +104,13 @@ const WagerMatchCard = (props) => {
             <View style={{ flexDirection: "row" }}>
                 <View style={{ flexGrow: 1, width: "32%" }}>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+
                         <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
-                            <Image source={TeamLogo2} style={[styles.teamLogo, { borderColor: 'red', borderWidth: 1 }]} />
+                            {Logo1 ? (<SvgUri
+                                width="50"
+                                height="50"
+                                uri={Logo1}
+                            />) : <Image source={TeamLogo2} style={styles.teamLogo} />}
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
@@ -120,7 +125,11 @@ const WagerMatchCard = (props) => {
                 <View style={{ flexGrow: 1, width: "32%" }}>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
                         <TouchableOpacity onPress={() => { navigation.navigate("Team Detail") }}>
-                            <Image source={TeamLogo2} style={styles.teamLogo} />
+                            {Logo2 ? (<SvgUri
+                                width="50"
+                                height="50"
+                                uri={Logo2}
+                            />) : <Image source={TeamLogo2} style={styles.teamLogo} />}
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
