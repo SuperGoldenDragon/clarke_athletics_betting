@@ -1,18 +1,27 @@
-import { View, Image, StyleSheet, Text } from "react-native";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import auth, { firebase } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 import moment from "moment";
 const ChatBubble = (props) => {
     const { chat } = props;
-    const { id, imageUrl, text, owner, createdAt, Username, channelName } = chat;
+    const { id, imageUrl, text, owner, createdAt, Username, channelName, email, } = chat;
     currenttime = moment(createdAt).format("YYYY-MM-DD | h:mm  A");
     const currentUser = auth().currentUser.uid;
     const playname = auth().currentUser.displayName;
     const Email = auth().currentUser.email;
-    // console.log("sssss", channelName);
+    const navigation = useNavigation(); // Get the navigation object
+    const handlePressYou = () => {
+        navigation.navigate('UserProfile', { owner: Username, email: email, imageUrl: imageUrl }); // Navigate to UserProfile screen with params
+    };
+    const handlePressOther = () => {
+        navigation.navigate('UserProfile', { owner: Username, email: email, imageUrl: imageUrl }); // Navigate to UserProfile screen with params
+    };
     return owner === currentUser ? (<View style={styles.you_container}>
-        <View style={[styles.avatar_container]}>
-            <Image source={{ uri: imageUrl }} style={styles.avatar} />
-        </View>
+        <TouchableOpacity onPress={() => { handlePressYou() }} >
+            <View style={[styles.avatar_container]}>
+                <Image source={{ uri: imageUrl }} style={styles.avatar} />
+            </View>
+        </TouchableOpacity>
         <View style={{ flexGrow: 1, maxWidth: "80%" }}>
             <Text style={[styles.name, { textAlign: "right" }]}>{Username}</Text>
             <View style={[styles.bubble, { alignItems: "flex-end" }]}>
@@ -26,9 +35,11 @@ const ChatBubble = (props) => {
             </View>
         </View>
     </View>) : (<View style={[styles.container]}>
-        <View style={[styles.avatar_container]}>
-            <Image source={{ uri: imageUrl }} style={styles.avatar} />
-        </View>
+        <TouchableOpacity onPress={() => { handlePressOther() }}>
+            <View style={[styles.avatar_container]}>
+                <Image source={{ uri: imageUrl }} style={styles.avatar} />
+            </View>
+        </TouchableOpacity>
         <View style={{ flexGrow: 1, maxWidth: "80%" }}>
             <Text style={[styles.name, { textAlign: "left", paddingLeft: 5 }]}>{Username}</Text>
             <View style={[styles.bubble, { alignItems: "flex-start" }]}>

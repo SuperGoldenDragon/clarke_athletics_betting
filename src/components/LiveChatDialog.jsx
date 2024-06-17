@@ -44,7 +44,7 @@ const LiveChatDialog = (props) => {
                 .where('email', '==', auth().currentUser.email)
                 .get()
                 .then(snapshot => {
-                    snapshot.forEach(doc => {
+                    snapshot?.forEach(doc => {
                         const doc_name = doc.data().Username;
                         const doc_uri = doc.data().imageUrl;
                         setURI(doc_uri);
@@ -64,10 +64,6 @@ const LiveChatDialog = (props) => {
                         const data = doc.data();
                         chatsArr.push({ id, ...data });
                     });
-                    // console.log("-----------the chatsArrr----------");
-                    // console.log(active);
-                    // console.log(chatsArr);
-                    // console.log("-----------end--------------------");
                     setChats(chatsArr);
                     setLoading(false);
                 });
@@ -76,7 +72,7 @@ const LiveChatDialog = (props) => {
                 setLoading(false);
             };
         }
-    }, [open, text]);
+    }, [open, text, uri]);
     if (loading) {
         return <ActivityIndicator />;  // Show loader while loading chats
     } else {
@@ -133,7 +129,7 @@ const LiveChatDialog = (props) => {
             },
         };
         launchCamera(options, (response) => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
 
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -144,8 +140,8 @@ const LiveChatDialog = (props) => {
                 Alert.alert(response.customButton);
             } else {
                 const source = { uri: response.uri };
-                console.log('response', JSON.stringify(response));
-                console.log("source:::" + source);
+                // console.log('response', JSON.stringify(response));
+                // console.log("source:::" + source);
             }
         });
 
@@ -155,9 +151,8 @@ const LiveChatDialog = (props) => {
         const { uid, photoURL } = auth().currentUser;
         const playname = auth().currentUser.displayName;
         const Email = auth().currentUser.email;
-
+        console.log("auth" + auth().currentUser);
         // Dont allow empty/large messages
-
         if (text.length > 1 && text.length < 40) {
 
             try {
@@ -177,13 +172,9 @@ const LiveChatDialog = (props) => {
                     })
                     .then(() => {
                         setText('');
-                        console.log("------------------chats------------");
-                        console.log(chats);
-                        console.log("-----------------end-------------");
                         setLoading(false);
                     })
                     .catch(err => {
-                        console.log("text:::", text);
                         setLoading(false);
                         Alert.alert('Error', err);
                     });
@@ -196,7 +187,6 @@ const LiveChatDialog = (props) => {
             Alert.alert('Chat not sent', 'Must be between 1 and 40 characters');
         }
     };
-
     return (<View style={[styles.container, { display: open ? "flex" : "none" }]}>
         <View style={styles.mask_bg}></View>
         <View style={styles.dialog}>

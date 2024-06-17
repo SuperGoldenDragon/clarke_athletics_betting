@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import GlobalStyle from '../../../styles/global';
 import NavigationContext from '../../../components/NavigationContext';
 import auth from '@react-native-firebase/auth';
+import axios from 'axios';
 import firestore from '@react-native-firebase/firestore';
 import BlogCard from './BlogCard';
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
     const navigation = useNavigation();
     const [chatMatch, setChatMatch] = useState(false);
     const [loading, setLoading] = useState(true);
+    console.log(chatMatch);
     useEffect(() => {
         firestore()
             .collection('Newpost')
@@ -58,7 +60,7 @@ const Home = () => {
                             <View style={{ padding: 5, marginRight: 5 }}>
                                 <Image source={PlusIcon} />
                             </View>
-                            <Text style={{ color: "#3B3B3B", fontSize: 12, paddingVertical: 2 }}>New Post</Text>
+                            <Text style={{ color: "#3B3B3B", fontSize: 12, paddingVertical: 2 }}>New Sports Debat</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ borderColor: "#B9B9B9", backgroundColor: "white", borderWidth: 1, paddingHorizontal: 7, borderRadius: 3, paddingVertical: 5 }} onPress={() => onSort()}>
                             <View style={{ padding: 5 }}>

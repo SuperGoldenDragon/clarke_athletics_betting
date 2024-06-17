@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image, ScrollView, ImageBackground } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text, Image, ScrollView, ImageBackground, Dimensions } from 'react-native';
 import PageBackIcon from '../../assets/images/icons/back-icon-2.png';
 import BackIcon from '../../assets/images/icons/back-icon-white-3.png';
 import global from '../../styles/global';
@@ -8,6 +8,7 @@ import { useNavigation, useRoute, NavigationContainer } from '@react-navigation/
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import TeamDetailsTab from './TeamDetailsTab';
 import TeamLogo from '../../components/TeamLogo';
+import { SvgUri } from 'react-native-svg';
 import DefaultLogo from '../../assets/images/logos/team-logo-1.png';
 import { BlurView } from '@react-native-community/blur';
 import TeamStandingsTab from './TeamStandingsTab';
@@ -17,8 +18,6 @@ import TeamTopPlayersTab from './TeamTopPlayersTab';
 import TeamStatisticsTab from './TeamStatisticsTab';
 
 const Tab = createMaterialTopTabNavigator();
-
-
 // Custom tab bar component
 const CustomTabBar = ({ state, descriptors, navigation }) => {
     return (
@@ -75,8 +74,10 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
     );
 };
 
-const TeamDetail = () => {
-
+const TeamDetail = ({ route }) => {
+    const { AwayTeam, HomeTeam, Logo1, Logo2 } = route.params;
+    const [awayTeam, setAwayTeam] = useState(AwayTeam);
+    const [homeTeam, setHomeTeam] = useState(HomeTeam);
     const navigation = useNavigation();
     const goBack = () => {
         try {
@@ -85,7 +86,6 @@ const TeamDetail = () => {
             console.log(e);
         }
     }
-
     return (
         <NavigationContainer independent={true}>
             <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -114,7 +114,14 @@ const TeamDetail = () => {
                             style={{ position: "absolute", zIndex: -10, width: "100%", height: "100%", flexDirection: "row", justifyContent: "center", opacity: 0.1 }}
                         >
                         </LinearGradient>
-                        <ImageBackground source={DefaultLogo} resizeMode="cover" style={{ width: "100%", height: "auto" }} />
+                        {/* <ImageBackground source={DefaultLogo} resizeMode="cover" style={{ width: "100%", height: "auto" }} /> */}
+                        {Logo1 ? (<SvgUri
+                            width='200'
+                            height='130' uri={Logo1}
+                        />) : Logo2 ? (<SvgUri
+                            width='200'
+                            height='130' uri={Logo2}
+                        />) : (<ImageBackground source={DefaultLogo} resizeMode="cover" style={{ width: "100%", height: "auto" }} />)}
                         <BlurView
                             blurType="xlight"
                             blurAmount={6}
@@ -134,16 +141,24 @@ const TeamDetail = () => {
                     </LinearGradient> */}
 
                     <View style={{ paddingHorizontal: 35, paddingVertical: 20, flexDirection: "row" }}>
-                        <TeamLogo style={{ width: 70, height: 70, marginRight: 20 }} />
+                        {Logo1 ? (<SvgUri
+                            width="90"
+                            height="90"
+                            uri={Logo1}
+                        />) : Logo2 ? (<SvgUri
+                            width="90"
+                            height="90"
+                            uri={Logo2}
+                        />) : (<TeamLogo style={{ width: 70, height: 70, marginRight: 20 }} />)}
                         <View style={{ display: "flex", alignSelf: "center" }}>
-                            <Text style={{ fontSize: 17, fontWeight: "700", color: "#3C3C3C" }}>Washington Wizards</Text>
-                            <Text style={{ fontSize: 12, fontWeight: "400", color: "#3C3C3C" }}>Washington DC</Text>
+                            <Text style={{ fontSize: 17, fontWeight: "700", color: "#3C3C3C" }}>{AwayTeam}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: "400", color: "#3C3C3C" }}>{AwayTeam}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
-                        <Tab.Screen name="DETAILS" component={TeamDetailsTab} />
+                    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS">
+                        <Tab.Screen name="DETAILS" component={TeamDetailsTab} initialParams={{ AwayTeam: awayTeam, HomeTeam: homeTeam }} />
                         <Tab.Screen name="STANDINGS" component={TeamStandingsTab} />
                         <Tab.Screen name="MATCHES" component={TeamMatchesTab} />
                         <Tab.Screen name="SQUAD" component={TeamSquadTab} />

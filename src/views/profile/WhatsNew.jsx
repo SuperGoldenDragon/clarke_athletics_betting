@@ -5,28 +5,23 @@ import ArrowHistoryIcon from '../../assets/images/icons/history-icon-3.png';
 import NewsImage from '../../assets/images/new-image.png';
 import NewDialog from "../../components/NewDialog";
 import { useEffect, useState } from "react";
+import firestore from '@react-native-firebase/firestore';
 import axios from "axios";
 import { API_KEY } from "../../components/api";
 import { BASE_URL } from "../../components/api";
 function WhatsNew() {
     const [Data, setData] = useState([]);
-    const NewData = [];
     useEffect(() => {
-        axios.get(BASE_URL + '/News', {
-            headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY
-            },
-        }).then((response) => {
-            response.data.forEach((row) => {
-                const play = [];
-                play.push(row.Content);
-                NewData.push(row);
-                setData(NewData)
+        let doc_data = [];
+        // Fetch Firestore data  
+        firestore()
+            .collection('API')
+            .doc('News')
+            .get()
+            .then(snapshot => {
+                doc_data = snapshot.data().NewsArray;
+                setData(doc_data);
             })
-        }
-        ).catch(err => {
-            console.log(err);
-        });
     }, [])
     const navigation = useNavigation();
     return (

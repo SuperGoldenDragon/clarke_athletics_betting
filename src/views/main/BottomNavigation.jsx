@@ -10,7 +10,8 @@ import Podcast from './podcast/Podcast';
 import HomeIcon from '../../assets/images/icons/home-icon.png';
 import WagerIcon from '../../assets/images/icons/wager-icon.png';
 import LeaguesIcon from '../../assets/images/icons/leagues-icon.png';
-import LiveIcon from '../../assets/images/icons/live-icon.png';
+// import LiveIcon from '../../assets/images/icons/live-icon.png';
+import LiveIcon from '../../assets/images/icons/live.png';
 import PodcastIcon from '../../assets/images/icons/podcast-icon.png';
 import TeamDetail from '../teamdetail/TeamDetail';
 
@@ -18,7 +19,7 @@ import TeamDetail from '../teamdetail/TeamDetail';
 const navIcons = [{ icon: HomeIcon, width: 16.72, height: 17.58 },
 { icon: WagerIcon, width: 35, height: 17 },
 { icon: LeaguesIcon, width: 21.48, height: 17.58 },
-{ icon: LiveIcon, width: 23, height: 17 },
+{ icon: LiveIcon, width: 24, height: 18 },
 { icon: PodcastIcon, width: 17, height: 17 }
 ];
 
@@ -85,8 +86,8 @@ const BottomNavigation = () => {
         <Tab.Navigator tabBar={props => <CustomTabBar {...props} />} initialRouteName="DETAILS" >
             <Tab.Screen name="HOME" component={Home} options={{ headerShown: false }} /* initialParams={{ parentNavigate: navigation.navigate }} */ />
             <Tab.Screen name="WAGER" component={Wager} options={{ headerShown: false }} />
-            <Tab.Screen name="LEAGUES" component={Leagues} options={{ headerShown: false }} />
-            <Tab.Screen name="LIVE" component={Live} options={{ headerShown: false }} />
+            <Tab.Screen name="LEAGUE" component={Leagues} options={{ headerShown: false }} />
+            <Tab.Screen name="TRENDS" component={Live} options={{ headerShown: false }} />
             <Tab.Screen name="PODCAST" component={Podcast} options={{ headerShown: false }} />
         </Tab.Navigator>
     );

@@ -32,7 +32,7 @@ const Leagues = () => {
                             <Image source={SidebarIcon} />
                         </View>
                     </TouchableOpacity>
-                    <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>Leagues</Text>
+                    <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>League</Text>
                     <View style={{ paddingVertical: 5, flexDirection: "row" }}>
                         <View style={{ marginRight: 7 }}>
                             <Text style={{ color: "white", textAlign: "right", fontSize: 8 }}>BALANCE</Text>

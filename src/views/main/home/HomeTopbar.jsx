@@ -6,37 +6,93 @@ import WalletIcon from '../../../assets/images/icons/wallet-icon.png';
 import NewsDefaultLogo from '../../../assets/images/latest-news-temp-image.png';
 import GlobalStyle from '../../../styles/global';
 import { useContext, useEffect, useState } from "react";
+import { useDrawer } from "../../../components/DrawerContext";
 import axios from "axios";
 import NavigationContext from "../../../components/NavigationContext";
 import { useNavigation } from "@react-navigation/native";
 import { API_KEY } from "../../../components/api";
 import { BASE_URL } from "../../../components/api";
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 const sampleNews = [{}, {}, {}];
 
 const HomeTopbar = () => {
-    const [Data, SetData] = useState([])
-    const NewData = [];
-    useEffect(() => {
-        axios.get(BASE_URL + '/News', {
-            headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY
-            },
-        }).then((response) => {
-            response.data.forEach((row) => {
-                const play = [];
-                play.push(row.Content);
-                NewData.push(row);
-                SetData(NewData)
-            })
-        }
-        ).catch(err => {
-            console.log(err);
-        });
-    }, [])
     const parentContext = useContext(NavigationContext);
     const navigation = useNavigation();
-
+    const [Data, SetData] = useState([])
+    const [playname, SetPlayName] = useState('');
+    const [username, SetUserName] = useState('');
+    const { setDrawerParams } = useDrawer();
+    const NewData = [];
+    const dump = [];
+    //save the data on the firebase
+    const saveDataToFirebase = (data) => {
+        firestore()
+            .collection('API')
+            .doc('News')
+            .set({
+                NewsArray: data,
+            })
+            .then(() => {
+                console.log('Data saved to Firebase');
+                // Trigger notification or update UI indicating data is updated
+            })
+            .catch((error) => {
+                console.error('Error saving data to Firebase:', error);
+            });
+    }
+    //fetch the data from the firebase;
+    const fetchData = async () => {
+        let doc_data = [];
+        try {
+            // Fetch Firestore data  
+            await firestore()
+                .collection('API')
+                .doc('News')
+                .get()
+                .then(snapshot => {
+                    doc_data = snapshot.data().NewsArray;
+                })
+            if (doc_data) {
+                console.log("exists")
+                SetData(doc_data);
+            } else {
+                console.log('no exists');
+                await axios.get(BASE_URL + '/News', {
+                    headers: {
+                        'Ocp-Apim-Subscription-Key': API_KEY
+                    }
+                }).then((response) => {
+                    response.data.forEach((row) => {
+                        doc_data.push(row);
+                    })
+                    saveDataToFirebase(doc_data);
+                })
+            }
+        } catch (error) {
+            console.error('Error getting country data:', error);
+        }
+    };
+    useEffect(() => {
+        if (auth().currentUser.displayName === null) {
+            firestore().collection('Users').where('email', '==', auth().currentUser.email).get()
+                .then(snapshot => {
+                    snapshot?.forEach(doc => {
+                        const doc_data = doc.data().userName;
+                        SetUserName(doc_data);
+                        SetPlayName(doc_data);
+                    });
+                })
+        }
+        else {
+            SetUserName(auth().currentUser.displayName);
+        }
+        fetchData();
+    }, [])
     const onToggleSidebar = () => {
+        setDrawerParams({ param1: ((auth().currentUser.displayName) ? (auth().currentUser.displayName) : playname) })
+        setDrawerParams({ param2: auth().currentUser.email });
         navigation.openDrawer();
     };
 
@@ -49,7 +105,7 @@ const HomeTopbar = () => {
                         <Image source={SidebarIcon} />
                     </View>
                 </TouchableOpacity>
-                <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>Home</Text>
+                <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>{username ? username : 'Home'}</Text>
                 <View style={{ paddingVertical: 5, flexDirection: "row" }}>
                     <View style={{ marginRight: 7 }}>
                         <Text style={{ color: "white", textAlign: "right", fontSize: 8 }}>BALANCE</Text>

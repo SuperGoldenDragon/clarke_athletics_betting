@@ -1,30 +1,30 @@
 import React, { useContext, useEffect } from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
-import DetailIocn from '../../../assets/images/icons/detail-icon.png';
-import TeamLogo1 from '../../../assets/images/logos/team-logo-1.png';
-import TeamLogo2 from '../../../assets/images/logos/team-logo-2.png';
+import DetailIocn from '../../assets/images/icons/detail-icon.png';
+import TeamLogo1 from '../../assets/images/logos/team-logo-1.png';
+import TeamLogo2 from '../../assets/images/logos/team-logo-2.png';
 import { useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import NavigationContext from "../../../components/NavigationContext";
+import NavigationContext from "../../components/NavigationContext";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import axios from "axios";
-import { API_KEY } from "../../../components/api";
-import { BASE_URL } from "../../../components/api";
+import { API_KEY } from "../../components/api";
+import { BASE_URL } from "../../components/api";
 import { SvgUri } from 'react-native-svg';
-const WagerMatchCard = (props) => {
-    const { odd, AwayTeam, HomeTeam, DateTime, logo } = props;
+const TeamWagerCard = (props) => {
+    const { odd, AwayTeam, HomeTeam, DateTime } = props;
     const [showDetail, setShowDetail] = useState(false);
     const [scheduleDate, setDate] = useState("");
     const [scheduleTime, setTime] = useState("");
     const [Logo1, setLogo1] = useState('');
     const [Logo2, setLogo2] = useState('');
-    const [scheduleTeam, setScheduleTeam] = useState([]);
+    const [scheduleawayteam, setScheduleAwayTeam] = useState('');
+    const [schedulehometeam, setScheduleHomeTeam] = useState('');
     const navigation = useNavigation();
-    const teamdump = [];
-    const Logodump = [];
-    const team = "Hello";
+    const currenDate = new Date();
+    const currentYear = currenDate.getFullYear();
     useEffect(() => {
         if (!DateTime) {
             return;
@@ -35,28 +35,65 @@ const WagerMatchCard = (props) => {
             setTime(convertedTime);
         }
         //get the TeamData from the api
-        axios.get(BASE_URL + '/Teams', {
-            headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY
-            },
-        }).then((response) => {
-            response.data.forEach((row) => {
-                if (!row) {
-                    return;
+        const fetchTeamData = async () => {
+            try {
+                const response = await axios.get(BASE_URL + '/Teams', {
+                    headers: {
+                        'Ocp-Apim-Subscription-Key': API_KEY
+                    },
+                });
+                const teamdump = [];
+                response.data.forEach((row) => {
+                    if (row) {
+                        teamdump.push(row);
+                    }
+                });
+                const list1 = AwayTeam ? (teamdump.find(item => item.Key === AwayTeam)) : (teamdump.find(item => item.Key === schedulehometeam))
+                if (list1) {
+                    setLogo1(list1.WikipediaLogoUrl);
+                } else {
+                    console.warn('AwayTeam not found in team data');
                 }
-                else {
-                    teamdump.push(row);
+                const list2 = HomeTeam ? (teamdump.find(item => item.Key === HomeTeam)) : (teamdump.find(item => item.Key === scheduleawayteam));
+                if (list2) {
+                    setLogo2(list2.WikipediaLogoUrl);
+                } else {
+                    // console.warn('HomeTeam not found in team data');
                 }
-            })
-            const list1 = teamdump.filter(item => item.Key === AwayTeam)[0]
-            setLogo1(list1.WikipediaLogoUrl);
-            const list2 = teamdump.filter(item => item.Key === HomeTeam)[0]
-            setLogo2(list2.WikipediaLogoUrl);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        const fetchTeamData2 = async () => {
+            try {
+                const response1 = await axios.get(BASE_URL + '/SchedulesBasic/' + currentYear, {
+                    headers: {
+                        'Ocp-Apim-Subscription-Key': API_KEY
+                    },
+                });
+                const scheduleData = [];
+                response1.data.forEach((row) => {
+                    if (row.Date === null) {
+                        return;
+                    } else {
+                        // console.log(row)
+                        scheduleData.push(row);
+                    }
+                });
+                const schedulelist1 = AwayTeam
+                    ? (scheduleData.filter(item => item.AwayTeam === AwayTeam)[0])
+                    : HomeTeam ? (scheduleData.filter(item => item.HomeTeam === HomeTeam)[0]) : null
+                setScheduleAwayTeam(AwayTeam ? schedulelist1.HomeTeam : null);
+                setScheduleHomeTeam(HomeTeam ? schedulelist1.AwayTeam : null);
+
+            } catch (err) {
+                console.log(err);
+            }
         }
-        ).catch(err => {
-            console.log(err);
-        });
-    }, []);
+        fetchTeamData2();
+        fetchTeamData();
+
+    }, [DateTime, scheduleawayteam, schedulehometeam]);
     const onGoToDetail = () => {
         try {
             navigation.navigate("Match Detail");
@@ -92,20 +129,12 @@ const WagerMatchCard = (props) => {
                     showsVerticalScrollIndicator={false}
                     dropdownStyle={styles.detailDropdownMenuStyle}
                 />
-                {/* <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
-                <Image source={DetailIocn} style={{ width: 16, height: 4 }} />
-            </TouchableOpacity> */}
             </View>
             <View style={{ flexDirection: "row" }}>
-                {/* <Image
-                    source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Washington_Commanders_wordmark.svg' }}
-                    style={{ width: 200, height: 532 }}
-                />; */}
-
                 <View style={{ flexGrow: 1, width: "32%" }}>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
 
-                        <TouchableOpacity onPress={() => { navigation.navigate("Team Detail", { AwayTeam, Logo1 }) }}>
+                        <TouchableOpacity>
                             {Logo1 ? (<SvgUri
                                 width="50"
                                 height="60"
@@ -114,7 +143,7 @@ const WagerMatchCard = (props) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                        <Text style={styles.teamName}>{AwayTeam}</Text>
+                        <Text style={styles.teamName}>{HomeTeam ? schedulehometeam : AwayTeam}</Text>
                     </View>
                 </View>
                 <View style={{ flexGrow: 1, width: "32%" }}>
@@ -124,7 +153,7 @@ const WagerMatchCard = (props) => {
                 </View>
                 <View style={{ flexGrow: 1, width: "32%" }}>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => { navigation.navigate("Team Detail", { HomeTeam, Logo2 }) }}>
+                        <TouchableOpacity>
                             {Logo2 ? (<SvgUri
                                 width="50"
                                 height="50"
@@ -133,7 +162,7 @@ const WagerMatchCard = (props) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                        <Text style={styles.teamName}>{HomeTeam}</Text>
+                        <Text style={styles.teamName}>{AwayTeam ? scheduleawayteam : HomeTeam}</Text>
                     </View>
                 </View>
             </View>
@@ -286,4 +315,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WagerMatchCard;
+export default TeamWagerCard;

@@ -28,8 +28,12 @@ const Signup = () => {
     const [confirmpassword, setConfirmpassword] = useState('');
     const [Teamname, setTeamname] = useState([]);
     const [Countryname, setCountryname] = useState([]);
+    const [docname, setDocName] = useState([]);
+    const [county, setCountry] = useState('');
+    const [team, setTeam] = useState('');
+    const [sports, setSports] = useState('');
     const Teamlist = [];
-    const countrylist = [];
+    const currentCountryList = [];
     const navigation = useNavigation();
     const handleSignUp = () => {
         setLoading(true)
@@ -45,8 +49,12 @@ const Signup = () => {
                         firstName: firstName,
                         lastName: lastName,
                         email: email,
+                        contry: county,
+                        team: team,
+                        sport: sports
                     })
                     .then(() => {
+
                         console.log('User added!');
                         navigation.navigate('Main')
                     })
@@ -116,6 +124,69 @@ const Signup = () => {
             setUsernameVerify(true);
         }
     }
+    const saveDataToFirebase = (data) => {
+        firestore()
+            .collection('countries')
+            .add({
+                countryName: data,
+            })
+            .then(() => {
+                console.log('Data saved to Firebase');
+                // Trigger notification or update UI indicating data is updated
+            })
+            .catch((error) => {
+                console.error('Error saving data to Firebase:', error);
+            });
+    }
+    const arraysAreEqual = (arr1, arr2) => {
+        if (arr1.length !== arr2.length) return false;
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] !== arr2[i]) return false;
+        }
+        return true;
+    };
+    const updateFirestore = async (newData) => {
+        try {
+            await firestore().collection('countries').set({
+                countryName: newData,
+            });
+            console.log('Firestore data updated with new data');
+        } catch (error) {
+            console.error('Error updating Firestore with new data:', error);
+        }
+    };
+    const getCountry = async () => {
+        let doc_data = null;
+        try {
+            // Fetch Firestore data  
+            await firestore()
+                .collection('countries')
+                .get()
+                .then(snapshot => {
+                    snapshot?.forEach(doc => {
+                        doc_data = doc.data().countryName;
+                    })
+                })
+            if (doc_data) {
+                console.log('Data from Firestore:');
+                setCountryname(doc_data);
+            } else {
+                // Fetch from API if Firestore data does not exist
+                const response = await axios.get(COUNTRY_BASE_URL, {
+                    headers: { 'Authorization': 'Bearer jhlpWdXcOLIUl5XU3OhZLFlhgm2dilBAeUJAi2Vi' }
+                });
+                const newCountryList = Object.keys(response.data).map(key => response.data[key].name);
+                console.log('Data from API:');
+                // Save new data to Firestore and update state
+                setCountryname(newCountryList);
+                saveDataToFirebase(newCountryList);
+                // await updateFirestore(newCountryList);
+                console.log('Document does not exist in Firestore. Saved initial data.');
+            }
+        } catch (error) {
+            console.error('Error getting country data:', error);
+        }
+    };
     useEffect(() => {
         axios.get(BASE_URL + '/PlayersByAvailable', {
             headers: {
@@ -135,14 +206,7 @@ const Signup = () => {
         ).catch(err => {
             console.log(err);
         });
-        axios.get(COUNTRY_BASE_URL, {
-            headers: { 'Authorization': 'Bearer y8W0jyplcKUWb94eW74Hb38i8T9ZfkBaaUgnhkS4' }
-        }).then((response) => {
-            Object.keys(response.data).forEach(key => {
-                countrylist.push(response.data[key].name);
-            })
-            setCountryname(countrylist);
-        })
+        getCountry();
     }, [])
     return (
         <LinearGradient colors={['#22252A', '#3C3C3C', '#1B1B1B']}
@@ -196,12 +260,15 @@ const Signup = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <SelectDropdown
                             data={Teamname}
-                            onSelect={(item) => { }}
+                            onSelect={(item) => {
+                                setTeam(item);
+                            }}
                             renderButton={(selectedItem, isOpened) => {
                                 return (
                                     <View style={[styles.matchTypeDropdownButtonStyle, { width: 295, height: 40, borderRadius: 3 }]}>
                                         <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, marginTop: 5 }]}>
                                             {selectedItem || 'Favorite team'}
+
                                         </Text>
                                         <View style={{ marginTop: 10, padding: 4 }}>
                                             <Image source={DropdownIcon} style={{ width: 8, height: 6.7, }} />
@@ -222,8 +289,10 @@ const Signup = () => {
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 5 }}>
                         <SelectDropdown
-                            data={[]}
-                            onSelect={(item) => { }}
+                            data={['NFL', 'MLB', 'NBA', 'NHL', 'College Football', 'College Basketball', 'Golf', 'NASCAR', 'soccer', 'MMA']}
+                            onSelect={(item) => {
+                                setSports(item);
+                            }}
                             renderButton={(selectedItem, isOpened) => {
                                 return (
                                     <View style={[styles.matchTypeDropdownButtonStyle, { width: 295, height: 40, borderRadius: 3 }]}>
@@ -250,11 +319,13 @@ const Signup = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
                         <SelectDropdown
                             data={Countryname}
-                            onSelect={(item) => { }}
+                            onSelect={(item) => {
+                                setCountry(item);
+                            }}
                             renderButton={(selectedItem, isOpened) => {
                                 return (
                                     <View style={[styles.matchTypeDropdownButtonStyle, { width: 295, height: 40, borderRadius: 3 }]}>
-                                        <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, marginTop: 5 }]}>
+                                        <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, marginTop: 5, }]}>
                                             {selectedItem || 'Country'}
                                         </Text>
                                         <View style={{ marginTop: 10, padding: 4 }}>
@@ -287,7 +358,7 @@ const Signup = () => {
                         </Text>
                     )}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5 }}>
-                        <TextInput style={[styles.text, styles.inputText]} placeholder='Confirm Password' placeholderTextColor={'white'} onChangeText={e => handleconfirmPassword(e)} />
+                        <TextInput style={[styles.text, styles.inputText]} placeholder='Confirm Password' placeholderTextColor={'white'} secureTextEntry={true} onChangeText={e => handleconfirmPassword(e)} />
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
                         <TouchableOpacity onPress={() => { handleSignUp() }} style={{ width: 295, fontSize: 19, backgroundColor: '#F7D068', borderRadius: 5, paddingVertical: 10 }}>

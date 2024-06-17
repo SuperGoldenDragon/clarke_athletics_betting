@@ -4,46 +4,88 @@ import DropdownIcon from '../../../assets/images/icons/drop-down-icon.png';
 import SelectDropdown from "react-native-select-dropdown";
 import WagerMatchCard from "./WagerMatchCard";
 import GlobalStyle from "../../../styles/global";
+import firestore from '@react-native-firebase/firestore';
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { API_KEY } from "../../../components/api";
 import { BASE_URL } from "../../../components/api";
+
 const Wager = () => {
     const currenDate = new Date();
     const currentYear = currenDate.getFullYear();
     const [Week, setWeek] = useState([]);
     const [WagerData, SetWagerData] = useState([]);
     const [selectedWeek, setSelectedWeek] = useState(null);
-    const Weekdump = [];
-    const datadump = [];
+    //fetch the firebase
+    const saveDataToFirebase = (data) => {
+        firestore()
+            .collection('API')
+            .doc('SChedules')
+            .set({
+                schedulearray: data,
+            })
+            .then(() => {
+                console.log('Data saved to Firebase');
+                // Trigger notification or update UI indicating data is updated
+            })
+            .catch((error) => {
+                console.error('Error saving data to Firebase:', error);
+            });
+    }
+    //fetch the data from the firebase;
+    const fetchData = async () => {
+        let doc_data = [];
+        let doc_exist = null;
+        let doc_Week = [];
+        try {
+            await firestore()
+                .collection('API')
+                .doc('SChedules')
+                .get()
+                .then(snapshot => {
+                    doc_data = snapshot.exists ? snapshot.data().schedulearray : null;
+                    doc_exist = snapshot.exists;
+                })
+            console.log("exist" + doc_exist);
+            if (doc_exist) {
+                doc_data.forEach(row => {
+                    if (row.Date !== null) {
+                        doc_Week.push(row.Week);
+                    }
+                });
+                // console.log('Weeks from Firestore data:', doc_data);
+                SetWagerData(doc_data ? doc_data : null);
+                setWeek(doc_data ? [...new Set(doc_Week)] : null)
+            } else {
+                console.log('Document does not exist. Fetching data from API...');
+                const response = await axios.get(`${BASE_URL}/SchedulesBasic/${currentYear}`, {
+                    headers: {
+                        'Ocp-Apim-Subscription-Key': API_KEY
+                    }
+                });
+                const datadump = [];
+                const Weekdump = [];
+
+                response.data.forEach((row) => {
+                    if (row.Date !== null) {
+                        datadump.push(row);
+                        Weekdump.push(row.Week);
+                    }
+                });
+                const WeekArray = [...new Set(Weekdump)];
+                saveDataToFirebase(datadump);
+                SetWagerData(datadump);
+                setWeek(WeekArray)
+
+            }
+        } catch (error) {
+            console.error('Error getting country data:', error);
+        }
+    };
     //get the shedule
     useEffect(() => {
-        axios.get(BASE_URL + '/SchedulesBasic/' + currentYear, {
-            headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY
-            },
-        }).then((response) => {
-            // console.log(response);
-            response.data.forEach((row) => {
-                if (row.Date === null) {
-                    return;
-                } else {
-                    console.log("-------------")
-                    // console.log(row);
-                    console.log("-----end-------0");
-                    datadump.push(row);
-                    Weekdump.push(row.Week);
-                }
-
-            })
-            const WeekArray = [...new Set(Weekdump)];
-            SetWagerData(datadump);
-            setWeek(WeekArray);
-        }
-        ).catch(err => {
-            console.log(err);
-        });
+        fetchData();
     }, [])
     const navigation = useNavigation();
     return (<View style={{ flex: 1, backgroundColor: "white" }}>
