@@ -236,7 +236,11 @@ const Myprofile = () => {
                 <View style={{ width: '100%', flexDirection: 'row', paddingHorizontal: 30 }}>
                     <View style={[styles.avatar_container, { paddingVertical: 10 }]}>
                         <Image source={{ uri: imageUrl }} style={styles.avatar} />
+                        <View style={[styles.infoContainer, { marginBottom: 20, marginLeft: 20 }]}>
+                            <Text style={[styles.infoLabel, { color: 'black', }]}>CTRY: USA</Text>
+                        </View>
                     </View>
+
                     <View style={{ paddingHorizontal: 20 }}>
                         <View style={[styles.nameContainer, {}]}>
                             <Text style={[styles.infoLabel, { color: 'black' }]}>Record</Text>
@@ -276,9 +280,7 @@ const Myprofile = () => {
                         <View style={[styles.infoContainer, { marginBottom: 10 }]}>
                             <Text style={[styles.infoLabel, { color: 'black', }]}>Badges</Text>
                         </View>
-                        {/* <View style={[styles.infoContainer, { marginBottom: 20 }]}>
-                            <Text style={[styles.infoLabel, { color: 'black', }]}>CTRY: USA</Text>
-                        </View> */}
+
                     </View>
                 </View>
 
@@ -345,12 +347,34 @@ const Myprofile = () => {
 };
 const renderContent = (daysOfWeek) => {
     const tableData = [
-        { name: '$14(+100%) W2 L3', age: '1', location: 'Alex' },
-        { name: '$14(+100%) W2 L3', age: '2', location: 'Joe' },
-        { name: '$14(+100%) W2 L3', age: '3', location: 'Tom' },
-        { name: '$14(+100%) W2 L3', age: '4', location: 'Tony' },
-        { name: '$14(+100%) W2 L3', age: '5', location: 'Algena' },
-        { name: '$14(+100%) W2 L3', age: '6', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Win', location: 'Alex' },
+        { name: '$14(+100%) W2 L3', age: 'Win', location: 'Joe' },
+        { name: '$14(+100%) W2 L3', age: 'Cover', location: 'Tom' },
+        { name: '$14(+100%) W2 L3', age: 'Cover', location: 'Tony' },
+        { name: '$14(+100%) W2 L3', age: 'Total', location: 'Algena' },
+        { name: '$14(+100%) W2 L3', age: 'Total', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Prop', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Prop', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+    ];
+    const Data = [
+        { name: '$14(+100%) W2 L3', age: 'Win', location: 'Alex' },
+        { name: '$14(+100%) W2 L3', age: 'Win', location: 'Joe' },
+        { name: '$14(+100%) W2 L3', age: 'Cover', location: 'Tom' },
+        { name: '$14(+100%) W2 L3', age: 'Cover', location: 'Tony' },
+        { name: '$14(+100%) W2 L3', age: 'Total', location: 'Algena' },
+        { name: '$14(+100%) W2 L3', age: 'Total', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Prop', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Prop', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Prop', location: 'Fatra' },
+        { name: '$14(+100%) W2 L3', age: 'Utl', location: 'Fatra' },
+
+
     ];
     return (
         <View>
@@ -360,8 +384,8 @@ const renderContent = (daysOfWeek) => {
             <View>
                 {tableData.map((rowData, index) => (
                     <View key={index} style={styles.row}>
-                        <Text style={[styles.cell1, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#F3F6F6', borderRadius: 3, paddingVertical: 5 }]}>{rowData.age}</Text>
-                        <Text style={[styles.cell, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#FDF0D3', borderRadius: 3, paddingVertical: 5 }]}>{rowData.location}</Text>
+                        <Text style={[styles.cell1, styles.text, { fontWeight: '400', fontSize: 15, backgroundColor: '#F3F6F6', borderRadius: 3, paddingVertical: 5 }]}>{rowData.age}</Text>
+                        <Text style={[styles.cell, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#FDF0D3', borderRadius: 3, paddingVertical: 5 }]}></Text>
                     </View>
                 ))}
             </View>
@@ -370,10 +394,10 @@ const renderContent = (daysOfWeek) => {
                     <Text style={[styles.text, { paddingHorizontal: 20, fontSize: 20 }]}>Keepers</Text>
                 </View>
                 <View>
-                    {tableData.map((rowData, index) => (
+                    {Data.map((rowData, index) => (
                         <View key={index} style={styles.row}>
-                            <Text style={[styles.cell1, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#F3F6F6', borderRadius: 3, paddingVertical: 5 }]}>{rowData.age}</Text>
-                            <Text style={[styles.cell, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#FDF0D3', borderRadius: 3, paddingVertical: 5 }]}>{rowData.location}</Text>
+                            <Text style={[styles.cell1, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#F3F6F6', borderRadius: 3, paddingVertical: 5 }]}>{rowData.location}</Text>
+                            {/* <Text style={[styles.cell, styles.text, { fontWeight: '400', fontSize: 12, backgroundColor: '#FDF0D3', borderRadius: 3, paddingVertical: 5 }]}>{rowData.location}</Text> */}
                         </View>
                     ))}
                 </View>
@@ -412,7 +436,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     nameContainer: {
-        marginTop: 24,
+        marginTop: 40,
         // alignItems: 'center',
     },
     name: {
@@ -445,7 +469,7 @@ const styles = StyleSheet.create({
     },
     cell1: {
         textAlign: 'center',
-        width: '10%'
+        width: '30%'
     },
     row: {
         flexDirection: 'row',

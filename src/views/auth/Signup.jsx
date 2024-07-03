@@ -31,7 +31,7 @@ const Signup = () => {
     const [docname, setDocName] = useState([]);
     const [county, setCountry] = useState('');
     const [team, setTeam] = useState('');
-    const [sports, setSports] = useState('');
+    const [sports,setSports]=useState('');
     const Teamlist = [];
     const currentCountryList = [];
     const navigation = useNavigation();
@@ -51,7 +51,7 @@ const Signup = () => {
                         email: email,
                         contry: county,
                         team: team,
-                        sport: sports
+                        sport:sports
                     })
                     .then(() => {
 
@@ -290,7 +290,7 @@ const Signup = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 5 }}>
                         <SelectDropdown
                             data={['NFL', 'MLB', 'NBA', 'NHL', 'College Football', 'College Basketball', 'Golf', 'NASCAR', 'soccer', 'MMA']}
-                            onSelect={(item) => {
+                            onSelect={(item) => { 
                                 setSports(item);
                             }}
                             renderButton={(selectedItem, isOpened) => {

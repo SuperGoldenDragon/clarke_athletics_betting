@@ -66,9 +66,9 @@ const HomeBlogs = () => {
                     <View style={{ padding: 5, backgroundColor: '#333', borderRadius: 4, marginRight: 10, borderWidth: 2, borderColor: '#555', alignSelf: "flex-start" }}>
                         <Image source={WalletIcon} />
                     </View>
-                    <View style={{ paddingVertical: 3 }}>
+                    {/* <View style={{ paddingVertical: 3 }}>
                         <Image source={SearchIcon} />
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </View>

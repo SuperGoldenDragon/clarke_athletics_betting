@@ -44,6 +44,7 @@ const ChatBubble = (props) => {
             <Text style={[styles.name, { textAlign: "left", paddingLeft: 5 }]}>{Username}</Text>
             <View style={[styles.bubble, { alignItems: "flex-start" }]}>
                 <View style={{}} >
+                    {/* <Image source={{ uri: imageUrl }} style={{ width: 50, height: 50 }} /> */}
                     <Text style={[styles.content, styles.bubble_border, {}]}>{text}</Text>
                     <Text style={[styles.time, { textAlign: "left" }]}>
                         {currenttime}

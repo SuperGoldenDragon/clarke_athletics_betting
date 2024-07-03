@@ -44,10 +44,9 @@ const Wager = () => {
                 .doc('SChedules')
                 .get()
                 .then(snapshot => {
-                    doc_data = snapshot.exists ? snapshot.data().schedulearray : null;
+                    doc_data = snapshot.data().schedulearray;
                     doc_exist = snapshot.exists;
                 })
-            console.log("exist" + doc_exist);
             if (doc_exist) {
                 doc_data.forEach(row => {
                     if (row.Date !== null) {
@@ -97,7 +96,7 @@ const Wager = () => {
                     </View>
                 </TouchableOpacity>
                 <Text style={{ color: "white", fontSize: 18, marginRight: "auto", fontWeight: "600", paddingVertical: 2 }}>Wager</Text>
-                <View style={{ padding: 5, flexDirection: "row" }}>
+                {/* <View style={{ padding: 5, flexDirection: "row" }}>
                     <SelectDropdown
                         data={[]}
                         onSelect={(item) => { }}
@@ -123,7 +122,7 @@ const Wager = () => {
                         showsVerticalScrollIndicator={false}
                         dropdownStyle={styles.matchTypeDropdownMenuStyle}
                     />
-                </View>
+                </View> */}
             </View>
         </View>
         <View style={[GlobalStyle.defaultPagePadding, { flexDirection: "row", justifyContent: "space-between", marginVertical: 10 }]}>

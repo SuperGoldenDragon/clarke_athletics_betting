@@ -13,77 +13,197 @@ import Avatar from '../../../components/Avatar';
 import DefaultAvatar from '../../../assets/images/avatars/avatar-1.png';
 import CommentCard from './CommentCard';
 import SelectDropdown from 'react-native-select-dropdown';
+import firestore from '@react-native-firebase/firestore';
 import TeamLogo from '../../../components/TeamLogo';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 
-
-
 const BlogCard = (props) => {
     const { Blogdata } = props;
     const { onLiveChat, isChat, isAgree, noChat, comments, scoreTable, onValue } = props;
-    const { channelName, image_A_Uri, image_B_Uri, owner } = Blogdata;
-    return (<View style={styles.container}>
-        <View style={{ flexDirection: "row" }}>
-            <View style={{ flexDirection: "row", marginRight: 10 }}>
+    const { channelName, image_A_Uri, image_B_Uri, owner, count, id } = Blogdata;
+    const [chatLen, setChatLen] = useState(0);
+    const [_count, setCount] = useState(count);
+    const [_data, setData] = useState([]);
+    const splitWords = channelName.split('  ');
+    const addCount = async () => {
+        setCount(_count + 1);
+        UpdateCount(id, _count);
+    }
+    const UpdateCount = async (id, data) => {
+        firestore()
+            .collection("Newpost")
+            .doc(id)
+            .update({
+                count: data + 1
+            }).then(() => {
+                console.log("Document update successfully!");
+            }).catch((error) => {
+                console.log("Error", error);
+            })
+    }
+    const _getChatLength = async (name) => {
+        firestore()
+            .collection('chats')
+            .where('channelName', '==', name)
+            .orderBy('createdAt', 'asc')
+            .limitToLast(15)
+            .onSnapshot(querySnapshot => {
+                let chatsArr = [];
+                if (querySnapshot === null) return;
+                querySnapshot?.forEach(doc => {
+                    const id = doc.id;
+                    const data = doc.data();
+                    chatsArr.push({ id, ...data });
+                });
+                setChatLen(chatsArr.length);
+                setData(chatsArr);
+            });
+    }
+    useEffect(() => {
+        _getChatLength(channelName);
+    }, [])
+    return (
+        <View style={styles.container}>
+            <View style={{ flexDirection: "row" }}>
+                {/* <View style={{ flexDirection: "row", marginRight: 10 }}>
                 <Image src={image_A_Uri} style={{ width: 30, height: 30, }} />
                 <Image src={image_B_Uri} style={{ width: 30, height: 30, marginLeft: -9 }} />
+            </View> */}
+                <View style={{ flexGrow: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', paddingLeft: 5 }}>
+                    <Text style={[styles.teamNames, { fontSize: 30 }]}>{splitWords[0]} </Text>
+                    <Text style={[styles.teamNames, { borderBottomWidth: 1, borderColor: '#26272B', fontSize: 30 }]}>{splitWords[1]} </Text>
+                    <Text style={[styles.teamNames, { fontSize: 30 }]}> {splitWords[2]}</Text>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center', paddingTop: 5, borderBottomWidth: 1, borderColor: '#26272B', marginHorizontal: 100 }}>
+                <View style={{ paddingHorizontal: 27, borderRightWidth: 1, paddingBottom: 5, }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center', fontSize: 18 }]}>Final</Text>
+                    </View>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center', fontSize: 18 }]}>ODDS</Text>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 20, paddingBottom: 5, }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center', fontSize: 18 }]}>Final</Text>
+                    </View>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center', fontSize: 18 }]}>Results</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center' }}>
+                <View style={{ borderColor: '#26272B', paddingHorizontal: 30, borderRightWidth: 1, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 30, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center' }}>
+                <View style={{ borderColor: '#26272B', paddingHorizontal: 30, borderRightWidth: 1, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 30, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center' }}>
+                <View style={{ borderColor: '#26272B', paddingHorizontal: 30, borderRightWidth: 1, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 30, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center' }}>
+                <View style={{ borderColor: '#26272B', paddingHorizontal: 30, borderRightWidth: 1, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 30, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', flexGrow: 1, justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#26272B', marginHorizontal: 40 }}>
+                <View style={{ borderColor: '', paddingHorizontal: 30, borderRightWidth: 1, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 30, paddingVertical: 5 }}>
+                    <View style={{}}>
+                        <Text style={[styles.teamNames, { textAlign: 'center' }]}>Final</Text>
+                    </View>
+                </View>
+            </View>
+            {!scoreTable && <View style={[styles.underline, { flexDirection: "row", marginBottom: 10, paddingVertical: 5 }]}>
+            </View>}
+            {scoreTable && <View style={styles.table}>
+                <View style={styles.row}>
+                    <Text style={styles.cell_head}>SCORE</Text>
+                    <Text style={styles.cell_head}>COVER</Text>
+                    <Text style={styles.cell_head}>OVER/UNDER</Text>
+                </View>
+                <View style={styles.underline} />
+                <View style={styles.row}>
+                    <Text style={styles.cell}>2-2</Text>
+                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}>
+                        <Text style={{ color: "green", marginRight: 5, fontWeight: "400" }}>2</Text>
+                        <Text style={{ marginRight: 5, fontWeight: "400" }}>:</Text>
+                        <Text style={{ color: "red", fontWeight: "400" }}>-2</Text>
+                    </View>
+                    <Text style={styles.cell}>160</Text>
+                </View>
+                <View style={styles.underline} />
+            </View>}
+            <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <View style={{ flexDirection: "row", marginRight: 50 }}>
+                    <TouchableOpacity onPress={() => addCount()}>
+                        <Image source={isAgree ? AgreeFilledIcon : AgreeIcon} style={{ marginRight: 5 }} />
+                    </TouchableOpacity>
+                    <Text style={{ marginTop: -3 }}>{_count}</Text>
+                </View>
+                <View style={{ flexDirection: "row", marginRight: 50 }}>
+                    <Image source={isChat ? ChatFilledIcon : ChatIcon} style={{ marginRight: 5 }} />
+                    <Text style={{ marginTop: -3 }}>{chatLen}</Text>
+                </View>
+                <View style={{ flexDirection: "row", marginRight: 50 }}>
+                    <Image source={BookmarkIcon} style={{ marginRight: 5 }} />
+                    <Text style={{ marginTop: -3 }}>100</Text>
+                </View>
             </View>
             <View>
-                <Text style={styles.teamNames}>{channelName}</Text>
-                {/* <Text style={styles.teamNames}>Toronto Raptors VS Detroit Pistons</Text> */}
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: "#4B4B4B", fontSize: 12 }}>23 Nov,2023 | </Text>
-                    <Text style={{ color: "#B9B9B9", fontSize: 12 }}>Started 11 mins ago</Text>
-                </View>
-            </View>
 
-            <View style={{ flexDirection: "row", flexGrow: 1, justifyContent: "flex-end" }}>
-                <TouchableOpacity>
-                    <Image source={BackIcon} style={{ width: 20, height: 16 }} />
-                </TouchableOpacity>
-            </View>
-        </View>
-        {!scoreTable && <View style={[styles.underline, { flexDirection: "row", marginBottom: 10, paddingVertical: 5 }]}>
-            <Text style={{ fontWeight: "700" }}>SCORE -</Text>
-            <Text> 2 - 2</Text>
-        </View>}
-        {scoreTable && <View style={styles.table}>
-            <View style={styles.row}>
-                <Text style={styles.cell_head}>SCORE</Text>
-                <Text style={styles.cell_head}>COVER</Text>
-                <Text style={styles.cell_head}>OVER/UNDER</Text>
-            </View>
-            <View style={styles.underline} />
-            <View style={styles.row}>
-                <Text style={styles.cell}>2-2</Text>
-                <View style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}>
-                    <Text style={{ color: "green", marginRight: 5, fontWeight: "400" }}>2</Text>
-                    <Text style={{ marginRight: 5, fontWeight: "400" }}>:</Text>
-                    <Text style={{ color: "red", fontWeight: "400" }}>-2</Text>
-                </View>
-                <Text style={styles.cell}>160</Text>
-            </View>
-            <View style={styles.underline} />
-        </View>}
-        <View style={{ flexDirection: "row", marginBottom: 10 }}>
-            <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={isAgree ? AgreeFilledIcon : AgreeIcon} style={{ marginRight: 5 }} />
-                <Text style={{ marginTop: -3 }}>1120</Text>
-            </View>
-            <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={isChat ? ChatFilledIcon : ChatIcon} style={{ marginRight: 5 }} />
-                <Text style={{ marginTop: -3 }}>50</Text>
-            </View>
-            <View style={{ flexDirection: "row", marginRight: 50 }}>
-                <Image source={BookmarkIcon} style={{ marginRight: 5 }} />
-                <Text style={{ marginTop: -3 }}>100</Text>
-            </View>
-        </View>
-        <View>
-            <View style={{ flexDirection: "row" }}>
-                <View style={{ flexDirection: "row", flexGrow: 1 }}>
-                    <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : { width: 30, height: 30 }} />
+                    <View style={{ flexDirection: "row", flexGrow: 1 }}>
+                        {_data.length > 0 ? _data.slice(0, 7).map((row, index) => (
+                            <Image
+                                key={index}
+                                source={{ uri: row.imageUrl }}
+                                style={[styles.default_avatar, { borderRadius: 64, marginLeft: index === 0 ? 0 : -10 }]}
+                            />
+                        )) : (<Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : { width: 30, height: 30 }} />)}
+                        {/* <Image resizeMode='contain' source={DefaultAvatar} />
+                    <Image resizeMode='contain' source={DefaultAvatar} style={styles.default_avatar} /> */}
+                        {/* <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : { width: 30, height: 30 }} />
                     <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
                     <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
                     <Image resizeMode='contain' source={DefaultAvatar} style={noChat ? styles.no_chat_avatar : styles.default_avatar} />
@@ -94,50 +214,51 @@ const BlogCard = (props) => {
                         <Text style={[{ width: 30, height: 30 }, styles.more_avatar]}>
                             1000 +
                         </Text>
+                    </View> */}
+
                     </View>
 
+                    {
+                        !noChat && <View style={{ paddingTop: 5 }}>
+                            <DefaultTextButton onPress={onLiveChat}>View Live Chat</DefaultTextButton>
+                        </View>
+                    }
                 </View>
-                {
-                    !noChat && <View style={{ paddingTop: 5 }}>
-                        <DefaultTextButton onPress={onLiveChat}>View Live Chat</DefaultTextButton>
+            </View>
+            {
+                comments && comments.length > 0 && <View style={{ borderTopColor: "#B9B9B9", borderTopWidth: 1, marginVertical: 10, paddingTop: 24 }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 24 }}>
+                        <Text style={{ fontWeight: "400" }}>COMMENTS</Text>
+                        <SelectDropdown
+                            data={["Most Recent", "High high hish"]}
+                            onSelect={(item) => { }}
+                            renderButton={(selectedItem, isOpened) => {
+                                return (
+                                    <View style={[styles.dropdownButtonStyle]}>
+                                        <Text style={[styles.dropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5 }]}>
+                                            {selectedItem || 'MOST RECENT'}
+                                        </Text>
+                                    </View>
+                                );
+                            }}
+                            renderItem={(item, index, isSelected) => {
+                                return (
+                                    <View style={{ ...styles.dropdownItemStyle, ...(isSelected && { backgroundColor: '#eee' }) }}>
+                                        <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+                                    </View>
+                                );
+                            }}
+                            showsVerticalScrollIndicator={false}
+                            dropdownStyle={styles.dropdownMenuStyle}
+                        />
                     </View>
-                }
-            </View>
-        </View>
-        {
-            comments && comments.length > 0 && <View style={{ borderTopColor: "#B9B9B9", borderTopWidth: 1, marginVertical: 10, paddingTop: 24 }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 24 }}>
-                    <Text style={{ fontWeight: "400" }}>COMMENTS</Text>
-                    <SelectDropdown
-                        data={["Most Recent", "High high hish"]}
-                        onSelect={(item) => { }}
-                        renderButton={(selectedItem, isOpened) => {
-                            return (
-                                <View style={[styles.dropdownButtonStyle]}>
-                                    <Text style={[styles.dropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5 }]}>
-                                        {selectedItem || 'MOST RECENT'}
-                                    </Text>
-                                </View>
-                            );
-                        }}
-                        renderItem={(item, index, isSelected) => {
-                            return (
-                                <View style={{ ...styles.dropdownItemStyle, ...(isSelected && { backgroundColor: '#eee' }) }}>
-                                    <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
-                                </View>
-                            );
-                        }}
-                        showsVerticalScrollIndicator={false}
-                        dropdownStyle={styles.dropdownMenuStyle}
-                    />
+                    {
+                        comments.map((comment, index) => (<CommentCard key={index} comment={comment} />))
+                    }
                 </View>
-                {
-                    comments.map((comment, index) => (<CommentCard key={index} comment={comment} />))
-                }
-            </View>
-        }
+            }
 
-    </View>)
+        </View>)
 };
 
 const styles = StyleSheet.create({
@@ -164,7 +285,7 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto",
         fontWeight: "bold",
         fontSize: 16,
-        maxWidth: "70%"
+        // maxWidth: "70%",
     },
     underline: {
         borderBottomWidth: 1,

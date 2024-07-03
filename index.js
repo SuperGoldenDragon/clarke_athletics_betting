@@ -14,6 +14,7 @@ import Login from './src/views/auth/Login';
 import Signup from './src/views/auth/Signup';
 import AppMain from './src/views/main/AppMain';
 import ForgetPassword from './src/views/auth/ForgetPassword';
+import League from './src/views/main/leagues/Leagues';
 const Stack = createStackNavigator();
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
                 <Stack.Screen name="Sign up" component={Signup} options={{ headerShown: false }} />
                 <Stack.Screen name="Main" component={AppMain} options={{ headerShown: false }} />
                 <Stack.Screen name='Forget' component={ForgetPassword} options={{ headerShown: false }} />
+                {/* <Stack.Screen name='League' component={League} options={{ headerShown: false }} /> */}
+
             </Stack.Navigator>
         </NavigationContainer>
     );

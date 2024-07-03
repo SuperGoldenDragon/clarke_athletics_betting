@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View, Text, ScrollView, TextInput, FlatList, ActivityIndicator, PermissionsAndroid } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View, Text, ScrollView, TextInput, FlatList, ActivityIndicator, PermissionsAndroid, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import CloseIcon from '../assets/images/icons/close-icon.png';
-import FullscreenIcon from '../assets/images/icons/fullscreen-icon.png';
-import SelectDropdown from 'react-native-select-dropdown';
-import DropDownIcon from '../assets/images/icons/drop-down-icon.png';
 import TeamLogo1 from '../assets/images/logos/team-logo-1.png';
 import CameraIcon from '../assets/images/icons/camera-icon.png';
 import AttachmentIcon from '../assets/images/icons/attachment-icon.png';
@@ -26,6 +23,7 @@ const LiveChatDialog = (props) => {
     const [chat_username, Setchatusername] = useState('');
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
+
     const isMounted = useRef(true);
     useEffect(() => {
         if (open) {
@@ -172,7 +170,9 @@ const LiveChatDialog = (props) => {
                     })
                     .then(() => {
                         setText('');
+                        setSelectedImage(null);
                         setLoading(false);
+
                     })
                     .catch(err => {
                         setLoading(false);
@@ -191,41 +191,9 @@ const LiveChatDialog = (props) => {
         <View style={styles.mask_bg}></View>
         <View style={styles.dialog}>
             <View style={styles.dialogContent}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 15 }}>
-                    <View style={{ flexGrow: 1, flexDirection: "row" }}>
-                        <View>
-                            <SelectDropdown
-                                data={emojisWithIcons}
-                                onSelect={(item) => { }}
-                                renderButton={(selectedItem, isOpened) => {
-                                    return (
-                                        <View style={[styles.dropdownButtonStyle]}>
-                                            <Text style={[styles.dropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5 }]}>
-                                                {(selectedItem && selectedItem.title) || 'NBA'}
-                                            </Text>
-                                            <View style={{ padding: 4 }}>
-                                                <Image source={DropDownIcon} style={{ width: 8, height: 6.7 }} />
-                                            </View>
-                                        </View>
-                                    );
-                                }}
-                                renderItem={(item, index, isSelected) => {
-                                    return (
-                                        <View style={{ ...styles.dropdownItemStyle, ...(isSelected && { backgroundColor: '#000' }) }}>
-                                            <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
-                                        </View>
-                                    );
-                                }}
-                                showsVerticalScrollIndicator={false}
-                                dropdownStyle={styles.dropdownMenuStyle}
-                            />
-                        </View>
-
-                    </View>
-                </View>
                 <View style={{ flexDirection: "row", flex: 1 }}>
                     <View >
-                        <ScrollView style={{}}>
+                        <ScrollView style={{ marginVertical: 20 }}>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingHorizontal: 10, paddingVertical: 7 }}>
                                 <TouchableOpacity onPress={() => { console.log("channel1") }}>
                                     <Image source={TeamLogo1} style={styles.teamLogo} />
@@ -239,8 +207,8 @@ const LiveChatDialog = (props) => {
                         </ScrollView>
                     </View>
                     <View style={{ flexGrow: 1, flex: 1 }}>
-                        <View style={{ flex: 1, borderBottomColor: "#EEFAF8", borderBottomWidth: 1, marginBottom: 10 }}>
-                            <View style={[styles.chatStyle, {}]}>
+                        <View style={{ flex: 1, borderBottomColor: "#EEFAF8", borderBottomWidth: 1, marginBottom: 5 }}>
+                            <View style={[styles.chatStyle, { marginTop: 40, marginBottom: 5 }]}>
                                 {chats && (
                                     <FlatList
                                         data={chats}
@@ -249,6 +217,18 @@ const LiveChatDialog = (props) => {
                                 )}
                             </View>
                         </View>
+                        {/* {selectedImage ? (<View>
+                            <Image source={{ uri: selectedImage }} style={{
+                                width: 100, height: 100
+                                , marginVertical: 10, borderWidth: 1, borderColor: 'red'
+                            }} />
+                        </View>) : null} */}
+                        {/* <KeyboardAvoidingView
+                            style={{ flex: 1 }}
+                        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                        >
+                            <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+
                         <View style={{ flexDirection: "row" }}>
                             <TouchableOpacity style={{ paddingVertical: 7, paddingHorizontal: 5 }} onPress={() => { galleryPickerImage(); }}>
                                 <Image source={AttachmentIcon} />
@@ -266,6 +246,8 @@ const LiveChatDialog = (props) => {
                                 <Image source={CameraIcon} />
                             </TouchableOpacity>
                         </View>
+                        {/* </TouchableWithoutFeedback>
+                        </KeyboardAvoidingView> */}
                     </View>
                 </View>
             </View>

@@ -14,9 +14,6 @@ import { API_KEY } from "../../../components/api";
 import { BASE_URL } from "../../../components/api";
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-
-const sampleNews = [{}, {}, {}];
-
 const HomeTopbar = () => {
     const parentContext = useContext(NavigationContext);
     const navigation = useNavigation();
@@ -24,8 +21,6 @@ const HomeTopbar = () => {
     const [playname, SetPlayName] = useState('');
     const [username, SetUserName] = useState('');
     const { setDrawerParams } = useDrawer();
-    const NewData = [];
-    const dump = [];
     //save the data on the firebase
     const saveDataToFirebase = (data) => {
         firestore()
@@ -114,9 +109,9 @@ const HomeTopbar = () => {
                     <View style={{ padding: 5, backgroundColor: '#333', borderRadius: 4, marginRight: 10, borderWidth: 2, borderColor: '#555', alignSelf: "flex-start" }}>
                         <Image source={WalletIcon} />
                     </View>
-                    <View style={{ paddingVertical: 3 }}>
+                    {/* <View style={{ paddingVertical: 3 }}>
                         <Image source={SearchIcon} />
-                    </View>
+                    </View> */}
                 </View>
             </View>
             <View style={{ paddingBottom: 60 }}>

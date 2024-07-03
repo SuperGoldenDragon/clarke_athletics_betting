@@ -23,6 +23,7 @@ import TeamDetail from '../teamdetail/TeamDetail';
 import Newchannel from '../../components/Newchannel';
 import Myprofile from '../profile/Myprofile';
 import ChatBubble from '../../components/ChatBubble';
+import League from '../main/leagues/Leagues';
 const Drawer = createDrawerNavigator();
 
 const AppMain = () => {
@@ -47,7 +48,7 @@ const AppMain = () => {
                         <Drawer.Screen name='Dropping' component={DroppingOdds} options={{ headerShown: false }} />
                         <Drawer.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
                         <Drawer.Screen name='New' component={WhatsNew} options={{ headerShown: false }} />
-                        <Drawer.Screen name="Leagues Match" component={LeaguesMatch} options={{ headerShown: false }} />
+                        <Drawer.Screen name="Leagues" component={League} options={{ headerShown: false }} />
                         <Drawer.Screen name="Home Blogs" component={HomeBlogs} options={{ headerShown: false }} />
                         <Drawer.Screen name="Match Detail" component={MatchDetail} options={{ headerShown: false }} />
                         <Drawer.Screen name='Team Detail' component={TeamDetail} options={{ headerShown: false }} />

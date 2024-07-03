@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, ActivityIndicator } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import loginlogo3 from '../../assets/images/logos/login-logo-3.png';
-import loginlogo2 from '../../assets/images/logos/login-logo-2.png';
+import loginlogo2 from '../../assets/images/logos/logo5.png';
 import GmailIcon from '../../assets/images/icons/gmail-icon.png';
 import LoginBottomMask from '../../assets/images/login-bottom-mask.png';
 import DefaultButton from '../../components/DefaultButton';
@@ -27,7 +27,24 @@ const Login = () => {
         const imageHeight = screenWidth / aspectRatio;
         setImageSize({ width: imageWidth, height: imageHeight });
     };
+    const LoginIamge = async () => {
+        setLoading(true);
+        GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+        // Create a Google credential with the token
+        const googleCredential = await auth.GoogleAuthProvider.credential(idToken);
 
+        await auth().signInWithCredential(googleCredential).then(() => {
+            console.log(auth().currentUser.displayName);
+            setLoading(false);
+            navigation.navigate('Main')
+        })
+            .catch(error => {
+                setLoading(false);
+                console.error(error);
+            });
+    }
     const handleGoogleContinueSubmit = async () => {
         setLoading(true);
         GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
@@ -56,7 +73,9 @@ const Login = () => {
                     <Image style={{ opacity: 0.43 }} source={loginlogo3} />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                    <Image style={{ width: 186, height: 186 }} source={loginlogo2} />
+                    <TouchableOpacity onPress={() => LoginIamge()}>
+                        <Image style={{ width: 186, height: 186 }} source={loginlogo2} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', paddingVertical: 10 }}>
                     <Text style={[styles.text, { color: '#FFFFFF' }]}>SIGN TO PLAY</Text>

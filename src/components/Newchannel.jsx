@@ -1,10 +1,12 @@
 import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet } from "react-native"
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from "@react-navigation/native";
+import SelectDropdown from 'react-native-select-dropdown';
+import DropdownIcon from '../assets/images/icons/login-vector.png';
 import auth from '@react-native-firebase/auth';
 import { Alert } from "react-native";
-import firestore from '@react-native-firebase/firestore';
+import firestore, { collection, doc } from '@react-native-firebase/firestore';
 import axios from "axios";
 import moment from "moment";
 const Newchannel = () => {
@@ -13,7 +15,34 @@ const Newchannel = () => {
     const [photo2, setPhoto2URI] = useState(null);
     const [test, setTest] = useState([]);
     const [Teamname, SetTeamname] = useState([]);
+    const [team, setTeam] = useState('');
+    const [dateTime, setDateTime] = useState([]);
+    const [date, setDate] = useState('');
     const navigation = useNavigation();
+    useEffect(() => {
+        fetchscheduleData();
+        // fetchTime(team);
+        // getImage(team);
+    }, [team])
+    const fetchscheduleData = async () => {
+        let doc_data = [];
+        let doc_array = [];
+        let doc_Time = [];
+        await firestore()
+            .collection('API')
+            .doc('SChedules')
+            .get()
+            .then(snapshot => {
+                doc_data = snapshot.data().schedulearray;
+                doc_data.forEach((row) => {
+                    doc_array.push((row.AwayTeam) + '   VS   ' + (row.HomeTeam));
+                    // doc_Time.push(row.DateTime);
+                    // console.log(row.DateTime);
+                })
+            })
+        SetTeamname(doc_array);
+        // setDateTime(doc_Time);
+    }
     const pickerphotoA = useCallback(() => {
         const options = {
             mediaType: 'photo',
@@ -56,10 +85,7 @@ const Newchannel = () => {
     }, [setPhoto2URI]);
     //create new channel
     const ChannelAccept = () => {
-        if (channelName === '') {
-            Alert.alert("enter the channelName!");
-        }
-        else if (photo1 === null || photo2 === null) {
+        if (photo1 === null || photo2 === null) {
             Alert.alert("select the image!");
         }
         else {
@@ -71,8 +97,9 @@ const Newchannel = () => {
                     owner: auth().currentUser.uid,
                     image_A_Uri: photo1 ? photo1 : "",
                     image_B_Uri: photo2 ? photo2 : "",
-                    channelName: channelName,
+                    channelName: team,
                     email: auth().currentUser.email,
+                    count: 0,
                     createdAt: Date.now()
                 })
                 .then(
@@ -107,8 +134,39 @@ const Newchannel = () => {
                 <View style={{ justifyContent: "center" }}>
                     <Text style={{ fontSize: 20, color: 'black', paddingHorizontal: 10 }}>ChannelName:</Text>
                 </View>
-                <View style={{ borderBottomWidth: 1, borderColor: '#3C3C3C', paddingHorizontal: 10, }}>
+                {/* <View style={{ borderBottomWidth: 1, borderColor: '#3C3C3C', paddingHorizontal: 10, }}>
                     <TextInput placeholder='Write New channelName' value={channelName} onChangeText={setchannelName} style={{ fontSize: 20 }} />
+                </View> */}
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 5 }}>
+                    <SelectDropdown
+                        data={Teamname}
+                        onSelect={(item) => {
+                            setTeam(item);
+                            // console.log(Teamname.index)
+                        }}
+                        renderButton={(selectedItem, isOpened) => {
+                            return (
+                                <View style={[styles.matchTypeDropdownButtonStyle, { width: 200, height: 35, borderRadius: 3 }]}>
+                                    <Text style={[styles.matchTypeDropdownButtonTxtStyle, { flexGrow: 1, paddingHorizontal: 5, marginTop: 5 }]}>
+                                        {selectedItem || 'ScheduleName'}
+
+                                    </Text>
+                                    <View style={{ marginTop: 10, padding: 4 }}>
+                                        <Image source={DropdownIcon} style={{ width: 8, height: 6.7, }} />
+                                    </View>
+                                </View>
+                            );
+                        }}
+                        renderItem={(item, index, isSelected) => {
+                            return (
+                                <View style={{ ...styles.scheduleDropdownItemStyle, ...(isSelected && { backgroundColor: '#000' }) }}>
+                                    <Text style={styles.matchTypeDropdownItemTxtStyle}>{item}</Text>
+                                </View>
+                            );
+                        }}
+                        showsVerticalScrollIndicator={false}
+                        dropdownStyle={styles.matchTypeDropdownMenuStyle}
+                    />
                 </View>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-around", }}>
@@ -185,5 +243,54 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: "center",
         color: '#3C3C3C'
-    }
+    },
+    matchTypeDropdownButtonStyle: {
+        backgroundColor: 'grey',
+        paddingHorizontal: 10,
+        paddingVertical: 3,
+        // borderRadius: 100,
+        flexDirection: 'row',
+    },
+    matchTypeDropdownButtonTxtStyle: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: "white"
+    },
+    matchTypeDropdownButtonArrowStyle: {
+        fontSize: 10,
+    },
+    matchTypeDropdownButtonIconStyle: {
+        fontSize: 28,
+        marginRight: 8,
+    },
+    matchTypeDropdownMenuStyle: {
+        backgroundColor: 'grey',
+        borderRadius: 3,
+    },
+    matchTypeDropdownItemStyle: {
+        width: '100%',
+        flexDirection: 'row',
+        paddingHorizontal: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 8,
+    },
+    matchTypeDropdownItemTxtStyle: {
+        flex: 1,
+        fontSize: 15,
+        fontWeight: '500',
+        color: 'white',
+    },
+    matchTypeDropdownItemIconStyle: {
+        fontSize: 28,
+        marginRight: 8,
+    },
+    scheduleDropdownItemStyle: {
+        width: '100%',
+        flexDirection: 'row',
+        paddingHorizontal: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 8,
+    },
 })

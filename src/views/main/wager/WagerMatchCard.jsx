@@ -92,16 +92,8 @@ const WagerMatchCard = (props) => {
                     showsVerticalScrollIndicator={false}
                     dropdownStyle={styles.detailDropdownMenuStyle}
                 />
-                {/* <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
-                <Image source={DetailIocn} style={{ width: 16, height: 4 }} />
-            </TouchableOpacity> */}
             </View>
             <View style={{ flexDirection: "row" }}>
-                {/* <Image
-                    source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Washington_Commanders_wordmark.svg' }}
-                    style={{ width: 200, height: 532 }}
-                />; */}
-
                 <View style={{ flexGrow: 1, width: "32%" }}>
                     <View style={{ flexDirection: "row", justifyContent: 'center' }}>
 
